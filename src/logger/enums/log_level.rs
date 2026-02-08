@@ -22,7 +22,7 @@ impl fmt::Display for LogLevel {
 }
 
 impl LogLevel {
-    pub fn from_string(log_level: &str) -> anyhow::Result<LogLevel> {
+    pub fn from_string(log_level: &str) -> Result<LogLevel, anyhow::Error> {
         match log_level {
             "TRACE" => Ok(LogLevel::Trace),
             "DEBUG" => Ok(LogLevel::Debug),
