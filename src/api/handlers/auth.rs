@@ -1,25 +1,32 @@
-use axum::{Json, http::StatusCode};
+use axum::{Json, extract::State, http::StatusCode};
+use axum_extra::extract::SignedCookieJar;
 
-use crate::api::{
-    errors::AppError,
-    models::auth::{LoginRequest, RegisterRequest, SessionResponse},
-    services::auth::AuthService,
+use crate::{
+    api::{
+        errors::AppError,
+        models::auth::{LoginRequest, RegisterRequest},
+        services::auth::AuthService,
+    },
+    state::AppState,
 };
 
-pub struct AuthHandler;
-
-impl AuthHandler {
-    pub async fn register(Json(payload): Json<RegisterRequest>) -> Result<(StatusCode, Json<SessionResponse>), AppError> {
-        match AuthService::register(payload.username, payload.password).await {
-            Ok(session) => Ok((StatusCode::CREATED, Json(session))),
-            Err(app_error) => Err(app_error),
-        }
+pub async fn register(
+    State(app_state): State<AppState>,
+    Json(payload): Json<RegisterRequest>,
+) -> Result<(StatusCode, String), AppError> {
+    match AuthService::register(&app_state.pool, payload.username, payload.password).await {
+        Ok(_) => Ok((StatusCode::CREATED, String::from("Registered successfully"))),
+        Err(app_error) => Err(app_error),
     }
+}
 
-    pub async fn login(Json(payload): Json<LoginRequest>) -> Result<(StatusCode, Json<SessionResponse>), AppError> {
-        match AuthService::login(payload.username, payload.password).await {
-            Ok(session) => Ok((StatusCode::NO_CONTENT, Json(session))),
-            Err(app_error) => Err(app_error),
-        }
+pub async fn login(
+    State(app_state): State<AppState>,
+    jar: SignedCookieJar,
+    Json(payload): Json<LoginRequest>,
+) -> Result<(StatusCode, SignedCookieJar), AppError> {
+    match AuthService::login(&app_state.pool, jar, payload.username, payload.password).await {
+        Ok(signed_cookie_jar) => Ok((StatusCode::NO_CONTENT, signed_cookie_jar)),
+        Err(app_error) => Err(app_error),
     }
 }
