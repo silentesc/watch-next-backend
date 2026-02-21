@@ -14,6 +14,18 @@ impl AppError {
     pub fn new(status_code: StatusCode, message: String) -> Self {
         Self { status_code, message }
     }
+
+    pub fn generic_500() -> Self {
+        let status_code = StatusCode::INTERNAL_SERVER_ERROR;
+        let message = String::from("An unexpected error occured");
+        Self { status_code, message }
+    }
+
+    pub fn invalid_credentials() -> Self {
+        let status_code = StatusCode::BAD_REQUEST;
+        let message = String::from("Invalid credentials");
+        Self { status_code, message }
+    }
 }
 
 impl IntoResponse for AppError {

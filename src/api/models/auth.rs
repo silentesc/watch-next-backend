@@ -1,4 +1,4 @@
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 
 #[derive(Deserialize)]
 pub struct RegisterRequest {
@@ -10,9 +10,4 @@ pub struct RegisterRequest {
 pub struct LoginRequest {
     pub username: String,
     pub password: String,
-}
-
-#[derive(Serialize)]
-pub struct SessionResponse {
-    pub key: String,
 }

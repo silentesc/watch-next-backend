@@ -1,50 +1,29 @@
-use std::env;
-
-use axum::{
-    Router,
-    routing::{get, post},
-};
-use dotenv::dotenv;
-use tokio::net::TcpListener;
-
-use crate::{
-    api::handlers::{auth::AuthHandler, root::RootHandler},
-    logger::{
-        Logger,
-        enums::{category::Category, log_level::LogLevel},
-    },
-};
+use crate::{logger::enums::category::Category, setup::setup_tcp_listener};
 
 mod api;
 mod logger;
+mod setup;
+mod state;
 
 #[tokio::main]
 async fn main() {
-    // Load .env variables
-    dotenv().ok();
+    setup::load_env();
 
-    // Setup logging
-    let log_level_env = env::var("LOG_LEVEL").expect("Env variable should be set by dotenv");
-    let log_level = LogLevel::from_string(log_level_env.as_str()).expect("Log level env variable should be valid");
-    Logger::set_log_level(&log_level);
-    debug!(Category::Setup, "Setup logging with log level {}", &log_level.to_string());
+    setup::setup_logging();
 
-    // Setup routes
-    let app = Router::new()
-        // Default ping, just says hello
-        .route("/", get(RootHandler::root))
-        // Registering
-        .route("/register", post(AuthHandler::register))
-        // Login
-        .route("/login", post(AuthHandler::login));
+    let pool = setup::connect_postgres().await;
+    setup::delete_tables(&pool).await;
+    setup::check_create_tables(&pool).await;
 
-    // Setup TcpListener
+    let app_state = setup::setup_app_state(pool);
+
+    let router = setup::setup_router(app_state);
+
     let addr = "127.0.0.1:3000";
-    let listener = TcpListener::bind(addr).await.unwrap_or_else(|_| panic!("Listener should bind to {}", addr));
+    let listener = setup_tcp_listener(addr).await;
 
-    // Serve app via listener
     info!(Category::Setup, "Listening on {}", addr);
-    axum::serve(listener, app).await.ok();
+    setup::serve(listener, router).await;
 
     info!(Category::Setup, "Shutdown");
 }
