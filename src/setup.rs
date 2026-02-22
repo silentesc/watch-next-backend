@@ -2,7 +2,7 @@ use std::env;
 
 use axum::{
     Router,
-    http::{HeaderValue, header},
+    http::{HeaderValue, Method, header},
     middleware::from_fn_with_state,
     routing::{get, post},
 };
@@ -10,7 +10,7 @@ use axum_extra::extract::cookie::Key;
 use dotenv::dotenv;
 use sqlx::{PgPool, postgres::PgPoolOptions};
 use tokio::net::TcpListener;
-use tower_http::cors::{self, CorsLayer};
+use tower_http::cors::CorsLayer;
 
 use crate::{
     api::{handlers, middleware},
@@ -82,8 +82,9 @@ pub fn setup_router(app_state: AppState) -> Router {
 
     let cors = CorsLayer::new()
         .allow_origin(origins)
-        .allow_methods(cors::Any)
-        .allow_headers([header::CONTENT_TYPE, header::AUTHORIZATION]);
+        .allow_methods([Method::GET, Method::POST])
+        .allow_headers([header::CONTENT_TYPE, header::AUTHORIZATION])
+        .allow_credentials(true);
 
     Router::new()
         .route("/", get(handlers::root::root))
