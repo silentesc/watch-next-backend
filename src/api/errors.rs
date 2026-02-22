@@ -22,7 +22,7 @@ impl AppError {
     }
 
     pub fn invalid_credentials() -> Self {
-        let status_code = StatusCode::BAD_REQUEST;
+        let status_code = StatusCode::UNAUTHORIZED;
         let message = String::from("Invalid credentials");
         Self { status_code, message }
     }
