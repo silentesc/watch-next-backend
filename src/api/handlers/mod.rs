@@ -1,3 +1,3 @@
 pub mod auth;
-pub mod protected;
+pub mod me;
 pub mod root;

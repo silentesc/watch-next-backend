@@ -1,10 +1,30 @@
 use sqlx::PgPool;
+use uuid::Uuid;
 
 use crate::{
     api::{db::models::User, errors::AppError},
     error,
     logger::enums::category::Category,
 };
+
+/**
+ * Get user by id
+ */
+pub async fn get_user_by_id(pool: &PgPool, id: Uuid) -> Result<Option<User>, AppError> {
+    let user: Option<User> = match sqlx::query_as("SELECT * FROM users WHERE id = $1")
+        .bind(id)
+        .fetch_optional(pool)
+        .await
+    {
+        Ok(user) => user,
+        Err(err) => {
+            error!(Category::Db, "Getting user by id failed with error: {:#}", err);
+            return Err(AppError::generic_500());
+        }
+    };
+
+    Ok(user)
+}
 
 /**
  * Get user by username

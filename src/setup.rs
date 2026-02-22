@@ -86,17 +86,18 @@ pub fn setup_router(app_state: AppState) -> Router {
         .allow_headers([header::CONTENT_TYPE, header::AUTHORIZATION])
         .allow_credentials(true);
 
+    let protected_routes = Router::new()
+        .route("/me", get(handlers::me::me))
+        .layer(from_fn_with_state(
+            app_state.clone(),
+            middleware::auth::validate_session,
+        ));
+
     Router::new()
         .route("/", get(handlers::root::root))
         .route("/auth/register", post(handlers::auth::register))
         .route("/auth/login", post(handlers::auth::login))
-        .route(
-            "/protected",
-            get(handlers::protected::protected).layer(from_fn_with_state(
-                app_state.clone(),
-                middleware::auth::validate_session,
-            )),
-        )
+        .merge(protected_routes)
         .with_state(app_state)
         .layer(cors)
 }
