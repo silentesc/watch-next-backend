@@ -14,7 +14,7 @@ pub struct User {
     pub last_login_at: Option<NaiveDateTime>,
 }
 
-#[derive(Debug, Serialize, Deserialize, FromRow)]
+#[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
 pub struct Session {
     pub id: Uuid,
     pub user_id: Uuid,
