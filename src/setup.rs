@@ -2,6 +2,7 @@ use std::env;
 
 use axum::{
     Router,
+    http::{HeaderValue, header},
     middleware::from_fn_with_state,
     routing::{get, post},
 };
@@ -9,6 +10,7 @@ use axum_extra::extract::cookie::Key;
 use dotenv::dotenv;
 use sqlx::{PgPool, postgres::PgPoolOptions};
 use tokio::net::TcpListener;
+use tower_http::cors::{self, CorsLayer};
 
 use crate::{
     api::{handlers, middleware},
@@ -69,6 +71,20 @@ pub fn setup_app_state(pool: PgPool) -> AppState {
 }
 
 pub fn setup_router(app_state: AppState) -> Router {
+    let origins = env::var("CORS_ALLOWED_ORIGINS").expect("CORS_ALLOWED_ORIGINS env variable should be set by dotenv");
+    let origins: Vec<HeaderValue> = origins
+        .split(",")
+        .map(|s| s.trim())
+        .filter(|s| !s.is_empty())
+        .map(|s| s.parse().map_err(|_| format!("Invalid origin: {}", s)))
+        .collect::<Result<Vec<_>, _>>()
+        .expect("One or more origins were invalid");
+
+    let cors = CorsLayer::new()
+        .allow_origin(origins)
+        .allow_methods(cors::Any)
+        .allow_headers([header::CONTENT_TYPE, header::AUTHORIZATION]);
+
     Router::new()
         .route("/", get(handlers::root::root))
         .route("/auth/register", post(handlers::auth::register))
@@ -81,6 +97,7 @@ pub fn setup_router(app_state: AppState) -> Router {
             )),
         )
         .with_state(app_state)
+        .layer(cors)
 }
 
 pub async fn setup_tcp_listener(addr: &str) -> TcpListener {
