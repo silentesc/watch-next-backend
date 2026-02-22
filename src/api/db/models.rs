@@ -1,6 +1,6 @@
 use chrono::NaiveDateTime;
 use serde::{Deserialize, Serialize};
-use sqlx::{prelude::FromRow};
+use sqlx::prelude::FromRow;
 use uuid::Uuid;
 
 use crate::api::utils::time_utils;

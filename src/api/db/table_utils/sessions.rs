@@ -13,7 +13,7 @@ use crate::{
  */
 pub async fn get_session_by_id(pool: &PgPool, id: Uuid) -> Result<Option<Session>, AppError> {
     let session: Option<Session> = match sqlx::query_as("SELECT * FROM sessions WHERE id = $1")
-        .bind(&id)
+        .bind(id)
         .fetch_optional(pool)
         .await
     {
@@ -33,8 +33,8 @@ pub async fn get_session_by_id(pool: &PgPool, id: Uuid) -> Result<Option<Session
 pub async fn create_session(pool: &PgPool, user_id: Uuid, expires_at: NaiveDateTime) -> Result<Uuid, AppError> {
     let session_id: (Uuid,) =
         match sqlx::query_as("INSERT INTO sessions (user_id, expires_at) VALUES ($1, $2) RETURNING id")
-            .bind(&user_id)
-            .bind(&expires_at)
+            .bind(user_id)
+            .bind(expires_at)
             .fetch_one(pool)
             .await
         {
