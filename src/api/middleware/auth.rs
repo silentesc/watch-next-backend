@@ -16,7 +16,7 @@ use crate::{
 pub async fn validate_session(
     State(app_state): State<AppState>,
     jar: SignedCookieJar,
-    request: Request,
+    mut request: Request,
     next: Next,
 ) -> Response {
     // Get session id
@@ -51,6 +51,9 @@ pub async fn validate_session(
     if session.is_expired() {
         return AppError::invalid_credentials().into_response();
     }
+
+    // Add session
+    request.extensions_mut().insert(session);
 
     // Allow request
     next.run(request).await

@@ -74,8 +74,8 @@ pub fn setup_router(app_state: AppState) -> Router {
         .route("/auth/register", post(handlers::auth::register))
         .route("/auth/login", post(handlers::auth::login))
         .route(
-            "/me",
-            get(handlers::root::root).layer(from_fn_with_state(
+            "/protected",
+            get(handlers::protected::protected).layer(from_fn_with_state(
                 app_state.clone(),
                 middleware::auth::validate_session,
             )),
