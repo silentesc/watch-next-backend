@@ -1,5 +1,11 @@
+use axum::{
+    Json,
+    http::StatusCode,
+    response::{IntoResponse, Response},
+};
 use chrono::NaiveDateTime;
 use serde::{Deserialize, Serialize};
+use serde_json::json;
 use sqlx::prelude::FromRow;
 use uuid::Uuid;
 
@@ -12,6 +18,13 @@ pub struct User {
     pub password_hash: String,
     pub created_at: NaiveDateTime,
     pub last_login_at: Option<NaiveDateTime>,
+}
+
+impl IntoResponse for User {
+    fn into_response(self) -> Response {
+        let body = Json(json!({ "username": self.username }));
+        (StatusCode::OK, body).into_response()
+    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow)]

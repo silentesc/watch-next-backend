@@ -53,6 +53,7 @@ pub async fn validate_session(
     }
 
     // Add session
+    request.extensions_mut().insert(app_state);
     request.extensions_mut().insert(session);
 
     // Allow request

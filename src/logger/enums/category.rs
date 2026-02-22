@@ -6,6 +6,7 @@ pub enum Category {
     Middleware,
     Register,
     Login,
+    Me,
 }
 
 impl fmt::Display for Category {
@@ -16,6 +17,7 @@ impl fmt::Display for Category {
             Category::Middleware => String::from("middleware"),
             Category::Register => String::from("register"),
             Category::Login => String::from("login"),
+            Category::Me => String::from("me"),
         };
         write!(f, "{}", category_str)
     }
