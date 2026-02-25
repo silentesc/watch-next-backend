@@ -1,4 +1,4 @@
-use axum::Extension;
+use axum::{Extension, http::StatusCode};
 
 use crate::{
     api::{
@@ -12,9 +12,9 @@ use crate::{
 pub async fn me(
     Extension(app_state): Extension<AppState>,
     Extension(session): Extension<Session>,
-) -> Result<User, AppError> {
+) -> Result<(StatusCode, User), AppError> {
     match services::me::me(&app_state.pool, session.user_id).await {
-        Ok(user) => Ok(user),
+        Ok(user) => Ok((StatusCode::OK, user)),
         Err(app_error) => Err(app_error),
     }
 }

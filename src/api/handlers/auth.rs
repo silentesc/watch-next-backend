@@ -30,3 +30,13 @@ pub async fn login(
         Err(app_error) => Err(app_error),
     }
 }
+
+pub async fn logout(
+    State(app_state): State<AppState>,
+    jar: SignedCookieJar,
+) -> Result<(StatusCode, SignedCookieJar), AppError> {
+    match services::auth::logout(&app_state.pool, jar).await {
+        Ok(updated_jar) => Ok((StatusCode::OK, updated_jar)),
+        Err(app_error) => Err(app_error),
+    }
+}

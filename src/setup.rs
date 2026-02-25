@@ -97,6 +97,7 @@ pub fn setup_router(app_state: AppState) -> Router {
         .route("/", get(handlers::root::root))
         .route("/auth/register", post(handlers::auth::register))
         .route("/auth/login", post(handlers::auth::login))
+        .route("/auth/logout", post(handlers::auth::logout))
         .merge(protected_routes)
         .with_state(app_state)
         .layer(cors)
