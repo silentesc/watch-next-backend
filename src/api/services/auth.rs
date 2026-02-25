@@ -2,6 +2,7 @@ use axum::http::StatusCode;
 use axum_extra::extract::SignedCookieJar;
 use regex::Regex;
 use sqlx::PgPool;
+use uuid::Uuid;
 
 use crate::{
     api::{
@@ -117,6 +118,31 @@ pub async fn login(
         Ok(_) => info!(Category::Login, "User logged in: {}", username),
         Err(app_error) => return Err(app_error),
     };
+
+    Ok(signed_cookie_jar)
+}
+
+pub async fn logout(pool: &PgPool, jar: SignedCookieJar) -> Result<SignedCookieJar, AppError> {
+    // Get session id from cookie and delete session in db
+    if let Some(cookie) = jar.get(cookie_utils::SESSION_ID_COOKIE_NAME) {
+        let session_id = cookie.value();
+        let session_id = match Uuid::parse_str(session_id) {
+            Ok(session_id) => session_id,
+            Err(err) => {
+                error!(
+                    Category::Middleware,
+                    "Parsing session_id to uuid from string '{}' failed with error: {:#}", session_id, err
+                );
+                return Err(AppError::generic_500());
+            }
+        };
+        sessions::delete_session(pool, session_id).await?;
+    }
+
+    // Add remove cookie
+    let signed_cookie_jar = jar.add(cookie_utils::removal_cookie(String::from(
+        cookie_utils::SESSION_ID_COOKIE_NAME,
+    )));
 
     Ok(signed_cookie_jar)
 }

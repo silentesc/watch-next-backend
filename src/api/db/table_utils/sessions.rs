@@ -49,3 +49,20 @@ pub async fn create_session(pool: &PgPool, user_id: Uuid, expires_at: NaiveDateT
 
     Ok(session_id)
 }
+
+/**
+ * Delete a session
+ */
+pub async fn delete_session(pool: &PgPool, session_id: Uuid) -> Result<(), AppError> {
+    match sqlx::query("DELETE FROM sessions WHERE id = $1")
+        .bind(session_id)
+        .execute(pool)
+        .await
+    {
+        Ok(_) => Ok(()),
+        Err(err) => {
+            error!(Category::Db, "Deleting session failed with error: {:#}", err);
+            Err(AppError::generic_500())
+        }
+    }
+}
