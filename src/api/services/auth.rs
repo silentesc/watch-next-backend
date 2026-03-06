@@ -27,7 +27,7 @@ pub async fn register(pool: &PgPool, username: String, password: String) -> Resu
     let re = match Regex::new(r"^\w+$") {
         Ok(re) => re,
         Err(err) => {
-            error!(Category::Register, "Regex failed with error: {:#}", err);
+            error!(Category::Register, "Regex failed with error: {:#?}", err);
             return Err(AppError::generic_500());
         }
     };
@@ -55,7 +55,7 @@ pub async fn register(pool: &PgPool, username: String, password: String) -> Resu
     let password_hashed = match bcrypt::hash(password, bcrypt::DEFAULT_COST) {
         Ok(password_hashed) => password_hashed,
         Err(err) => {
-            error!(Category::Register, "Bcrypt hash failed with error: {:#}", err);
+            error!(Category::Register, "Bcrypt hash failed with error: {:#?}", err);
             return Err(AppError::generic_500());
         }
     };
@@ -94,7 +94,7 @@ pub async fn login(
         Err(err) => {
             error!(
                 Category::Login,
-                "Verifying password with bcrypt failed with error: {:#}", err
+                "Verifying password with bcrypt failed with error: {:#?}", err
             );
             return Err(AppError::generic_500());
         }
@@ -131,7 +131,7 @@ pub async fn logout(pool: &PgPool, jar: SignedCookieJar) -> Result<SignedCookieJ
             Err(err) => {
                 error!(
                     Category::Middleware,
-                    "Parsing session_id to uuid from string '{}' failed with error: {:#}", session_id, err
+                    "Parsing session_id to uuid from string '{}' failed with error: {:#?}", session_id, err
                 );
                 return Err(AppError::generic_500());
             }

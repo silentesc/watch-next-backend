@@ -31,7 +31,7 @@ pub async fn validate_session(
         Err(err) => {
             error!(
                 Category::Middleware,
-                "Parsing session_id to uuid from string '{}' failed with error: {:#}", session_id, err
+                "Parsing session_id to uuid from string '{}' failed with error: {:#?}", session_id, err
             );
             return AppError::generic_500().into_response();
         }
