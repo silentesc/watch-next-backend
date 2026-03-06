@@ -18,7 +18,7 @@ pub async fn get_user_by_id(pool: &PgPool, id: Uuid) -> Result<Option<User>, App
     {
         Ok(user) => user,
         Err(err) => {
-            error!(Category::Db, "Getting user by id failed with error: {:#}", err);
+            error!(Category::Db, "Getting user by id failed with error: {:#?}", err);
             return Err(AppError::generic_500());
         }
     };
@@ -37,7 +37,7 @@ pub async fn get_user_by_username(pool: &PgPool, username: &str) -> Result<Optio
     {
         Ok(user) => user,
         Err(err) => {
-            error!(Category::Db, "Getting user by username failed with error: {:#}", err);
+            error!(Category::Db, "Getting user by username failed with error: {:#?}", err);
             return Err(AppError::generic_500());
         }
     };
@@ -57,7 +57,10 @@ pub async fn create_user(pool: &PgPool, username: &str, password_hash: &str) -> 
     {
         Ok(_) => Ok(()),
         Err(err) => {
-            error!(Category::Db, "Sql query for creating user failed with error: {:#}", err);
+            error!(
+                Category::Db,
+                "Sql query for creating user failed with error: {:#?}", err
+            );
             Err(AppError::generic_500())
         }
     }
@@ -74,7 +77,7 @@ pub async fn update_last_login_to_now(pool: &PgPool, username: &str) -> Result<(
     {
         Ok(_) => Ok(()),
         Err(err) => {
-            error!(Category::Db, "Updating user last login failed with error: {:#}", err);
+            error!(Category::Db, "Updating user last login failed with error: {:#?}", err);
             Err(AppError::generic_500())
         }
     }

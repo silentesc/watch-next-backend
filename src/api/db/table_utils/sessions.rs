@@ -19,7 +19,7 @@ pub async fn get_session_by_id(pool: &PgPool, id: Uuid) -> Result<Option<Session
     {
         Ok(session) => session,
         Err(err) => {
-            error!(Category::Db, "Getting session by id failed with error: {:#}", err);
+            error!(Category::Db, "Getting session by id failed with error: {:#?}", err);
             return Err(AppError::generic_500());
         }
     };
@@ -40,7 +40,7 @@ pub async fn create_session(pool: &PgPool, user_id: Uuid, expires_at: NaiveDateT
         {
             Ok(session_id) => session_id,
             Err(err) => {
-                error!(Category::Db, "Creating session failed with error: {:#}", err);
+                error!(Category::Db, "Creating session failed with error: {:#?}", err);
                 return Err(AppError::generic_500());
             }
         };
@@ -61,7 +61,7 @@ pub async fn delete_session(pool: &PgPool, session_id: Uuid) -> Result<(), AppEr
     {
         Ok(_) => Ok(()),
         Err(err) => {
-            error!(Category::Db, "Deleting session failed with error: {:#}", err);
+            error!(Category::Db, "Deleting session failed with error: {:#?}", err);
             Err(AppError::generic_500())
         }
     }
