@@ -105,7 +105,7 @@ pub fn setup_router(app_state: AppState) -> Router {
         .allow_credentials(true);
 
     let protected_routes = Router::new()
-        .route("/me", get(handlers::me::me))
+        .route("/me", get(handlers::me::handler::me))
         .route("/discover/movie", get(handlers::discover::movie::discover))
         .layer(from_fn_with_state(
             app_state.clone(),
@@ -113,10 +113,10 @@ pub fn setup_router(app_state: AppState) -> Router {
         ));
 
     Router::new()
-        .route("/", get(handlers::root::root))
-        .route("/auth/register", post(handlers::auth::register))
-        .route("/auth/login", post(handlers::auth::login))
-        .route("/auth/logout", post(handlers::auth::logout))
+        .route("/", get(handlers::root::handler::root))
+        .route("/auth/register", post(handlers::auth::handler::register))
+        .route("/auth/login", post(handlers::auth::handler::login))
+        .route("/auth/logout", post(handlers::auth::handler::logout))
         .merge(protected_routes)
         .with_state(app_state)
         .layer(cors)
