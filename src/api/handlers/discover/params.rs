@@ -62,6 +62,4 @@ pub struct DiscoverMovieParams {
     with_runtime_gte: Option<i32>,
     #[serde(rename = "with_runtime.lte")]
     with_runtime_lte: Option<i32>,
-    #[serde(rename = "with_watch_providers")]
-    with_watch_providers: Option<String>,
 }
