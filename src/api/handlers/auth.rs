@@ -10,6 +10,7 @@ use crate::{
     state::AppState,
 };
 
+#[axum::debug_handler]
 pub async fn register(
     State(app_state): State<AppState>,
     Json(payload): Json<RegisterRequest>,
@@ -20,6 +21,7 @@ pub async fn register(
     }
 }
 
+#[axum::debug_handler]
 pub async fn login(
     State(app_state): State<AppState>,
     jar: SignedCookieJar,
@@ -31,6 +33,7 @@ pub async fn login(
     }
 }
 
+#[axum::debug_handler]
 pub async fn logout(
     State(app_state): State<AppState>,
     jar: SignedCookieJar,

@@ -9,6 +9,7 @@ use crate::{
     state::AppState,
 };
 
+#[axum::debug_handler]
 pub async fn me(
     Extension(app_state): Extension<AppState>,
     Extension(session): Extension<Session>,
