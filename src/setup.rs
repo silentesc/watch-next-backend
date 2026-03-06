@@ -1,13 +1,14 @@
-use std::env;
+use std::{env, time::Duration};
 
 use axum::{
     Router,
-    http::{HeaderValue, Method, header},
+    http::{HeaderMap, HeaderValue, Method, header},
     middleware::from_fn_with_state,
     routing::{get, post},
 };
 use axum_extra::extract::cookie::Key;
 use dotenv::dotenv;
+use reqwest::Client;
 use sqlx::{PgPool, postgres::PgPoolOptions};
 use tokio::net::TcpListener;
 use tower_http::cors::CorsLayer;
@@ -41,6 +42,8 @@ pub async fn connect_postgres() -> PgPool {
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL env variable should be set by dotenv");
     let pool: PgPool = PgPoolOptions::new()
         .max_connections(5)
+        .acquire_timeout(Duration::from_secs(5))
+        .idle_timeout(Duration::from_secs(60))
         .connect(&database_url)
         .await
         .expect("Postgres should connect successfully");
@@ -66,8 +69,23 @@ pub async fn delete_tables(pool: &PgPool) {
 }
 
 pub fn setup_app_state(pool: PgPool) -> AppState {
+    let tmdb_api_key = env::var("TMDB_API_KEY").expect("TMDB_API_KEY env variable should be set by dotenv");
+    let auth_header_value = HeaderValue::from_str(format!("Bearer {}", tmdb_api_key).as_str())
+        .expect("TMDB api key should be converted to HeaderValue");
+
+    let mut headers = HeaderMap::new();
+    headers.append("Authorization", auth_header_value);
+    headers.append("accept", HeaderValue::from_static("application/json"));
+
+    let client = Client::builder()
+        .timeout(Duration::from_secs(10))
+        .connect_timeout(Duration::from_secs(10))
+        .default_headers(headers)
+        .build()
+        .expect("Reqwest client should be built");
+
     let key = Key::generate();
-    AppState { pool, key }
+    AppState { pool, client, key }
 }
 
 pub fn setup_router(app_state: AppState) -> Router {
@@ -88,6 +106,7 @@ pub fn setup_router(app_state: AppState) -> Router {
 
     let protected_routes = Router::new()
         .route("/me", get(handlers::me::me))
+        .route("/discover/movie", get(handlers::discover::movie::discover))
         .layer(from_fn_with_state(
             app_state.clone(),
             middleware::auth::validate_session,
@@ -112,5 +131,5 @@ pub async fn setup_tcp_listener(addr: &str) -> TcpListener {
 pub async fn serve(listener: TcpListener, router: Router) {
     axum::serve(listener, router)
         .await
-        .unwrap_or_else(|err| panic!("App should be served: {:#}", err));
+        .unwrap_or_else(|err| panic!("App should be served: {:#?}", err));
 }
