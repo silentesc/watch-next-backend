@@ -107,6 +107,7 @@ pub fn setup_router(app_state: AppState) -> Router {
     let protected_routes = Router::new()
         .route("/me", get(handlers::me::handler::me))
         .route("/discover/movie", get(handlers::discover::movie::discover))
+        .route("/genre/movie/list", get(handlers::genres::movie_list::movie_list))
         .layer(from_fn_with_state(
             app_state.clone(),
             middleware::auth::validate_session,
