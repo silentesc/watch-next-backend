@@ -107,7 +107,7 @@ pub fn setup_router(app_state: AppState) -> Router {
     let protected_routes = Router::new()
         .route("/me", get(handlers::me::handler::me))
         .route("/discover/movie", get(handlers::discover::movie::discover))
-        .route("/genre/movie/list", get(handlers::genres::movie_list::movie_list))
+        .route("/genre/movie/list", get(handlers::genres::movie::get_movie_genres))
         .route(
             "/configuration/languages",
             get(handlers::configuration::languages::get_languages),

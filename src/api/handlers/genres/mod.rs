@@ -1,2 +1,2 @@
-pub mod movie_list;
+pub mod movie;
 pub mod params;

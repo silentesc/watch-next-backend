@@ -12,11 +12,11 @@ pub struct Genre {
 }
 
 #[derive(Deserialize, Serialize)]
-pub struct GenreMovieListResponse {
+pub struct GenreMovieResponse {
     pub genres: Vec<Genre>,
 }
 
-impl IntoResponse for GenreMovieListResponse {
+impl IntoResponse for GenreMovieResponse {
     fn into_response(self) -> Response {
         let body = Json(self);
         (StatusCode::OK, body).into_response()
