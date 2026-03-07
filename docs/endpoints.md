@@ -9,3 +9,7 @@
 ## Genre
 
 ### [Movie](endpoints/genre/movie.md)
+
+## Configuration
+
+### [Languages](endpoints/configuration/languages.md)
