@@ -1,15 +1,15 @@
 use crate::{
     api::{
         errors::AppError,
-        handlers::genres::params::GenreMovieListParams,
-        tmdb::{genres::models::GenreMovieListResponse, utils},
+        handlers::genres::params::GenreMovieParams,
+        tmdb::{genres::models::GenreMovieResponse, utils},
     },
     error,
     logger::enums::category::Category,
 };
 use reqwest::Client;
 
-pub async fn movie_list(client: Client, params: GenreMovieListParams) -> Result<GenreMovieListResponse, AppError> {
+pub async fn get_movie_genres(client: Client, params: GenreMovieParams) -> Result<GenreMovieResponse, AppError> {
     // Make request
     let endpoint_url = match utils::parse_url("/genre/movie/list") {
         Ok(url) => url,
@@ -27,7 +27,7 @@ pub async fn movie_list(client: Client, params: GenreMovieListParams) -> Result<
         Err(err) => {
             error!(
                 Category::Tmdb,
-                "Parsing GenreMovieListResponse failed with error: {:#?}", err
+                "Parsing GenreMovieResponse failed with error: {:#?}", err
             );
             Err(AppError::generic_500())
         }

@@ -1,2 +1,2 @@
 pub mod models;
-pub mod movie_list;
+pub mod movie;

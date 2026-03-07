@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, Serialize)]
-pub struct GenreMovieListParams {
+pub struct GenreMovieParams {
     #[serde(rename = "language")]
     language: Option<String>,
 }
