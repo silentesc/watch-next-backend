@@ -3,7 +3,7 @@
 ## Discover
 
 ```
-/discover/movies
+/discover/movie
 ```
 
 ### Path Params
