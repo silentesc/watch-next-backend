@@ -6,7 +6,7 @@
 /configuration/languages
 ```
 
-### Path Params
+### Params
 
 None
 

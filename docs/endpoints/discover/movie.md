@@ -6,7 +6,7 @@
 /discover/movie
 ```
 
-### Path Params
+### Query Params
 
 | Optional | Param | Type | Example | Description |
 | --- | --- | --- | --- | --- |
