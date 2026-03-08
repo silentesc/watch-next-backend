@@ -1,4 +1,5 @@
 use reqwest::{RequestBuilder, Response, StatusCode, Url};
+use serde_json::Value;
 
 use crate::{
     api::{errors::AppError, tmdb::constants},
@@ -36,24 +37,40 @@ pub async fn send_request(request_builder: RequestBuilder) -> Result<Response, A
             }
 
             let response_status = response.status();
-            let response_text = response
-                .text()
-                .await
-                .unwrap_or_else(|_| String::from("Failed to get response text"));
+            let response_json: Value = match response.json().await {
+                Ok(response_json) => response_json,
+                Err(err) => {
+                    error!(Category::Tmdb, "Failed to get json from response: {:#?}", err);
+                    return Err(AppError::generic_500());
+                }
+            };
+
+            let error_text = match response_json.get("status_message") {
+                Some(v) => v.to_string(),
+                None => {
+                    error!(Category::Tmdb, "No status_message in response json");
+                    String::from("")
+                }
+            };
 
             // Handle 400
             if response_status == StatusCode::BAD_REQUEST {
-                return Err(AppError::new(StatusCode::BAD_REQUEST, response_text));
+                return Err(AppError::new(StatusCode::BAD_REQUEST, error_text));
+            }
+
+            // Handle 404
+            if response_status == StatusCode::NOT_FOUND {
+                return Err(AppError::new(StatusCode::NOT_FOUND, error_text));
             }
 
             // Handle 429
             if response_status == StatusCode::TOO_MANY_REQUESTS {
-                return Err(AppError::new(StatusCode::TOO_MANY_REQUESTS, response_text));
+                return Err(AppError::new(StatusCode::TOO_MANY_REQUESTS, error_text));
             }
 
             error!(
                 Category::Tmdb,
-                "Request failed with status code {}: {}", response_status, response_text
+                "Request failed with status code {}: {}", response_status, error_text
             );
             Err(AppError::generic_500())
         }
