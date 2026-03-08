@@ -5,11 +5,7 @@ use axum::{
 };
 use serde::{Deserialize, Serialize};
 
-#[derive(Deserialize, Serialize)]
-pub struct Genre {
-    pub id: u64,
-    pub name: String,
-}
+use crate::api::tmdb::models::Genre;
 
 #[derive(Deserialize, Serialize)]
 pub struct GenreMovieResponse {
