@@ -5,3 +5,4 @@ pub mod genres;
 pub mod me;
 pub mod movies;
 pub mod root;
+pub mod search;
