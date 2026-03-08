@@ -6,9 +6,9 @@
 
 | Category | Endpoints |
 | --- | --- |
-| Discover | <ul><li>[Movie](endpoints/discover/movie.md)</li></ul> |
-| Genre | <ul><li>[Movie](endpoints/genre/movie.md)</li></ul> |
-| Configuration | <ul><li>[Languages](endpoints/configuration/languages.md)</li></ul> |
+| Discover | <ul><li>[Movie](docs/endpoints/discover/movie.md)</li></ul> |
+| Genre | <ul><li>[Movie](docs/endpoints/genre/movie.md)</li></ul> |
+| Configuration | <ul><li>[Languages](docs/endpoints/configuration/languages.md)</li></ul> |
 
 ## Quick Start
 
