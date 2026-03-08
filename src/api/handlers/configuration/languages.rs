@@ -1,7 +1,7 @@
 use axum::{Extension, Json, http::StatusCode};
 
 use crate::{
-    api::{db::models::Session, errors::AppError, services, tmdb::configuration::models::Language},
+    api::{db::models::Session, errors::AppError, services, tmdb::models::Language},
     state::AppState,
 };
 

@@ -2,7 +2,7 @@ use reqwest::Client;
 
 use crate::api::{
     errors::AppError,
-    tmdb::{self, configuration::models::Language},
+    tmdb::{self, models::Language},
 };
 
 pub async fn get_languages(client: Client) -> Result<Vec<Language>, AppError> {
