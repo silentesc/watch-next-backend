@@ -6,7 +6,7 @@
 /genre/movie/list
 ```
 
-### Path Params
+### Query Params
 
 | Optional | Param | Type | Example | Description |
 | --- | --- | --- | --- | --- |
