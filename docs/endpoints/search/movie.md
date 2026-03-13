@@ -13,7 +13,7 @@
 | ❌ | `query` | `String` | `Star Wars` | |
 | ✅ | `page` | `i32` | `1` | Defaults to `1` |
 | ✅ | `include_adult` | `bool` | `true` | Defaults to `false` |
-| ✅ | `language` | `String` | `Star Wars` | Defaults to `en-US` |
+| ✅ | `language` | `String` | `de-DE` | Defaults to `en-US` |
 | ✅ | `primary_release_year` | `String` | `2025` | The year the movie was released |
 | ✅ | `region` | `String` | `US` | `US` |
 | ✅ | `year` | `String` | `2025` | Broader year spectrum, not tied to release year. (e.g. production year) |
