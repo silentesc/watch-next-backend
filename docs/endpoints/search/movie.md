@@ -20,6 +20,8 @@
 
 ### Example Response
 
+> Keep in mind that everything except the id are declared to might be null or non existant (due to missing documentation on the TMDB API reference) to keep the endpoint stable (no random 500 errors)
+
 ```json
 {
   "page": 1,
@@ -28,8 +30,8 @@
   "results": [
     {
       "adult": false,
-      "backdrop_path": "/2w4xG178RpB4MDAIfTkqAuSJzec.jpg", // can be null
-      "poster_path": "/6FfCtAuVAW8XJjZ7eWeLibRLWTw.jpg",  // can be null
+      "backdrop_path": "/2w4xG178RpB4MDAIfTkqAuSJzec.jpg",
+      "poster_path": "/6FfCtAuVAW8XJjZ7eWeLibRLWTw.jpg",
       "genre_ids": [
         12,
         28,

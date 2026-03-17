@@ -44,6 +44,8 @@
 
 ### Example Response
 
+> Keep in mind that everything except the id are declared to might be null or non existant (due to missing documentation on the TMDB API reference) to keep the endpoint stable (no random 500 errors)
+
 ```json
 {
   "total_results": 1110455,
@@ -52,8 +54,8 @@
   "results": [
     {
       "adult": false,
-      "backdrop_path": "/nHxWyy18SvAZ8jJeemtS8k1UNjM.jpg", // can be null
-      "poster_path": "/buPFnHZ3xQy6vZEHxbHgL1Pc6CR.jpg", // can be null
+      "backdrop_path": "/nHxWyy18SvAZ8jJeemtS8k1UNjM.jpg",
+      "poster_path": "/buPFnHZ3xQy6vZEHxbHgL1Pc6CR.jpg",
       "genre_ids": [
         28,
         80,

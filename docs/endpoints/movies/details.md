@@ -19,15 +19,17 @@ movie/{movie_id}
 
 ### Example Response
 
+> Keep in mind that everything except the id are declared to might be null or non existant (due to missing documentation on the TMDB API reference) to keep the endpoint stable (no random 500 errors)
+
 ```json
 {
   "adult": false,
   "backdrop_path": "/l94l89eMmFKh7na2a1u5q67VgNx.jpg",
-  "belongs_to_collection": { // can be null
+  "belongs_to_collection": {
     "id": 1382526,
     "name": "Aki Kaurismäki's Proletariat Trilogy",
-    "poster_path": "/bUrReoZFLGti6ehkBW0xw8f12MT.jpg", // can be null
-    "backdrop_path": "/zAUItK1Nr473DIe8gWMsZ0DMR7L.jpg" // can be null
+    "poster_path": "/bUrReoZFLGti6ehkBW0xw8f12MT.jpg",
+    "backdrop_path": "/zAUItK1Nr473DIe8gWMsZ0DMR7L.jpg"
   },
   "budget": 0,
   "genres": [
@@ -46,19 +48,19 @@ movie/{movie_id}
   ],
   "homepage": "",
   "id": 3,
-  "imdb_id": "tt0092149", // can be null
-  "origin_country": [ // can be null
+  "imdb_id": "tt0092149",
+  "origin_country": [
     "FI"
   ],
   "original_language": "fi",
   "original_title": "Varjoja paratiisissa",
   "overview": "Nikander, a rubbish collector and would-be entrepreneur, finds his plans for success dashed when his business associate dies. One evening, he meets Ilona, a down-on-her-luck cashier, in a local supermarket. Falteringly, a bond begins to develop between them.",
   "popularity": 1.1736,
-  "poster_path": "/nj01hspawPof0mJmlgfjuLyJuRN.jpg", // can be null
+  "poster_path": "/nj01hspawPof0mJmlgfjuLyJuRN.jpg",
   "production_companies": [
     {
       "id": 2303,
-      "logo_path": null, // can be null
+      "logo_path": null,
       "name": "Villealfa Filmproductions",
       "origin_country": "FI"
     }
