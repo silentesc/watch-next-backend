@@ -71,6 +71,7 @@ pub struct MovieDetails {
     imdb_id: Option<String>,
     adult: Option<bool>,
     backdrop_path: Option<String>,
+    poster_path: Option<String>,
     belongs_to_collection: Option<Collection>,
     budget: Option<i32>,
     genres: Option<Vec<Genre>>,
