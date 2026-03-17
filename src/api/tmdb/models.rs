@@ -53,7 +53,7 @@ pub struct MovieOverview {
     backdrop_path: Option<String>,
     poster_path: Option<String>,
     genre_ids: Option<Vec<u64>>,
-    id: u64,
+    pub id: u64,
     original_language: Option<String>,
     original_title: Option<String>,
     title: Option<String>,

@@ -1,3 +1,5 @@
+use std::collections::HashSet;
+
 use crate::{
     api::{
         errors::AppError,
@@ -22,14 +24,33 @@ pub async fn search_movie(client: Client, params: SearchMovieParams) -> Result<S
     };
 
     // Parse response
-    match response.json().await {
-        Ok(response) => Ok(response),
+    let search_movie_response: SearchMovieResponse = match response.json().await {
+        Ok(response) => response,
         Err(err) => {
             error!(
                 Category::Tmdb,
                 "Parsing SearchMovieResponse failed with error: {:#?}", err
             );
-            Err(AppError::generic_500())
+            return Err(AppError::generic_500());
+        }
+    };
+
+    // Clean response
+    let mut seen_ids = HashSet::new();
+    let mut cleaned_results = Vec::new();
+
+    for movie in search_movie_response.results {
+        if seen_ids.insert(movie.id) {
+            cleaned_results.push(movie);
         }
     }
+
+    let cleaned_response = SearchMovieResponse {
+        total_results: search_movie_response.total_results,
+        total_pages: search_movie_response.total_pages,
+        page: search_movie_response.page,
+        results: cleaned_results,
+    };
+
+    Ok(cleaned_response)
 }
