@@ -1,3 +1,5 @@
+use std::env;
+
 use crate::{logger::enums::category::Category, setup::setup_tcp_listener};
 
 mod api;
@@ -19,8 +21,8 @@ async fn main() {
 
     let router = setup::setup_router(app_state);
 
-    let addr = "127.0.0.1:3000";
-    let listener = setup_tcp_listener(addr).await;
+    let addr = env::var("SERVE_ADDR").expect("SERVE_ADDR env variable should be set by dotenv");
+    let listener = setup_tcp_listener(&addr).await;
 
     info!(Category::Setup, "Listening on {}", addr);
     setup::serve(listener, router).await;

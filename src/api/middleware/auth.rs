@@ -7,7 +7,7 @@ use axum_extra::extract::SignedCookieJar;
 use uuid::Uuid;
 
 use crate::{
-    api::{db::table_utils::sessions, errors::AppError},
+    api::{db::table_utils::sessions, errors::AppError, utils::cookie_utils},
     error,
     logger::enums::category::Category,
     state::AppState,
@@ -16,11 +16,11 @@ use crate::{
 pub async fn validate_session(
     State(app_state): State<AppState>,
     jar: SignedCookieJar,
-    request: Request,
+    mut request: Request,
     next: Next,
 ) -> Response {
     // Get session id
-    let session_id = match jar.get("session_id") {
+    let session_id = match jar.get(cookie_utils::SESSION_ID_COOKIE_NAME) {
         Some(cookie) => cookie.value().to_string(),
         None => return AppError::invalid_credentials().into_response(),
     };
@@ -31,7 +31,7 @@ pub async fn validate_session(
         Err(err) => {
             error!(
                 Category::Middleware,
-                "Parsing session_id to uuid from string '{}' failed with error: {:#}", session_id, err
+                "Parsing session_id to uuid from string '{}' failed with error: {:#?}", session_id, err
             );
             return AppError::generic_500().into_response();
         }
@@ -51,6 +51,10 @@ pub async fn validate_session(
     if session.is_expired() {
         return AppError::invalid_credentials().into_response();
     }
+
+    // Add session
+    request.extensions_mut().insert(app_state);
+    request.extensions_mut().insert(session);
 
     // Allow request
     next.run(request).await
