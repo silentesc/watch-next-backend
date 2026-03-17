@@ -52,7 +52,7 @@ pub struct MovieOverview {
     adult: Option<bool>,
     backdrop_path: Option<String>,
     poster_path: Option<String>,
-    genre_ids: Vec<u64>,
+    genre_ids: Option<Vec<u64>>,
     id: u64,
     original_language: Option<String>,
     original_title: Option<String>,
