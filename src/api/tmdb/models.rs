@@ -27,7 +27,7 @@ impl IntoResponse for Language {
 
 #[derive(Deserialize, Serialize)]
 pub struct ProductionCompany {
-    id: i32,
+    id: u64,
     name: Option<String>,
     origin_country: Option<String>,
     logo_path: Option<String>,
@@ -41,7 +41,7 @@ pub struct ProductionCountry {
 
 #[derive(Deserialize, Serialize)]
 pub struct Collection {
-    id: i32,
+    id: u64,
     name: String,
     poster_path: Option<String>,
     backdrop_path: Option<String>,
@@ -67,13 +67,13 @@ pub struct MovieOverview {
 
 #[derive(Deserialize, Serialize)]
 pub struct MovieDetails {
-    id: i32,
+    id: u64,
     imdb_id: Option<String>,
     adult: Option<bool>,
     backdrop_path: Option<String>,
     poster_path: Option<String>,
     belongs_to_collection: Option<Collection>,
-    budget: Option<i32>,
+    budget: Option<i64>,
     genres: Option<Vec<Genre>>,
     homepage: Option<String>,
     origin_country: Option<Vec<String>>,
@@ -84,15 +84,15 @@ pub struct MovieDetails {
     production_companies: Option<Vec<ProductionCompany>>,
     production_countries: Option<Vec<ProductionCountry>>,
     release_date: Option<String>,
-    revenue: Option<i32>,
-    runtime: Option<i32>,
+    revenue: Option<i64>,
+    runtime: Option<i64>,
     spoken_languages: Option<Vec<Language>>,
     status: Option<String>,
     tagline: Option<String>,
     title: Option<String>,
     video: Option<bool>,
     vote_average: Option<f32>,
-    vote_count: Option<i32>,
+    vote_count: Option<i64>,
 }
 
 impl IntoResponse for MovieDetails {
