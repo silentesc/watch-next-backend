@@ -118,3 +118,34 @@ pub struct ReleaseDates {
     iso_3166_1: String,
     release_dates: Vec<ReleaseDate>,
 }
+
+#[derive(Deserialize, Serialize)]
+pub struct Cast {
+    adult: Option<bool>,
+    gender: Option<i32>,
+    id: u64,
+    known_for_department: Option<String>,
+    name: Option<String>,
+    original_name: Option<String>,
+    popularity: Option<f32>,
+    profile_path: Option<String>,
+    cast_id: Option<u64>,
+    character: Option<String>,
+    credit_id: Option<String>,
+    order: i32,
+}
+
+#[derive(Deserialize, Serialize)]
+pub struct Crew {
+    adult: Option<bool>,
+    gender: Option<i32>,
+    id: u64,
+    known_for_department: Option<String>,
+    name: Option<String>,
+    original_name: Option<String>,
+    popularity: Option<f32>,
+    profile_path: Option<String>,
+    credit_id: Option<String>,
+    department: Option<String>,
+    job: Option<String>,
+}

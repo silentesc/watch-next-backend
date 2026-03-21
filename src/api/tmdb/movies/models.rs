@@ -5,7 +5,7 @@ use axum::{
 };
 use serde::{Deserialize, Serialize};
 
-use crate::api::tmdb::models::ReleaseDates;
+use crate::api::tmdb::models::{Cast, Crew, ReleaseDates};
 
 #[derive(Deserialize, Serialize)]
 pub struct MovieReleaseDatesResponse {
@@ -14,6 +14,20 @@ pub struct MovieReleaseDatesResponse {
 }
 
 impl IntoResponse for MovieReleaseDatesResponse {
+    fn into_response(self) -> Response {
+        let body = Json(self);
+        (StatusCode::OK, body).into_response()
+    }
+}
+
+#[derive(Deserialize, Serialize)]
+pub struct MovieCreditsResponse {
+    pub id: u64,
+    pub cast: Vec<Cast>,
+    pub crew: Vec<Crew>,
+}
+
+impl IntoResponse for MovieCreditsResponse {
     fn into_response(self) -> Response {
         let body = Json(self);
         (StatusCode::OK, body).into_response()

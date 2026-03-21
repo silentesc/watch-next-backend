@@ -118,6 +118,10 @@ pub fn setup_router(app_state: AppState) -> Router {
             "/movie/{movie_id}/release_dates",
             get(handlers::movies::release_dates::get_movie_release_dates),
         )
+        .route(
+            "/movie/{movie_id}/credits",
+            get(handlers::movies::credits::get_movie_credits),
+        )
         .layer(from_fn_with_state(
             app_state.clone(),
             middleware::auth::validate_session,
