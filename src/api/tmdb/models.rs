@@ -104,10 +104,10 @@ impl IntoResponse for MovieDetails {
 
 #[derive(Deserialize, Serialize)]
 pub struct ReleaseDate {
-    iso_639_1: String,
     #[serde(rename = "type")]
     release_type: i32,
     release_date: String,
+    iso_639_1: Option<String>,
     descriptors: Option<Vec<String>>,
     note: Option<String>,
     certification: Option<String>,
