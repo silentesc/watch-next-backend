@@ -1,3 +1,4 @@
+pub mod collections;
 pub mod configuration;
 mod constants;
 pub mod discover;
