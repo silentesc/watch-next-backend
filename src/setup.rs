@@ -114,6 +114,10 @@ pub fn setup_router(app_state: AppState) -> Router {
             get(handlers::configuration::languages::get_languages),
         )
         .route("/movie/{movie_id}", get(handlers::movies::details::get_movie_details))
+        .route(
+            "/movie/{movie_id}/release_dates",
+            get(handlers::movies::release_dates::get_movie_release_dates),
+        )
         .layer(from_fn_with_state(
             app_state.clone(),
             middleware::auth::validate_session,

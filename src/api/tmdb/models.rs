@@ -101,3 +101,20 @@ impl IntoResponse for MovieDetails {
         (StatusCode::OK, body).into_response()
     }
 }
+
+#[derive(Deserialize, Serialize)]
+pub struct ReleaseDate {
+    iso_639_1: String,
+    #[serde(rename = "type")]
+    release_type: i32,
+    release_date: String,
+    descriptors: Option<Vec<String>>,
+    note: Option<String>,
+    certification: Option<String>,
+}
+
+#[derive(Deserialize, Serialize)]
+pub struct ReleaseDates {
+    iso_3166_1: String,
+    release_dates: Vec<ReleaseDate>,
+}
