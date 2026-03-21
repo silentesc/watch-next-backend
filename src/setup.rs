@@ -131,6 +131,10 @@ pub fn setup_router(app_state: AppState) -> Router {
             get(handlers::movies::recommendations::get_movie_recommendations),
         )
         .route(
+            "/movie/{movie_id}/similar",
+            get(handlers::movies::similar::get_similar_movies),
+        )
+        .route(
             "/collection/{collection_id}",
             get(handlers::collections::details::get_collection_details),
         )

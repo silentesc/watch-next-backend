@@ -61,3 +61,18 @@ impl IntoResponse for MovieRecommendationsResponse {
         (StatusCode::OK, body).into_response()
     }
 }
+
+#[derive(Deserialize, Serialize)]
+pub struct SimilarMoviesResponse {
+    pub total_results: u64,
+    pub total_pages: i32,
+    pub page: i32,
+    pub results: Vec<MovieOverview>,
+}
+
+impl IntoResponse for SimilarMoviesResponse {
+    fn into_response(self) -> Response {
+        let body = Json(self);
+        (StatusCode::OK, body).into_response()
+    }
+}
