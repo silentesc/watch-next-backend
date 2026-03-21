@@ -1,4 +1,4 @@
-# Discover Movie Endpoint
+# Movie Details Endpoint
 
 ### Endpoint
 
