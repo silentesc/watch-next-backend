@@ -107,6 +107,10 @@ pub fn setup_router(app_state: AppState) -> Router {
     let protected_routes = Router::new()
         .route("/me", get(handlers::me::handler::me))
         .route("/discover/movie", get(handlers::discover::movie::discover))
+        .route(
+            "/trending/movie/{time_window}",
+            get(handlers::trending::movies::get_trending_movies),
+        )
         .route("/search/movie", get(handlers::search::movie::search_movie))
         .route(
             "/search/collection",

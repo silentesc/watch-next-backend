@@ -7,3 +7,4 @@ pub mod me;
 pub mod movies;
 pub mod root;
 pub mod search;
+pub mod trending;
