@@ -108,6 +108,10 @@ pub fn setup_router(app_state: AppState) -> Router {
         .route("/me", get(handlers::me::handler::me))
         .route("/discover/movie", get(handlers::discover::movie::discover))
         .route("/search/movie", get(handlers::search::movie::search_movie))
+        .route(
+            "/search/collection",
+            get(handlers::search::collection::search_collection),
+        )
         .route("/genre/movie/list", get(handlers::genres::movie::get_movie_genres))
         .route(
             "/configuration/languages",
