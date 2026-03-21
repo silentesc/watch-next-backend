@@ -3,7 +3,7 @@
 ### Endpoint
 
 ```
-/movie/{movie_id}/similar
+/movie/{movie_id}/recommendations
 ```
 
 ### Path Params
@@ -66,6 +66,8 @@
       "vote_average": 6.345,
       "vote_count": 229
     }
-  ]
+  ],
+  "total_pages": 15594,
+  "total_results": 311862
 }
 ```
