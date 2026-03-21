@@ -122,6 +122,10 @@ pub fn setup_router(app_state: AppState) -> Router {
             "/movie/{movie_id}/credits",
             get(handlers::movies::credits::get_movie_credits),
         )
+        .route(
+            "/collection/{collection_id}",
+            get(handlers::collections::details::get_collection_details),
+        )
         .layer(from_fn_with_state(
             app_state.clone(),
             middleware::auth::validate_session,

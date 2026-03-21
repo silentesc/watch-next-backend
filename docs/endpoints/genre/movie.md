@@ -10,7 +10,7 @@
 
 | Optional | Param | Type | Example | Description |
 | --- | --- | --- | --- | --- |
-| ✅ | `language ` | `String` | `uk` | Defaults to `en` |
+| ✅ | `language` | `String` | `uk` | Defaults to `en` |
 
 ### Example Response
 
