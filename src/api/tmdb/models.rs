@@ -40,11 +40,34 @@ pub struct ProductionCountry {
 }
 
 #[derive(Deserialize, Serialize)]
-pub struct Collection {
-    id: u64,
+pub struct CollectionOverview {
+    pub id: u64,
     name: String,
     poster_path: Option<String>,
     backdrop_path: Option<String>,
+    adult: Option<bool>,
+    original_language: Option<String>,
+    original_name: Option<String>,
+    overview: Option<String>,
+}
+
+#[derive(Deserialize, Serialize)]
+pub struct CollectionDetails {
+    id: u64,
+    name: Option<String>,
+    original_language: Option<String>,
+    original_name: Option<String>,
+    overview: Option<String>,
+    poster_path: Option<String>,
+    backdrop_path: Option<String>,
+    parts: Vec<MovieOverview>,
+}
+
+impl IntoResponse for CollectionDetails {
+    fn into_response(self) -> Response {
+        let body = Json(self);
+        (StatusCode::OK, body).into_response()
+    }
 }
 
 #[derive(Deserialize, Serialize)]
@@ -72,7 +95,7 @@ pub struct MovieDetails {
     adult: Option<bool>,
     backdrop_path: Option<String>,
     poster_path: Option<String>,
-    belongs_to_collection: Option<Collection>,
+    belongs_to_collection: Option<CollectionOverview>,
     budget: Option<i64>,
     genres: Option<Vec<Genre>>,
     homepage: Option<String>,
@@ -148,25 +171,6 @@ pub struct Crew {
     credit_id: Option<String>,
     department: Option<String>,
     job: Option<String>,
-}
-
-#[derive(Deserialize, Serialize)]
-pub struct CollectionDetails {
-    id: u64,
-    name: Option<String>,
-    original_language: Option<String>,
-    original_name: Option<String>,
-    overview: Option<String>,
-    poster_path: Option<String>,
-    backdrop_path: Option<String>,
-    parts: Vec<MovieOverview>,
-}
-
-impl IntoResponse for CollectionDetails {
-    fn into_response(self) -> Response {
-        let body = Json(self);
-        (StatusCode::OK, body).into_response()
-    }
 }
 
 #[derive(Deserialize, Serialize)]

@@ -7,7 +7,7 @@
 | Category | Endpoints |
 | --- | --- |
 | Discover | <ul><li>[Movie](docs/endpoints/discover/movie.md)</li></ul> |
-| Search | <ul><li>[Movie](docs/endpoints/search/movie.md)</li></ul> |
+| Search | <ul><li>[Movie](docs/endpoints/search/movie.md)</li><li>[Collection](docs/endpoints/search/collection.md)</li></ul> |
 | Genre | <ul><li>[Movie](docs/endpoints/genre/movie.md)</li></ul> |
 | Configuration | <ul><li>[Languages](docs/endpoints/configuration/languages.md)</li></ul> |
 | Movies | <ul><li>[Details](docs/endpoints/movies/details.md)</li><li>[Release Dates](docs/endpoints/movies/release_dates.md)</li><li>[Credits](docs/endpoints/movies/credits.md)</li><li>[Videos](docs/endpoints/movies/videos.md)</li><li>[Recommendations](docs/endpoints/movies/recommendations.md)</li><li>[Similar](docs/endpoints/movies/similar.md)</li></ul> |
