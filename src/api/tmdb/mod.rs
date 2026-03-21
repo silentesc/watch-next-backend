@@ -6,4 +6,5 @@ pub mod genres;
 pub mod models;
 pub mod movies;
 pub mod search;
+pub mod trending;
 mod utils;
