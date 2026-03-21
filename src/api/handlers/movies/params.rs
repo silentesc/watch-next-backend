@@ -14,3 +14,9 @@ pub struct MovieCreditsParams {
 pub struct MovieVideosParams {
     language: Option<String>,
 }
+
+#[derive(Deserialize, Serialize)]
+pub struct MovieRecommendationsParams {
+    language: Option<String>,
+    page: Option<i32>,
+}
