@@ -121,15 +121,15 @@ pub struct ReleaseDates {
 
 #[derive(Deserialize, Serialize)]
 pub struct Cast {
-    adult: bool,
-    gender: i32,
+    adult: Option<bool>,
+    gender: Option<i32>,
     id: u64,
     known_for_department: Option<String>,
     name: Option<String>,
     original_name: Option<String>,
-    popularity: f32,
+    popularity: Option<f32>,
     profile_path: Option<String>,
-    cast_id: u64,
+    cast_id: Option<u64>,
     character: Option<String>,
     credit_id: Option<String>,
     order: i32,
@@ -137,13 +137,13 @@ pub struct Cast {
 
 #[derive(Deserialize, Serialize)]
 pub struct Crew {
-    adult: bool,
-    gender: i32,
+    adult: Option<bool>,
+    gender: Option<i32>,
     id: u64,
     known_for_department: Option<String>,
     name: Option<String>,
     original_name: Option<String>,
-    popularity: f32,
+    popularity: Option<f32>,
     profile_path: Option<String>,
     credit_id: Option<String>,
     department: Option<String>,
