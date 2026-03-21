@@ -10,7 +10,7 @@
 | Search | <ul><li>[Movie](docs/endpoints/search/movie.md)</li></ul> |
 | Genre | <ul><li>[Movie](docs/endpoints/genre/movie.md)</li></ul> |
 | Configuration | <ul><li>[Languages](docs/endpoints/configuration/languages.md)</li></ul> |
-| Movies | <ul><li>[Details](docs/endpoints/movies/details.md)</li></ul> |
+| Movies | <ul><li>[Details](docs/endpoints/movies/details.md)</li><li>[Release Dates](docs/endpoints/movies/release_dates.md)</li></ul> |
 
 ## Quick Start
 
