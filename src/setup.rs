@@ -123,6 +123,10 @@ pub fn setup_router(app_state: AppState) -> Router {
             get(handlers::movies::credits::get_movie_credits),
         )
         .route(
+            "/movie/{movie_id}/videos",
+            get(handlers::movies::videos::get_movie_videos),
+        )
+        .route(
             "/collection/{collection_id}",
             get(handlers::collections::details::get_collection_details),
         )

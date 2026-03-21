@@ -168,3 +168,20 @@ impl IntoResponse for CollectionDetails {
         (StatusCode::OK, body).into_response()
     }
 }
+
+#[derive(Deserialize, Serialize)]
+pub struct Video {
+    #[serde(rename = "iso_639_1")]
+    language: Option<String>,
+    #[serde(rename = "iso_3166_1")]
+    country: Option<String>,
+    name: Option<String>,
+    key: Option<String>,
+    site: Option<String>,
+    size: Option<i32>,
+    #[serde(rename = "type")]
+    video_type: Option<String>,
+    official: Option<bool>,
+    published_at: Option<String>,
+    id: String,
+}
