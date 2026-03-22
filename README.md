@@ -75,6 +75,7 @@
 
 - 🔜 Achievements & Leveling System
 - 🔜 Configurable region, language, etc.
+- 🔜 Ratings from IMDB
 
 ## Quick Start
 
