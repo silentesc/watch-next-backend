@@ -15,6 +15,15 @@ movie/{movie_id}/release_dates
 
 > Keep in mind that everything except whats declared "never null" might be null or non existant (due to missing documentation on the TMDB API reference) to keep the endpoint stable (no random 500 errors)
 
+| Release | Type |
+| --- | --- |
+| Premiere | 1 |
+| Theatrical (limited) | 2 |
+| Theatrical | 3 |
+| Digital | 4 |
+| Physical | 5 |
+| TV | 6 |
+
 ```json
 {
   "id": 2, // never null
