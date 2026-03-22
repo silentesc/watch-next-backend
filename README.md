@@ -14,6 +14,68 @@
 | Movies | <ul><li>[Details](docs/endpoints/movies/details.md)</li><li>[Release Dates](docs/endpoints/movies/release_dates.md)</li><li>[Credits](docs/endpoints/movies/credits.md)</li><li>[Videos](docs/endpoints/movies/videos.md)</li><li>[Recommendations](docs/endpoints/movies/recommendations.md)</li><li>[Similar](docs/endpoints/movies/similar.md)</li></ul> |
 | Collections | <ul><li>[Details](docs/endpoints/collections/details.md)</li></ul> |
 
+## Roadmap
+
+### **v1.0** (current)
+
+- **Planned features**
+  - 🔜 Lists (e.g. Plan to Watch, Watching, Completed)
+  - 🔜 Custom Tags per movie/show (e.g. must-watch)
+  - 🔜 Auto updating data in db
+  - 🔜 Caching
+- **Planned endpoints**
+  - 🔜 Discover
+    - ✅ Movie
+    - 🔜 TV Shows
+  - 🔜 Trending
+    - 🔜 All
+    - ✅ Movie
+    - 🔜 TV Shows
+  - 🔜 Search
+    - ✅ Collection
+    - ✅ Movie
+    - 🔜 Multi
+    - 🔜 Person
+    - 🔜 TV Shows
+  - ✅ Genres
+    - ✅ Movies
+    - 🔜 TV Shows
+  - ✅ Languages
+  - 🔜 People
+    - 🔜 Details
+    - 🔜 Combined Credits
+  - ✅ Collections
+    - ✅ Details
+  - ✅ Movies
+    - ✅ Details
+    - ✅ Release Dates
+    - ✅ Credits
+    - ✅ Videos
+    - ✅ Recommendations
+    - ✅ Similar
+  - 🔜 TV Shows
+    - 🔜 ...
+  - 🔜 TV Seasons
+    - 🔜 ...
+  - 🔜 TV Episodes
+    - 🔜 ...
+
+### **v1.1** (next)
+
+- 🔜 Analytics
+  - 🔜 Total hours watched
+  - 🔜 Watch history
+  - 🔜 Favorite genres
+  - 🔜 Viewing patterns (e.g. prefer short series)
+- 🔜 Notifications & Reminders
+  - 🔜 New episodes
+  - 🔜 Status changes
+
+### v?.? (future)
+
+- 🔜 Achievements & Leveling System
+- 🔜 Configurable region, language, etc.
+
 ## Quick Start
 
 ### Database
