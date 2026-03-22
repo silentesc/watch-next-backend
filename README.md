@@ -76,6 +76,7 @@
 - 🔜 Achievements & Leveling System
 - 🔜 Configurable region, language, etc.
 - 🔜 Ratings from IMDB
+- 🔜 Refresh token so sessions don't expire after 7 days
 
 ## Quick Start
 
