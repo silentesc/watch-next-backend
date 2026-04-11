@@ -1,4 +1,4 @@
-# Discover Movie Endpoint
+# Trending Movie Endpoint
 
 ### Endpoint
 
