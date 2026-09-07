@@ -1,7 +1,7 @@
 use crate::api::{
     errors::AppError,
-    handlers::movies::params::MovieRecommendationsParams,
-    tmdb::{client::TmdbClient, movies::models::MovieRecommendationsResponse},
+    models::movies::{requests::MovieRecommendationsParams, responses::MovieRecommendationsResponse},
+    tmdb::client::TmdbClient,
 };
 
 pub async fn get_movie_recommendations(

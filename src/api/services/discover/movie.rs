@@ -1,7 +1,7 @@
 use crate::api::{
     errors::AppError,
-    handlers::discover::params::DiscoverMovieParams,
-    tmdb::{client::TmdbClient, discover::models::DiscoverMovieResponse},
+    models::discover::{requests::DiscoverMovieParams, responses::DiscoverMovieResponse},
+    tmdb::client::TmdbClient,
 };
 
 pub async fn discover(client: TmdbClient, params: DiscoverMovieParams) -> Result<DiscoverMovieResponse, AppError> {

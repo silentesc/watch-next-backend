@@ -1,7 +1,7 @@
 use crate::api::{
     errors::AppError,
-    handlers::search::params::SearchCollectionParams,
-    tmdb::{client::TmdbClient, search::models::SearchCollectionResponse},
+    models::search::{requests::SearchCollectionParams, responses::SearchCollectionResponse},
+    tmdb::client::TmdbClient,
 };
 
 pub async fn search_collection(

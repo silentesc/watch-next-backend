@@ -1,7 +1,7 @@
 use crate::api::{
     errors::AppError,
-    handlers::search::params::SearchMovieParams,
-    tmdb::{client::TmdbClient, search::models::SearchMovieResponse},
+    models::search::{requests::SearchMovieParams, responses::SearchMovieResponse},
+    tmdb::client::TmdbClient,
 };
 
 pub async fn search_movie(client: TmdbClient, params: SearchMovieParams) -> Result<SearchMovieResponse, AppError> {

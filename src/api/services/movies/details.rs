@@ -1,7 +1,7 @@
 use crate::api::{
     errors::AppError,
-    handlers::movies::params::MovieDetailsParams,
-    tmdb::{client::TmdbClient, models::MovieDetails},
+    models::movies::{requests::MovieDetailsParams, responses::MovieDetails},
+    tmdb::client::TmdbClient,
 };
 
 pub async fn get_movie_details(

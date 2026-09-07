@@ -1,7 +1,7 @@
 use crate::api::{
     errors::AppError,
-    handlers::collections::params::CollectionDetailsParams,
-    tmdb::{client::TmdbClient, models::CollectionDetails},
+    models::collections::{requests::CollectionDetailsParams, responses::CollectionDetails},
+    tmdb::client::TmdbClient,
 };
 
 pub async fn get_collection_details(

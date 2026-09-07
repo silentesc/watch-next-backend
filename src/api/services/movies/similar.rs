@@ -1,7 +1,7 @@
 use crate::api::{
     errors::AppError,
-    handlers::movies::params::SimilarMoviesParams,
-    tmdb::{client::TmdbClient, movies::models::SimilarMoviesResponse},
+    models::movies::{requests::SimilarMoviesParams, responses::SimilarMoviesResponse},
+    tmdb::client::TmdbClient,
 };
 
 pub async fn get_similar_movies(

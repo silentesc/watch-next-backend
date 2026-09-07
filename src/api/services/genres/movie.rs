@@ -1,7 +1,7 @@
 use crate::api::{
     errors::AppError,
-    handlers::genres::params::GenreMovieParams,
-    tmdb::{client::TmdbClient, genres::models::GenreMovieResponse},
+    models::genres::{requests::GenreMovieParams, responses::GenreMovieResponse},
+    tmdb::client::TmdbClient,
 };
 
 pub async fn get_movie_genres(client: TmdbClient, params: GenreMovieParams) -> Result<GenreMovieResponse, AppError> {

@@ -1,7 +1,7 @@
 use crate::api::{
     errors::AppError,
-    handlers::trending::params::TrendingMoviesParams,
-    tmdb::{client::TmdbClient, trending::models::TrendingMoviesResponse},
+    models::trending::{requests::TrendingMoviesParams, responses::TrendingMoviesResponse},
+    tmdb::client::TmdbClient,
 };
 
 pub async fn get_trending_movies(

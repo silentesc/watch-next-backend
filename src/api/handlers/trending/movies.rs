@@ -1,13 +1,15 @@
 use axum::{
-    Extension,
+    Extension, Json,
     extract::{Path, Query},
     http::StatusCode,
 };
 
 use crate::{
     api::{
-        db::models::Session, errors::AppError, handlers::trending::params::TrendingMoviesParams, services,
-        tmdb::trending::models::TrendingMoviesResponse,
+        db::models::Session,
+        errors::AppError,
+        models::trending::{requests::TrendingMoviesParams, responses::TrendingMoviesResponse},
+        services,
     },
     state::AppState,
 };
@@ -18,9 +20,9 @@ pub async fn get_trending_movies(
     Extension(_): Extension<Session>,
     Path(time_window): Path<String>,
     Query(params): Query<TrendingMoviesParams>,
-) -> Result<(StatusCode, TrendingMoviesResponse), AppError> {
+) -> Result<(StatusCode, Json<TrendingMoviesResponse>), AppError> {
     match services::trending::movies::get_trending_movies(app_state.tmdb_client, time_window, params).await {
-        Ok(response) => Ok((StatusCode::OK, response)),
+        Ok(response) => Ok((StatusCode::OK, Json(response))),
         Err(app_error) => Err(app_error),
     }
 }
