@@ -24,9 +24,9 @@
   - 🔜 Auto updating data in db
   - 🔜 Caching
 - **Planned endpoints**
-  - 🔜 Discover
+  - ✅ Discover
     - ✅ Movie
-    - 🔜 TV Shows
+    - ✅ TV Shows
   - 🔜 Trending
     - 🔜 All
     - ✅ Movie
