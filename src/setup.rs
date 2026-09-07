@@ -14,6 +14,7 @@ use tokio::net::TcpListener;
 use tower_http::cors::CorsLayer;
 
 use crate::{
+    api::tmdb::client::TmdbClient,
     api::{handlers, middleware},
     debug,
     logger::{
@@ -78,7 +79,12 @@ pub fn setup_app_state(pool: PgPool) -> AppState {
         .expect("Reqwest client should be built");
 
     let key = Key::from(secret.as_bytes());
-    AppState { pool, client, key }
+    AppState {
+        pool,
+        client: client.clone(),
+        tmdb_client: TmdbClient::new(client),
+        key,
+    }
 }
 
 pub fn setup_router(app_state: AppState) -> Router {
