@@ -72,6 +72,7 @@ pub fn setup_app_state(pool: PgPool) -> AppState {
     let tmdb_api_key = env::var("TMDB_API_KEY").expect("TMDB_API_KEY env variable should be set by dotenv");
     let auth_header_value = HeaderValue::from_str(format!("Bearer {}", tmdb_api_key).as_str())
         .expect("TMDB api key should be converted to HeaderValue");
+    let secret = env::var("COOKIE_KEY").expect("COOKIE_KEY env variable should be set by dotenv");
 
     let mut headers = HeaderMap::new();
     headers.append("Authorization", auth_header_value);
@@ -84,7 +85,7 @@ pub fn setup_app_state(pool: PgPool) -> AppState {
         .build()
         .expect("Reqwest client should be built");
 
-    let key = Key::generate();
+    let key = Key::from(secret.as_bytes());
     AppState { pool, client, key }
 }
 

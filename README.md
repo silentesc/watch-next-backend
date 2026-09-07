@@ -126,6 +126,8 @@ SERVE_ADDR="0.0.0.0:3000"
 CORS_ALLOWED_ORIGINS="http://localhost:5173,https://api.watch-next.mydomain.com"
 
 TMDB_API_KEY="abcdefghijklmnopqrstuvwxyz"
+
+COOKIE_KEY="long_secret_key"
 ```
 
 #### Run app
