@@ -1,18 +1,15 @@
-use reqwest::Client;
-
 use crate::api::{
     errors::AppError,
-    handlers::collections::params::CollectionDetailsParams,
-    tmdb::{self, models::CollectionDetails},
+    models::collections::{requests::CollectionDetailsParams, responses::CollectionDetails},
+    tmdb::client::TmdbClient,
 };
 
 pub async fn get_collection_details(
-    client: Client,
+    client: TmdbClient,
     collection_id: i32,
     params: CollectionDetailsParams,
 ) -> Result<CollectionDetails, AppError> {
-    match tmdb::collections::details::get_collection_details(client, collection_id, params).await {
-        Ok(response) => Ok(response),
-        Err(app_error) => Err(app_error),
-    }
+    client
+        .get(format!("/collection/{collection_id}").as_str(), &params)
+        .await
 }

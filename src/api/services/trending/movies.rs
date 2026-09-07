@@ -1,18 +1,19 @@
-use reqwest::Client;
-
 use crate::api::{
     errors::AppError,
-    handlers::trending::params::TrendingMoviesParams,
-    tmdb::{self, trending::models::TrendingMoviesResponse},
+    models::trending::{requests::TrendingMoviesParams, responses::TrendingMoviesResponse},
+    tmdb::client::TmdbClient,
 };
 
 pub async fn get_trending_movies(
-    client: Client,
+    client: TmdbClient,
     time_window: String,
     params: TrendingMoviesParams,
 ) -> Result<TrendingMoviesResponse, AppError> {
-    match tmdb::trending::movies::get_trending_movies(client, time_window, params).await {
-        Ok(response) => Ok(response),
-        Err(app_error) => Err(app_error),
-    }
+    let mut response: TrendingMoviesResponse = client
+        .get(format!("/trending/movie/{time_window}").as_str(), &params)
+        .await?;
+
+    let mut seen_ids = std::collections::HashSet::new();
+    response.results.retain(|movie| seen_ids.insert(movie.id));
+    Ok(response)
 }

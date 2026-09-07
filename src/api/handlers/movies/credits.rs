@@ -1,13 +1,15 @@
 use axum::{
-    Extension,
+    Extension, Json,
     extract::{Path, Query},
     http::StatusCode,
 };
 
 use crate::{
     api::{
-        db::models::Session, errors::AppError, handlers::movies::params::MovieCreditsParams, services,
-        tmdb::movies::models::MovieCreditsResponse,
+        db::models::Session,
+        errors::AppError,
+        models::movies::{requests::MovieCreditsParams, responses::MovieCreditsResponse},
+        services,
     },
     state::AppState,
 };
@@ -18,9 +20,9 @@ pub async fn get_movie_credits(
     Extension(_): Extension<Session>,
     Path(movie_id): Path<i32>,
     Query(params): Query<MovieCreditsParams>,
-) -> Result<(StatusCode, MovieCreditsResponse), AppError> {
-    match services::movies::credits::get_movie_credits(app_state.client, movie_id, params).await {
-        Ok(response) => Ok((StatusCode::OK, response)),
+) -> Result<(StatusCode, Json<MovieCreditsResponse>), AppError> {
+    match services::movies::credits::get_movie_credits(app_state.tmdb_client, movie_id, params).await {
+        Ok(response) => Ok((StatusCode::OK, Json(response))),
         Err(app_error) => Err(app_error),
     }
 }

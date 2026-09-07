@@ -1,13 +1,15 @@
 use axum::{
-    Extension,
+    Extension, Json,
     extract::{Path, Query},
     http::StatusCode,
 };
 
 use crate::{
     api::{
-        db::models::Session, errors::AppError, handlers::movies::params::MovieRecommendationsParams, services,
-        tmdb::movies::models::MovieRecommendationsResponse,
+        db::models::Session,
+        errors::AppError,
+        models::movies::{requests::MovieRecommendationsParams, responses::MovieRecommendationsResponse},
+        services,
     },
     state::AppState,
 };
@@ -18,9 +20,9 @@ pub async fn get_movie_recommendations(
     Extension(_): Extension<Session>,
     Path(movie_id): Path<i32>,
     Query(params): Query<MovieRecommendationsParams>,
-) -> Result<(StatusCode, MovieRecommendationsResponse), AppError> {
-    match services::movies::recommendations::get_movie_recommendations(app_state.client, movie_id, params).await {
-        Ok(response) => Ok((StatusCode::OK, response)),
+) -> Result<(StatusCode, Json<MovieRecommendationsResponse>), AppError> {
+    match services::movies::recommendations::get_movie_recommendations(app_state.tmdb_client, movie_id, params).await {
+        Ok(response) => Ok((StatusCode::OK, Json(response))),
         Err(app_error) => Err(app_error),
     }
 }

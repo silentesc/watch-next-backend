@@ -1,13 +1,7 @@
-use reqwest::Client;
+use crate::api::{errors::AppError, models::movies::responses::MovieReleaseDatesResponse, tmdb::client::TmdbClient};
 
-use crate::api::{
-    errors::AppError,
-    tmdb::{self, movies::models::MovieReleaseDatesResponse},
-};
-
-pub async fn get_movie_release_dates(client: Client, movie_id: i32) -> Result<MovieReleaseDatesResponse, AppError> {
-    match tmdb::movies::release_dates::get_movie_release_dates(client, movie_id).await {
-        Ok(response) => Ok(response),
-        Err(app_error) => Err(app_error),
-    }
+pub async fn get_movie_release_dates(client: TmdbClient, movie_id: i32) -> Result<MovieReleaseDatesResponse, AppError> {
+    client
+        .get(format!("/movie/{movie_id}/release_dates").as_str(), &())
+        .await
 }

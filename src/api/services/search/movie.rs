@@ -1,14 +1,13 @@
-use reqwest::Client;
-
 use crate::api::{
     errors::AppError,
-    handlers::search::params::SearchMovieParams,
-    tmdb::{self, search::models::SearchMovieResponse},
+    models::search::{requests::SearchMovieParams, responses::SearchMovieResponse},
+    tmdb::client::TmdbClient,
 };
 
-pub async fn search_movie(client: Client, params: SearchMovieParams) -> Result<SearchMovieResponse, AppError> {
-    match tmdb::search::movie::search_movie(client, params).await {
-        Ok(response) => Ok(response),
-        Err(app_error) => Err(app_error),
-    }
+pub async fn search_movie(client: TmdbClient, params: SearchMovieParams) -> Result<SearchMovieResponse, AppError> {
+    let mut response: SearchMovieResponse = client.get("/search/movie", &params).await?;
+
+    let mut seen_ids = std::collections::HashSet::new();
+    response.results.retain(|movie| seen_ids.insert(movie.id));
+    Ok(response)
 }

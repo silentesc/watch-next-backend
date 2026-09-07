@@ -1,10 +1,2 @@
-pub mod collections;
-pub mod configuration;
+pub mod client;
 mod constants;
-pub mod discover;
-pub mod genres;
-pub mod models;
-pub mod movies;
-pub mod search;
-pub mod trending;
-mod utils;

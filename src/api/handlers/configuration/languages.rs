@@ -1,7 +1,7 @@
 use axum::{Extension, Json, http::StatusCode};
 
 use crate::{
-    api::{db::models::Session, errors::AppError, services, tmdb::models::Language},
+    api::{db::models::Session, errors::AppError, models::configuration::responses::Language, services},
     state::AppState,
 };
 
@@ -10,7 +10,7 @@ pub async fn get_languages(
     Extension(app_state): Extension<AppState>,
     Extension(_): Extension<Session>,
 ) -> Result<(StatusCode, Json<Vec<Language>>), AppError> {
-    match services::configuration::languages::get_languages(app_state.client).await {
+    match services::configuration::languages::get_languages(app_state.tmdb_client).await {
         Ok(response) => Ok((StatusCode::OK, Json(response))),
         Err(app_error) => Err(app_error),
     }

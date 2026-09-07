@@ -1,13 +1,15 @@
 use axum::{
-    Extension,
+    Extension, Json,
     extract::{Path, Query},
     http::StatusCode,
 };
 
 use crate::{
     api::{
-        db::models::Session, errors::AppError, handlers::collections::params::CollectionDetailsParams, services,
-        tmdb::models::CollectionDetails,
+        db::models::Session,
+        errors::AppError,
+        models::collections::{requests::CollectionDetailsParams, responses::CollectionDetails},
+        services,
     },
     state::AppState,
 };
@@ -18,9 +20,9 @@ pub async fn get_collection_details(
     Extension(_): Extension<Session>,
     Path(collection_id): Path<i32>,
     Query(params): Query<CollectionDetailsParams>,
-) -> Result<(StatusCode, CollectionDetails), AppError> {
-    match services::collections::details::get_collection_details(app_state.client, collection_id, params).await {
-        Ok(response) => Ok((StatusCode::OK, response)),
+) -> Result<(StatusCode, Json<CollectionDetails>), AppError> {
+    match services::collections::details::get_collection_details(app_state.tmdb_client, collection_id, params).await {
+        Ok(response) => Ok((StatusCode::OK, Json(response))),
         Err(app_error) => Err(app_error),
     }
 }

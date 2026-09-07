@@ -1,18 +1,19 @@
-use reqwest::Client;
-
 use crate::api::{
     errors::AppError,
-    handlers::movies::params::SimilarMoviesParams,
-    tmdb::{self, movies::models::SimilarMoviesResponse},
+    models::movies::{requests::SimilarMoviesParams, responses::SimilarMoviesResponse},
+    tmdb::client::TmdbClient,
 };
 
 pub async fn get_similar_movies(
-    client: Client,
+    client: TmdbClient,
     movie_id: i32,
     params: SimilarMoviesParams,
 ) -> Result<SimilarMoviesResponse, AppError> {
-    match tmdb::movies::similar::get_similar_movies(client, movie_id, params).await {
-        Ok(response) => Ok(response),
-        Err(app_error) => Err(app_error),
-    }
+    let mut response: SimilarMoviesResponse = client
+        .get(format!("/movie/{movie_id}/similar").as_str(), &params)
+        .await?;
+
+    let mut seen_ids = std::collections::HashSet::new();
+    response.results.retain(|movie| seen_ids.insert(movie.id));
+    Ok(response)
 }

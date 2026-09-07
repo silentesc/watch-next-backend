@@ -1,14 +1,9 @@
-use reqwest::Client;
-
 use crate::api::{
     errors::AppError,
-    handlers::genres::params::GenreMovieParams,
-    tmdb::{self, genres::models::GenreMovieResponse},
+    models::genres::{requests::GenreMovieParams, responses::GenreMovieResponse},
+    tmdb::client::TmdbClient,
 };
 
-pub async fn get_movie_genres(client: Client, params: GenreMovieParams) -> Result<GenreMovieResponse, AppError> {
-    match tmdb::genres::movie::get_movie_genres(client, params).await {
-        Ok(response) => Ok(response),
-        Err(app_error) => Err(app_error),
-    }
+pub async fn get_movie_genres(client: TmdbClient, params: GenreMovieParams) -> Result<GenreMovieResponse, AppError> {
+    client.get("/genre/movie/list", &params).await
 }

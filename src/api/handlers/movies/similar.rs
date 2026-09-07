@@ -1,13 +1,15 @@
 use axum::{
-    Extension,
+    Extension, Json,
     extract::{Path, Query},
     http::StatusCode,
 };
 
 use crate::{
     api::{
-        db::models::Session, errors::AppError, handlers::movies::params::SimilarMoviesParams, services,
-        tmdb::movies::models::SimilarMoviesResponse,
+        db::models::Session,
+        errors::AppError,
+        models::movies::{requests::SimilarMoviesParams, responses::SimilarMoviesResponse},
+        services,
     },
     state::AppState,
 };
@@ -18,9 +20,9 @@ pub async fn get_similar_movies(
     Extension(_): Extension<Session>,
     Path(movie_id): Path<i32>,
     Query(params): Query<SimilarMoviesParams>,
-) -> Result<(StatusCode, SimilarMoviesResponse), AppError> {
-    match services::movies::similar::get_similar_movies(app_state.client, movie_id, params).await {
-        Ok(response) => Ok((StatusCode::OK, response)),
+) -> Result<(StatusCode, Json<SimilarMoviesResponse>), AppError> {
+    match services::movies::similar::get_similar_movies(app_state.tmdb_client, movie_id, params).await {
+        Ok(response) => Ok((StatusCode::OK, Json(response))),
         Err(app_error) => Err(app_error),
     }
 }
