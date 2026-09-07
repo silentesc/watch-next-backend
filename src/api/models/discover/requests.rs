@@ -39,7 +39,6 @@ pub struct DiscoverMovieParams {
     pub primary_release_date_gte: Option<String>,
     #[serde(rename = "primary_release_date.lte")]
     pub primary_release_date_lte: Option<String>,
-    #[serde(rename = "sort_by")]
     pub sort_by: Option<SortBy>,
     #[serde(rename = "vote_average.gte")]
     pub vote_average_gte: Option<f32>,
@@ -49,13 +48,9 @@ pub struct DiscoverMovieParams {
     pub vote_count_gte: Option<f32>,
     #[serde(rename = "vote_count.lte")]
     pub vote_count_lte: Option<f32>,
-    #[serde(rename = "with_genres")]
     pub with_genres: Option<String>,
-    #[serde(rename = "without_genres")]
     pub without_genres: Option<String>,
-    #[serde(rename = "with_origin_country")]
     pub with_origin_country: Option<String>,
-    #[serde(rename = "with_original_language")]
     pub with_original_language: Option<String>,
     #[serde(rename = "with_runtime.gte")]
     pub with_runtime_gte: Option<i32>,
