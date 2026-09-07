@@ -6,7 +6,7 @@
 
 | Category | Endpoints |
 | --- | --- |
-| Discover | <ul><li>[Movie](docs/endpoints/discover/movie.md)</li></ul> |
+| Discover | <ul><li>[Movie](docs/endpoints/discover/movie.md)</li><li>[TV](docs/endpoints/discover/tv.md)</li></ul> |
 | Trending | <ul><li>[Movies](docs/endpoints/trending/movies.md)</li></ul> |
 | Search | <ul><li>[Movie](docs/endpoints/search/movie.md)</li><li>[Collection](docs/endpoints/search/collection.md)</li></ul> |
 | Genre | <ul><li>[Movie](docs/endpoints/genre/movie.md)</li></ul> |

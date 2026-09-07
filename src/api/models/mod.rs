@@ -5,3 +5,4 @@ pub mod genres;
 pub mod movies;
 pub mod search;
 pub mod trending;
+pub mod tv;
