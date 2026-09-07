@@ -60,14 +60,6 @@ pub async fn check_create_tables(pool: &PgPool) {
     debug!(Category::Setup, "Performed table creation check");
 }
 
-pub async fn delete_tables(pool: &PgPool) {
-    sqlx::raw_sql(include_str!("query/delete_tables.sql"))
-        .execute(pool)
-        .await
-        .expect("query/delete_tables.sql should be executed");
-    debug!(Category::Setup, "Deleted all tables");
-}
-
 pub fn setup_app_state(pool: PgPool) -> AppState {
     let tmdb_api_key = env::var("TMDB_API_KEY").expect("TMDB_API_KEY env variable should be set by dotenv");
     let auth_header_value = HeaderValue::from_str(format!("Bearer {}", tmdb_api_key).as_str())

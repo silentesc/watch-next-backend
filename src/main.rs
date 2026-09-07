@@ -14,7 +14,6 @@ async fn main() {
     setup::setup_logging();
 
     let pool = setup::connect_postgres().await;
-    setup::delete_tables(&pool).await;
     setup::check_create_tables(&pool).await;
 
     let app_state = setup::setup_app_state(pool);
