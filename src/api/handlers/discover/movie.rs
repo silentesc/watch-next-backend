@@ -14,7 +14,7 @@ pub async fn discover(
     Extension(_): Extension<Session>,
     Query(params): Query<DiscoverMovieParams>,
 ) -> Result<(StatusCode, DiscoverMovieResponse), AppError> {
-    match services::discover::movie::discover(app_state.client, params).await {
+    match services::discover::movie::discover(app_state.tmdb_client, params).await {
         Ok(response) => Ok((StatusCode::OK, response)),
         Err(app_error) => Err(app_error),
     }

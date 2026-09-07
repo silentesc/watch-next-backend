@@ -19,7 +19,7 @@ pub async fn get_trending_movies(
     Path(time_window): Path<String>,
     Query(params): Query<TrendingMoviesParams>,
 ) -> Result<(StatusCode, TrendingMoviesResponse), AppError> {
-    match services::trending::movies::get_trending_movies(app_state.client, time_window, params).await {
+    match services::trending::movies::get_trending_movies(app_state.tmdb_client, time_window, params).await {
         Ok(response) => Ok((StatusCode::OK, response)),
         Err(app_error) => Err(app_error),
     }

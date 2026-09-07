@@ -81,7 +81,6 @@ pub fn setup_app_state(pool: PgPool) -> AppState {
     let key = Key::from(secret.as_bytes());
     AppState {
         pool,
-        client: client.clone(),
         tmdb_client: TmdbClient::new(client),
         key,
     }

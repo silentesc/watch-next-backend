@@ -19,7 +19,7 @@ pub async fn get_collection_details(
     Path(collection_id): Path<i32>,
     Query(params): Query<CollectionDetailsParams>,
 ) -> Result<(StatusCode, CollectionDetails), AppError> {
-    match services::collections::details::get_collection_details(app_state.client, collection_id, params).await {
+    match services::collections::details::get_collection_details(app_state.tmdb_client, collection_id, params).await {
         Ok(response) => Ok((StatusCode::OK, response)),
         Err(app_error) => Err(app_error),
     }

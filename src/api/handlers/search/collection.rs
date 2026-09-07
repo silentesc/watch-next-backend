@@ -14,7 +14,7 @@ pub async fn search_collection(
     Extension(_): Extension<Session>,
     Query(params): Query<SearchCollectionParams>,
 ) -> Result<(StatusCode, SearchCollectionResponse), AppError> {
-    match services::search::collection::search_collection(app_state.client, params).await {
+    match services::search::collection::search_collection(app_state.tmdb_client, params).await {
         Ok(response) => Ok((StatusCode::OK, response)),
         Err(app_error) => Err(app_error),
     }

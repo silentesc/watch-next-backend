@@ -19,7 +19,7 @@ pub async fn get_movie_recommendations(
     Path(movie_id): Path<i32>,
     Query(params): Query<MovieRecommendationsParams>,
 ) -> Result<(StatusCode, MovieRecommendationsResponse), AppError> {
-    match services::movies::recommendations::get_movie_recommendations(app_state.client, movie_id, params).await {
+    match services::movies::recommendations::get_movie_recommendations(app_state.tmdb_client, movie_id, params).await {
         Ok(response) => Ok((StatusCode::OK, response)),
         Err(app_error) => Err(app_error),
     }

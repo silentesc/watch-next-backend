@@ -1,18 +1,13 @@
-use reqwest::Client;
-
 use crate::api::{
     errors::AppError,
     handlers::movies::params::MovieDetailsParams,
-    tmdb::{self, models::MovieDetails},
+    tmdb::{client::TmdbClient, models::MovieDetails},
 };
 
 pub async fn get_movie_details(
-    client: Client,
+    client: TmdbClient,
     movie_id: i32,
     params: MovieDetailsParams,
 ) -> Result<MovieDetails, AppError> {
-    match tmdb::movies::details::get_movie_details(client, movie_id, params).await {
-        Ok(response) => Ok(response),
-        Err(app_error) => Err(app_error),
-    }
+    client.get(format!("/movie/{}", movie_id).as_str(), &params).await
 }

@@ -14,7 +14,7 @@ pub async fn get_movie_genres(
     Extension(_): Extension<Session>,
     Query(params): Query<GenreMovieParams>,
 ) -> Result<(StatusCode, GenreMovieResponse), AppError> {
-    match services::genres::movie::get_movie_genres(app_state.client, params).await {
+    match services::genres::movie::get_movie_genres(app_state.tmdb_client, params).await {
         Ok(response) => Ok((StatusCode::OK, response)),
         Err(app_error) => Err(app_error),
     }

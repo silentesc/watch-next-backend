@@ -14,7 +14,7 @@ pub async fn search_movie(
     Extension(_): Extension<Session>,
     Query(params): Query<SearchMovieParams>,
 ) -> Result<(StatusCode, SearchMovieResponse), AppError> {
-    match services::search::movie::search_movie(app_state.client, params).await {
+    match services::search::movie::search_movie(app_state.tmdb_client, params).await {
         Ok(response) => Ok((StatusCode::OK, response)),
         Err(app_error) => Err(app_error),
     }

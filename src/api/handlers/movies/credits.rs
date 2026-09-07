@@ -19,7 +19,7 @@ pub async fn get_movie_credits(
     Path(movie_id): Path<i32>,
     Query(params): Query<MovieCreditsParams>,
 ) -> Result<(StatusCode, MovieCreditsResponse), AppError> {
-    match services::movies::credits::get_movie_credits(app_state.client, movie_id, params).await {
+    match services::movies::credits::get_movie_credits(app_state.tmdb_client, movie_id, params).await {
         Ok(response) => Ok((StatusCode::OK, response)),
         Err(app_error) => Err(app_error),
     }

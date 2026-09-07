@@ -19,7 +19,7 @@ pub async fn get_similar_movies(
     Path(movie_id): Path<i32>,
     Query(params): Query<SimilarMoviesParams>,
 ) -> Result<(StatusCode, SimilarMoviesResponse), AppError> {
-    match services::movies::similar::get_similar_movies(app_state.client, movie_id, params).await {
+    match services::movies::similar::get_similar_movies(app_state.tmdb_client, movie_id, params).await {
         Ok(response) => Ok((StatusCode::OK, response)),
         Err(app_error) => Err(app_error),
     }

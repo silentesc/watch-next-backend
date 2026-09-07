@@ -1,14 +1,13 @@
-use reqwest::Client;
-
 use crate::api::{
     errors::AppError,
     handlers::discover::params::DiscoverMovieParams,
-    tmdb::{self, discover::models::DiscoverMovieResponse},
+    tmdb::{client::TmdbClient, discover::models::DiscoverMovieResponse},
 };
 
-pub async fn discover(client: Client, params: DiscoverMovieParams) -> Result<DiscoverMovieResponse, AppError> {
-    match tmdb::discover::movie::discover(client, params).await {
-        Ok(response) => Ok(response),
-        Err(app_error) => Err(app_error),
-    }
+pub async fn discover(client: TmdbClient, params: DiscoverMovieParams) -> Result<DiscoverMovieResponse, AppError> {
+    let mut response: DiscoverMovieResponse = client.get("/discover/movie", &params).await?;
+
+    let mut seen_ids = std::collections::HashSet::new();
+    response.results.retain(|movie| seen_ids.insert(movie.id));
+    Ok(response)
 }
