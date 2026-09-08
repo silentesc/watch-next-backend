@@ -110,6 +110,10 @@ pub fn setup_router(app_state: AppState) -> Router {
             "/trending/movie/{time_window}",
             get(handlers::trending::movies::get_trending_movies),
         )
+        .route(
+            "/trending/tv/{time_window}",
+            get(handlers::trending::tv::get_trending_shows),
+        )
         .route("/search/movie", get(handlers::search::movie::search_movie))
         .route(
             "/search/collection",

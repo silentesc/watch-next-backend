@@ -30,7 +30,7 @@
   - 🔜 Trending
     - 🔜 All
     - ✅ Movie
-    - 🔜 TV Shows
+    - ✅ TV Shows
   - 🔜 Search
     - ✅ Collection
     - ✅ Movie
