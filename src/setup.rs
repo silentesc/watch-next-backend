@@ -121,6 +121,7 @@ pub fn setup_router(app_state: AppState) -> Router {
             get(handlers::search::collection::search_collection),
         )
         .route("/genre/movie/list", get(handlers::genres::movie::get_movie_genres))
+        .route("/genre/tv/list", get(handlers::genres::tv::get_tv_genres))
         .route(
             "/configuration/languages",
             get(handlers::configuration::languages::get_languages),

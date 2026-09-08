@@ -10,3 +10,8 @@ pub struct Genre {
 pub struct GenreMovieResponse {
     pub genres: Vec<Genre>,
 }
+
+#[derive(Deserialize, Serialize)]
+pub struct GenreTvResponse {
+    pub genres: Vec<Genre>,
+}
