@@ -115,6 +115,7 @@ pub fn setup_router(app_state: AppState) -> Router {
             get(handlers::trending::tv::get_trending_shows),
         )
         .route("/search/movie", get(handlers::search::movie::search_movie))
+        .route("/search/tv", get(handlers::search::tv::search_show))
         .route(
             "/search/collection",
             get(handlers::search::collection::search_collection),
