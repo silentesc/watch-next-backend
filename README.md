@@ -82,8 +82,6 @@
 
 ### Database
 
-> **NOTE:** `pgadmin` is completely optional if you want to directly look into the db
-
 ```yml
 services:
   postgres:
@@ -97,21 +95,7 @@ services:
       TZ: Etc/UTC
     volumes:
       - ./data/postgres:/var/lib/postgresql
-
-  pgadmin:
-    image: dpage/pgadmin4:latest
-    ports:
-      - 5050:80
-    environment:
-      # Required by pgAdmin
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: adminadmin
-
-      # Don't require the user to login
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
-
-      # Don't require a "master" password after logging in
-      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+    restart: unless-stopped
 ```
 
 ### Watch Next Backend
