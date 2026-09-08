@@ -102,7 +102,8 @@ services:
 
 #### .env file
 ```dotenv
-LOG_LEVEL="INFO" # TRACE, DEBUG, INFO, WARN, ERROR
+# TRACE, DEBUG, INFO, WARN, ERROR
+LOG_LEVEL="INFO"
 
 DATABASE_URL="postgres://my_postgres_user:strong_password@localhost/name_of_db"
 
@@ -111,6 +112,9 @@ CORS_ALLOWED_ORIGINS="http://localhost:5173,https://api.watch-next.mydomain.com"
 
 TMDB_API_KEY="abcdefghijklmnopqrstuvwxyz"
 
+# Must be at least 64 characters long
+# Changing key invalidates all active sessions, causing users to have to login again
+# Leaving it empty generates a secure, random, different one every startup
 COOKIE_KEY="long_secret_key"
 ```
 

@@ -1,4 +1,4 @@
-use std::{env, time::Duration};
+use std::{env::{self, VarError}, time::Duration};
 
 use axum::{
     Router,
@@ -65,7 +65,6 @@ pub fn setup_app_state(pool: PgPool) -> AppState {
     let tmdb_api_key = env::var("TMDB_API_KEY").expect("TMDB_API_KEY env variable should be set by dotenv");
     let auth_header_value = HeaderValue::from_str(format!("Bearer {}", tmdb_api_key).as_str())
         .expect("TMDB api key should be converted to HeaderValue");
-    let secret = env::var("COOKIE_KEY").expect("COOKIE_KEY env variable should be set by dotenv");
 
     let mut headers = HeaderMap::new();
     headers.append("Authorization", auth_header_value);
@@ -78,7 +77,16 @@ pub fn setup_app_state(pool: PgPool) -> AppState {
         .build()
         .expect("Reqwest client should be built");
 
-    let key = Key::from(secret.as_bytes());
+    let key = match env::var("COOKIE_KEY") {
+        Ok(secret) => Key::from(secret.as_bytes()),
+        Err(err) => {
+            if err != VarError::NotPresent {
+                panic!("COOKIE_KEY is set but something went wrong: {:#?}", err);
+            }
+            Key::generate()
+        }
+    };
+
     AppState {
         pool,
         tmdb_client: TmdbClient::new(client),
@@ -169,7 +177,7 @@ pub fn setup_router(app_state: AppState) -> Router {
 pub async fn setup_tcp_listener(addr: &str) -> TcpListener {
     TcpListener::bind(addr)
         .await
-        .unwrap_or_else(|err| panic!("Listener should bind to {}: {}", addr, err))
+        .unwrap_or_else(|err| panic!("Listener should bind to {}: {:#?}", addr, err))
 }
 
 pub async fn serve(listener: TcpListener, router: Router) {
