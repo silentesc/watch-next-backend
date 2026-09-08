@@ -54,7 +54,10 @@
     - ✅ Recommendations
     - ✅ Similar
   - 🔜 TV Shows
-    - 🔜 ...
+    - 🔜 Details
+    - 🔜 Credits
+    - 🔜 Recommendations
+    - 🔜 Similar
   - 🔜 TV Seasons
     - 🔜 ...
   - 🔜 TV Episodes
