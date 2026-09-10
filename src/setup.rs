@@ -168,6 +168,10 @@ pub fn setup_router(app_state: AppState) -> Router {
             get(handlers::tv_series::videos::get_series_videos),
         )
         .route(
+            "/tv/{series_id}/recommendations",
+            get(handlers::tv_series::recommendations::get_series_recommendations),
+        )
+        .route(
             "/collection/{collection_id}",
             get(handlers::collections::details::get_collection_details),
         )
