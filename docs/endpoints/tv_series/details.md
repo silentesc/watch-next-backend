@@ -21,9 +21,6 @@ tv/{series_id}
 
 > Keep in mind that everything except the id are declared to might be null or non existant (due to missing documentation on the TMDB API reference) to keep the endpoint stable (no random 500 errors)
 
-> [!NOTE]
-> `seasons`, `last_episode_to_air` and `next_episode_to_air` are not implemented yet
-
 ```json
 {
   "id": 1399,

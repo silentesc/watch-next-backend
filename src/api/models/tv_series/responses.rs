@@ -1,6 +1,10 @@
 use serde::{Deserialize, Serialize};
 
-use crate::api::models::{configuration::responses::Language, genres::responses::Genre};
+use crate::api::models::{
+    configuration::responses::Language,
+    genres::responses::Genre,
+    tv_seasons::responses::{TvEpisode, TvSeasonOverview},
+};
 
 #[derive(Deserialize, Serialize)]
 pub struct TvSeriesOverview {
@@ -39,10 +43,10 @@ pub struct TvSeriesDetails {
     pub production_countries: Option<Vec<TvSeriesProductionCountry>>,
     pub networks: Option<Vec<TvSeriesNetwork>>,
     pub created_by: Option<Vec<TvSeriesCrew>>,
-    // pub seasons: Option<?>, // TODO
+    pub seasons: Option<Vec<TvSeasonOverview>>,
     pub first_air_date: Option<String>,
-    // pub last_episode_to_air: Option<?>, // TODO
-    // pub next_episode_to_air: Option<?>, // TODO
+    pub last_episode_to_air: Option<TvEpisode>,
+    pub next_episode_to_air: Option<TvEpisode>,
     pub episode_run_time: Option<Vec<i64>>,
     pub number_of_episodes: Option<i64>,
     pub number_of_seasons: Option<i64>,
