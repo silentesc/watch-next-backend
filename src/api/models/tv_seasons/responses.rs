@@ -1,7 +1,5 @@
 use serde::{Deserialize, Serialize};
 
-use crate::api::models::tv_series::responses::TvSeriesCrew;
-
 #[derive(Deserialize, Serialize)]
 pub struct TvSeasonOverview {
     pub air_date: Option<String>,
@@ -42,8 +40,23 @@ pub struct TvEpisode {
     pub still_path: Option<String>,
     pub vote_average: Option<f32>,
     pub vote_count: Option<i64>,
-    pub crew: Option<Vec<TvSeriesCrew>>,
+    pub crew: Option<Vec<TvEpisodeCrew>>,
     pub guest_stars: Option<Vec<TvEpisodeGuestStar>>,
+}
+
+#[derive(Deserialize, Serialize)]
+pub struct TvEpisodeCrew {
+    pub adult: Option<bool>,
+    pub gender: Option<i32>,
+    pub id: u64,
+    pub known_for_department: Option<String>,
+    pub name: Option<String>,
+    pub original_name: Option<String>,
+    pub popularity: Option<f32>,
+    pub profile_path: Option<String>,
+    pub credit_id: Option<String>,
+    pub department: Option<String>,
+    pub job: Option<String>,
 }
 
 #[derive(Deserialize, Serialize)]

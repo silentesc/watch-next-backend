@@ -42,7 +42,7 @@ pub struct TvSeriesDetails {
     pub production_companies: Option<Vec<TvSeriesProductionCompany>>,
     pub production_countries: Option<Vec<TvSeriesProductionCountry>>,
     pub networks: Option<Vec<TvSeriesNetwork>>,
-    pub created_by: Option<Vec<TvSeriesCrew>>,
+    pub created_by: Option<Vec<TvSeriesCreators>>,
     pub seasons: Option<Vec<TvSeasonOverview>>,
     pub first_air_date: Option<String>,
     pub last_episode_to_air: Option<TvEpisode>,
@@ -83,18 +83,12 @@ pub struct TvSeriesProductionCountry {
 }
 
 #[derive(Deserialize, Serialize)]
-pub struct TvSeriesCrew {
-    pub adult: Option<bool>,
-    pub gender: Option<i32>,
+pub struct TvSeriesCreators {
     pub id: u64,
-    pub known_for_department: Option<String>,
-    pub name: Option<String>,
-    pub original_name: Option<String>,
-    pub popularity: Option<f32>,
-    pub profile_path: Option<String>,
     pub credit_id: Option<String>,
-    pub department: Option<String>,
-    pub job: Option<String>,
+    pub name: Option<String>,
+    pub gender: Option<i32>,
+    pub profile_path: Option<String>,
 }
 
 #[derive(Deserialize, Serialize)]
