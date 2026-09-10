@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 use crate::api::models::{configuration::responses::Language, genres::responses::Genre};
 
 #[derive(Deserialize, Serialize)]
-pub struct TvOverview {
+pub struct TvSeriesOverview {
     pub adult: Option<bool>,
     pub backdrop_path: Option<String>,
     pub poster_path: Option<String>,
@@ -20,7 +20,7 @@ pub struct TvOverview {
 }
 
 #[derive(Deserialize, Serialize)]
-pub struct TvDetails {
+pub struct TvSeriesDetails {
     pub id: u64,
     pub adult: Option<bool>,
     pub softcore: Option<bool>,

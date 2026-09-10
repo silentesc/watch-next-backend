@@ -1,7 +1,8 @@
 use serde::{Deserialize, Serialize};
 
 use crate::api::models::{
-    collections::responses::CollectionOverview, movies::responses::MovieOverview, tv_series::responses::TvOverview,
+    collections::responses::CollectionOverview, movies::responses::MovieOverview,
+    tv_series::responses::TvSeriesOverview,
 };
 
 #[derive(Deserialize, Serialize)]
@@ -17,7 +18,7 @@ pub struct SearchTvResponse {
     pub total_results: u64,
     pub total_pages: i32,
     pub page: i32,
-    pub results: Vec<TvOverview>,
+    pub results: Vec<TvSeriesOverview>,
 }
 
 #[derive(Deserialize, Serialize)]

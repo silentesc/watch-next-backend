@@ -8,7 +8,7 @@ use crate::{
     api::{
         db::models::Session,
         errors::AppError,
-        models::tv_series::{requests::TvDetailsParams, responses::TvDetails},
+        models::tv_series::{requests::TvSeriesDetailsParams, responses::TvSeriesDetails},
         services,
     },
     state::AppState,
@@ -19,8 +19,8 @@ pub async fn get_series_details(
     Extension(app_state): Extension<AppState>,
     Extension(_): Extension<Session>,
     Path(series_id): Path<i32>,
-    Query(params): Query<TvDetailsParams>,
-) -> Result<(StatusCode, Json<TvDetails>), AppError> {
+    Query(params): Query<TvSeriesDetailsParams>,
+) -> Result<(StatusCode, Json<TvSeriesDetails>), AppError> {
     match services::tv_series::details::get_series_details(app_state.tmdb_client, series_id, params).await {
         Ok(response) => Ok((StatusCode::OK, Json(response))),
         Err(app_error) => Err(app_error),
