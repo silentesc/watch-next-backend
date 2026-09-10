@@ -11,7 +11,7 @@ pub struct TrendingMoviesResponse {
 }
 
 #[derive(Deserialize, Serialize)]
-pub struct TrendingShowsResponse {
+pub struct TrendingSeriesResponse {
     pub total_results: u64,
     pub total_pages: i32,
     pub page: i32,

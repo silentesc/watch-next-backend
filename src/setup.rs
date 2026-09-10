@@ -123,10 +123,10 @@ pub fn setup_router(app_state: AppState) -> Router {
         )
         .route(
             "/trending/tv/{time_window}",
-            get(handlers::trending::tv::get_trending_shows),
+            get(handlers::trending::tv::get_trending_series),
         )
         .route("/search/movie", get(handlers::search::movie::search_movie))
-        .route("/search/tv", get(handlers::search::tv::search_show))
+        .route("/search/tv", get(handlers::search::tv::search_series))
         .route(
             "/search/collection",
             get(handlers::search::collection::search_collection),
@@ -158,7 +158,7 @@ pub fn setup_router(app_state: AppState) -> Router {
             "/movie/{movie_id}/similar",
             get(handlers::movies::similar::get_similar_movies),
         )
-        .route("/tv/{show_id}", get(handlers::tv::details::get_show_details))
+        .route("/tv/{series_id}", get(handlers::tv::details::get_series_details))
         .route(
             "/collection/{collection_id}",
             get(handlers::collections::details::get_collection_details),

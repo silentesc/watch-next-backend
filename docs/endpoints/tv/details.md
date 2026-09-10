@@ -1,15 +1,15 @@
-# TV Show Details Endpoint
+# TV Series Details Endpoint
 
 ### Endpoint
 
 ```
-tv/{show_id}
+tv/{series_id}
 ```
 
 ### Path Params
 | Optional | Param | Type | Example | Description |
 | --- | --- | --- | --- | --- |
-| ❌ | `show_id` | `i32` | `1234` | |
+| ❌ | `series_id` | `i32` | `1234` | |
 
 ### Query Params
 

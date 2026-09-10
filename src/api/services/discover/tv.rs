@@ -8,6 +8,6 @@ pub async fn discover(client: TmdbClient, params: DiscoverTvParams) -> Result<Di
     let mut response: DiscoverTvResponse = client.get("/discover/tv", &params).await?;
 
     let mut seen_ids = std::collections::HashSet::new();
-    response.results.retain(|show| seen_ids.insert(show.id));
+    response.results.retain(|series| seen_ids.insert(series.id));
     Ok(response)
 }

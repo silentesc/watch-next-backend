@@ -1,4 +1,4 @@
-# Trending TV Shows Endpoint
+# Trending TV Series Endpoint
 
 ### Endpoint
 

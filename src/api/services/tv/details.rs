@@ -4,10 +4,10 @@ use crate::api::{
     tmdb::client::TmdbClient,
 };
 
-pub async fn get_show_details(
+pub async fn get_series_details(
     client: TmdbClient,
-    show_id: i32,
+    series_id: i32,
     params: TvDetailsParams,
 ) -> Result<TvDetails, AppError> {
-    client.get(format!("/tv/{}", show_id).as_str(), &params).await
+    client.get(format!("/tv/{}", series_id).as_str(), &params).await
 }

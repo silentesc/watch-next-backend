@@ -51,7 +51,7 @@ pub struct TvDetails {
     pub status: Option<String>,
     pub tagline: Option<String>,
     #[serde(rename = "type")]
-    pub show_type: Option<String>,
+    pub series_type: Option<String>,
     pub vote_average: Option<f32>,
     pub vote_count: Option<i64>,
 }

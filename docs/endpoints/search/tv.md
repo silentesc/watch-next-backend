@@ -1,4 +1,4 @@
-# Search TV Shows Endpoint
+# Search TV Series Endpoint
 
 ### Endpoint
 
@@ -14,7 +14,7 @@
 | ✅ | `page` | `i32` | `1` | Defaults to `1` |
 | ✅ | `include_adult` | `bool` | `true` | Defaults to `false` |
 | ✅ | `language` | `String` | `de-DE` | Defaults to `en-US` |
-| ✅ | `first_air_date_year` | `i32` | `2025` | The year the show was released |
+| ✅ | `first_air_date_year` | `i32` | `2025` | The year the series was released |
 | ✅ | `year` | `i32` | `2025` | Broader year spectrum, not tied to release year. (e.g. production year) |
 
 ### Example Response

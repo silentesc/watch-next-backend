@@ -20,26 +20,26 @@
 
 - **Planned features**
   - 🔜 Lists (e.g. Plan to Watch, Watching, Completed)
-  - 🔜 Custom Tags per movie/show (e.g. must-watch)
+  - 🔜 Custom Tags per movie/series (e.g. must-watch)
   - 🔜 Auto updating data in db
   - 🔜 Caching
 - **Planned endpoints**
   - ✅ Discover
     - ✅ Movie
-    - ✅ TV Shows
+    - ✅ TV Series
   - 🔜 Trending
     - 🔜 All
     - ✅ Movie
-    - ✅ TV Shows
+    - ✅ TV Series
   - 🔜 Search
     - ✅ Collection
     - ✅ Movie
     - 🔜 Multi
     - 🔜 Person
-    - ✅ TV Shows
+    - ✅ TV Series
   - ✅ Genres
     - ✅ Movies
-    - ✅ TV Shows
+    - ✅ TV Series
   - ✅ Languages
   - 🔜 People
     - 🔜 Details
@@ -53,7 +53,7 @@
     - ✅ Videos
     - ✅ Recommendations
     - ✅ Similar
-  - 🔜 TV Shows
+  - 🔜 TV Series
     - 🔜 Details
     - 🔜 Credits
     - 🔜 Recommendations
