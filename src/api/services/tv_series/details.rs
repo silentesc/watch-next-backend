@@ -1,6 +1,6 @@
 use crate::api::{
     errors::AppError,
-    models::tv::{requests::TvDetailsParams, responses::TvDetails},
+    models::tv_series::{requests::TvDetailsParams, responses::TvDetails},
     tmdb::client::TmdbClient,
 };
 

@@ -158,7 +158,7 @@ pub fn setup_router(app_state: AppState) -> Router {
             "/movie/{movie_id}/similar",
             get(handlers::movies::similar::get_similar_movies),
         )
-        .route("/tv/{series_id}", get(handlers::tv::details::get_series_details))
+        .route("/tv/{series_id}", get(handlers::tv_series::details::get_series_details))
         .route(
             "/collection/{collection_id}",
             get(handlers::collections::details::get_collection_details),

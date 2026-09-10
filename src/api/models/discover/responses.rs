@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::api::models::{movies::responses::MovieOverview, tv::responses::TvOverview};
+use crate::api::models::{movies::responses::MovieOverview, tv_series::responses::TvOverview};
 
 #[derive(Deserialize, Serialize)]
 pub struct DiscoverMovieResponse {

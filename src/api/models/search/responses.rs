@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 use crate::api::models::{
-    collections::responses::CollectionOverview, movies::responses::MovieOverview, tv::responses::TvOverview,
+    collections::responses::CollectionOverview, movies::responses::MovieOverview, tv_series::responses::TvOverview,
 };
 
 #[derive(Deserialize, Serialize)]
