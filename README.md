@@ -55,7 +55,7 @@
     - ✅ Videos
     - ✅ Recommendations
     - ✅ Similar
-  - 🔜 TV Series
+  - ✅ TV Series
     - ✅ Details
     - ✅ Videos
     - ✅ Recommendations
