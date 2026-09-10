@@ -38,8 +38,8 @@ pub struct MovieDetails {
     pub original_title: Option<String>,
     pub overview: Option<String>,
     pub popularity: Option<f32>,
-    pub production_companies: Option<Vec<ProductionCompany>>,
-    pub production_countries: Option<Vec<ProductionCountry>>,
+    pub production_companies: Option<Vec<MovieProductionCompany>>,
+    pub production_countries: Option<Vec<MovieProductionCountry>>,
     pub release_date: Option<String>,
     pub revenue: Option<i64>,
     pub runtime: Option<i64>,
@@ -53,7 +53,7 @@ pub struct MovieDetails {
 }
 
 #[derive(Deserialize, Serialize)]
-pub struct ProductionCompany {
+pub struct MovieProductionCompany {
     pub id: u64,
     pub name: Option<String>,
     pub origin_country: Option<String>,
@@ -61,13 +61,13 @@ pub struct ProductionCompany {
 }
 
 #[derive(Deserialize, Serialize)]
-pub struct ProductionCountry {
+pub struct MovieProductionCountry {
     pub name: String,
     pub iso_3166_1: String,
 }
 
 #[derive(Deserialize, Serialize)]
-pub struct ReleaseDate {
+pub struct MovieReleaseDate {
     #[serde(rename = "type")]
     pub release_type: i32,
     pub release_date: String,
@@ -80,11 +80,11 @@ pub struct ReleaseDate {
 #[derive(Deserialize, Serialize)]
 pub struct ReleaseDates {
     pub iso_3166_1: String,
-    pub release_dates: Vec<ReleaseDate>,
+    pub release_dates: Vec<MovieReleaseDate>,
 }
 
 #[derive(Deserialize, Serialize)]
-pub struct Cast {
+pub struct MovieCast {
     pub adult: Option<bool>,
     pub gender: Option<i32>,
     pub id: u64,
@@ -100,7 +100,7 @@ pub struct Cast {
 }
 
 #[derive(Deserialize, Serialize)]
-pub struct Crew {
+pub struct MovieCrew {
     pub adult: Option<bool>,
     pub gender: Option<i32>,
     pub id: u64,
@@ -115,7 +115,7 @@ pub struct Crew {
 }
 
 #[derive(Deserialize, Serialize)]
-pub struct Video {
+pub struct MovieVideo {
     #[serde(rename = "iso_639_1")]
     pub language: Option<String>,
     #[serde(rename = "iso_3166_1")]
@@ -140,14 +140,14 @@ pub struct MovieReleaseDatesResponse {
 #[derive(Deserialize, Serialize)]
 pub struct MovieCreditsResponse {
     pub id: u64,
-    pub cast: Vec<Cast>,
-    pub crew: Vec<Crew>,
+    pub cast: Vec<MovieCast>,
+    pub crew: Vec<MovieCrew>,
 }
 
 #[derive(Deserialize, Serialize)]
 pub struct MovieVideosResponse {
     pub id: u64,
-    pub results: Vec<Video>,
+    pub results: Vec<MovieVideo>,
 }
 
 #[derive(Deserialize, Serialize)]
