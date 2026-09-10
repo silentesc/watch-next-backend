@@ -164,6 +164,10 @@ pub fn setup_router(app_state: AppState) -> Router {
             get(handlers::tv_seasons::details::get_season_details),
         )
         .route(
+            "/tv/{series_id}/videos",
+            get(handlers::tv_series::videos::get_series_videos),
+        )
+        .route(
             "/collection/{collection_id}",
             get(handlers::collections::details::get_collection_details),
         )

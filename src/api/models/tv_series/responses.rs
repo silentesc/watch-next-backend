@@ -96,3 +96,25 @@ pub struct TvSeriesCrew {
     pub department: Option<String>,
     pub job: Option<String>,
 }
+
+#[derive(Deserialize, Serialize)]
+pub struct TvSeriesVideo {
+    #[serde(rename = "iso_639_1")]
+    pub language: Option<String>,
+    #[serde(rename = "iso_3166_1")]
+    pub name: Option<String>,
+    pub key: Option<String>,
+    pub site: Option<String>,
+    pub size: Option<i32>,
+    #[serde(rename = "type")]
+    pub video_type: Option<String>,
+    pub official: Option<bool>,
+    pub published_at: Option<String>,
+    pub id: String,
+}
+
+#[derive(Deserialize, Serialize)]
+pub struct TvSeriesVideosResponse {
+    pub id: u64,
+    pub results: Vec<TvSeriesVideo>,
+}
