@@ -15,3 +15,9 @@ pub struct TvSeriesRecommendationsParams {
     pub language: Option<String>,
     pub page: Option<i32>,
 }
+
+#[derive(Deserialize, Serialize)]
+pub struct SimilarTvSeriesParams {
+    pub language: Option<String>,
+    pub page: Option<i32>,
+}

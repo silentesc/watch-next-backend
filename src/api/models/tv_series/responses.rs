@@ -120,3 +120,11 @@ pub struct TvSeriesRecommendationsResponse {
     pub page: i32,
     pub results: Vec<TvSeriesOverview>,
 }
+
+#[derive(Deserialize, Serialize)]
+pub struct SimilarTvSeriesResponse {
+    pub total_results: u64,
+    pub total_pages: i32,
+    pub page: i32,
+    pub results: Vec<TvSeriesOverview>,
+}
