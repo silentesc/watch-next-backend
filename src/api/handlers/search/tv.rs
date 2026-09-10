@@ -11,12 +11,12 @@ use crate::{
 };
 
 #[axum::debug_handler]
-pub async fn search_show(
+pub async fn search_series(
     Extension(app_state): Extension<AppState>,
     Extension(_): Extension<Session>,
     Query(params): Query<SearchTvParams>,
 ) -> Result<(StatusCode, Json<SearchTvResponse>), AppError> {
-    match services::search::tv::search_show(app_state.tmdb_client, params).await {
+    match services::search::tv::search_series(app_state.tmdb_client, params).await {
         Ok(response) => Ok((StatusCode::OK, Json(response))),
         Err(app_error) => Err(app_error),
     }

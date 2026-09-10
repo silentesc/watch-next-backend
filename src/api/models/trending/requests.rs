@@ -7,7 +7,7 @@ pub struct TrendingMoviesParams {
 }
 
 #[derive(Deserialize, Serialize)]
-pub struct TrendingShowsParams {
+pub struct TrendingSeriesParams {
     pub page: Option<i32>,
     pub language: Option<String>,
 }

@@ -7,3 +7,5 @@ pub mod me;
 pub mod movies;
 pub mod search;
 pub mod trending;
+pub mod tv_seasons;
+pub mod tv_series;

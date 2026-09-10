@@ -1,4 +1,4 @@
-# Discover TV Shows Endpoint
+# Discover TV Series Endpoint
 
 ### Endpoint
 
@@ -63,7 +63,7 @@
       ],
       "original_language": "en",
       "original_name": "Reacher",
-      "overview": "Description of the show.",
+      "overview": "Description of the series.",
       "popularity": 584.2322,
       "poster_path": "/f1VCQIG2iCyOookdgOzwtUpwWC0.jpg",
       "first_air_date": "2022-02-03",

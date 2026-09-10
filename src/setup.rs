@@ -1,4 +1,7 @@
-use std::{env::{self, VarError}, time::Duration};
+use std::{
+    env::{self, VarError},
+    time::Duration,
+};
 
 use axum::{
     Router,
@@ -120,10 +123,10 @@ pub fn setup_router(app_state: AppState) -> Router {
         )
         .route(
             "/trending/tv/{time_window}",
-            get(handlers::trending::tv::get_trending_shows),
+            get(handlers::trending::tv::get_trending_series),
         )
         .route("/search/movie", get(handlers::search::movie::search_movie))
-        .route("/search/tv", get(handlers::search::tv::search_show))
+        .route("/search/tv", get(handlers::search::tv::search_series))
         .route(
             "/search/collection",
             get(handlers::search::collection::search_collection),
@@ -154,6 +157,11 @@ pub fn setup_router(app_state: AppState) -> Router {
         .route(
             "/movie/{movie_id}/similar",
             get(handlers::movies::similar::get_similar_movies),
+        )
+        .route("/tv/{series_id}", get(handlers::tv_series::details::get_series_details))
+        .route(
+            "/tv/{series_id}/season/{season_id}",
+            get(handlers::tv_seasons::details::get_season_details),
         )
         .route(
             "/collection/{collection_id}",

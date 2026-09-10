@@ -1,19 +1,19 @@
 use crate::api::{
     errors::AppError,
-    models::trending::{requests::TrendingShowsParams, responses::TrendingShowsResponse},
+    models::trending::{requests::TrendingSeriesParams, responses::TrendingSeriesResponse},
     tmdb::client::TmdbClient,
 };
 
-pub async fn get_trending_shows(
+pub async fn get_trending_series(
     client: TmdbClient,
     time_window: String,
-    params: TrendingShowsParams,
-) -> Result<TrendingShowsResponse, AppError> {
-    let mut response: TrendingShowsResponse = client
+    params: TrendingSeriesParams,
+) -> Result<TrendingSeriesResponse, AppError> {
+    let mut response: TrendingSeriesResponse = client
         .get(format!("/trending/tv/{time_window}").as_str(), &params)
         .await?;
 
     let mut seen_ids = std::collections::HashSet::new();
-    response.results.retain(|show| seen_ids.insert(show.id));
+    response.results.retain(|series| seen_ids.insert(series.id));
     Ok(response)
 }
