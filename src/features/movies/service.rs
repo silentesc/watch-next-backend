@@ -1,8 +1,10 @@
-use std::collections::HashSet;
-
 use crate::{
     app::errors::AppError,
-    features::movies::{dto::*, repository},
+    features::movies::dto::{
+        MovieCreditsParams, MovieCreditsResponse, MovieDetails, MovieDetailsParams, MovieRecommendationsParams,
+        MovieRecommendationsResponse, MovieReleaseDatesResponse, MovieVideosParams, MovieVideosResponse,
+        SimilarMoviesParams, SimilarMoviesResponse,
+    },
     integrations::tmdb::client::TmdbClient,
 };
 
@@ -11,7 +13,7 @@ pub async fn get_details(
     movie_id: i32,
     params: &MovieDetailsParams,
 ) -> Result<MovieDetails, AppError> {
-    repository::get_details(client, movie_id, params).await
+    client.get(format!("/movie/{movie_id}").as_str(), params).await
 }
 
 pub async fn get_credits(
@@ -19,7 +21,7 @@ pub async fn get_credits(
     movie_id: i32,
     params: &MovieCreditsParams,
 ) -> Result<MovieCreditsResponse, AppError> {
-    repository::get_credits(client, movie_id, params).await
+    client.get(format!("/movie/{movie_id}/credits").as_str(), params).await
 }
 
 pub async fn get_recommendations(
@@ -27,14 +29,15 @@ pub async fn get_recommendations(
     movie_id: i32,
     params: &MovieRecommendationsParams,
 ) -> Result<MovieRecommendationsResponse, AppError> {
-    let mut response = repository::get_recommendations(client, movie_id, params).await?;
-    let mut seen_ids = HashSet::new();
-    response.results.retain(|movie| seen_ids.insert(movie.id));
-    Ok(response)
+    client
+        .get(format!("/movie/{movie_id}/recommendations").as_str(), params)
+        .await
 }
 
 pub async fn get_release_dates(client: &TmdbClient, movie_id: i32) -> Result<MovieReleaseDatesResponse, AppError> {
-    repository::get_release_dates(client, movie_id).await
+    client
+        .get(format!("/movie/{movie_id}/release_dates").as_str(), &())
+        .await
 }
 
 pub async fn get_similar(
@@ -42,10 +45,7 @@ pub async fn get_similar(
     movie_id: i32,
     params: &SimilarMoviesParams,
 ) -> Result<SimilarMoviesResponse, AppError> {
-    let mut response = repository::get_similar(client, movie_id, params).await?;
-    let mut seen_ids = HashSet::new();
-    response.results.retain(|movie| seen_ids.insert(movie.id));
-    Ok(response)
+    client.get(format!("/movie/{movie_id}/similar").as_str(), params).await
 }
 
 pub async fn get_videos(
@@ -53,5 +53,5 @@ pub async fn get_videos(
     movie_id: i32,
     params: &MovieVideosParams,
 ) -> Result<MovieVideosResponse, AppError> {
-    repository::get_videos(client, movie_id, params).await
+    client.get(format!("/movie/{movie_id}/videos").as_str(), params).await
 }
