@@ -2,7 +2,7 @@ use axum::{Extension, Json, http::StatusCode};
 
 use crate::{
     app::{errors::AppError, state::AppState},
-    features::configuration::dto::Language,
+    integrations::tmdb::models::common::Language,
     persistence::models::Session,
 };
 
@@ -11,7 +11,7 @@ pub async fn get_languages(
     Extension(app_state): Extension<AppState>,
     Extension(_): Extension<Session>,
 ) -> Result<(StatusCode, Json<Vec<Language>>), AppError> {
-    match crate::features::configuration::service::get_languages(app_state.tmdb_client).await {
+    match crate::features::configuration::service::get_languages(app_state.tmdb).await {
         Ok(response) => Ok((StatusCode::OK, Json(response))),
         Err(app_error) => Err(app_error),
     }

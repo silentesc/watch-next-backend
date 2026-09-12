@@ -2,66 +2,27 @@
 
 ## Endpoints
 
-#### Endpoints are based on the [TMDB API](https://developer.themoviedb.org/reference).
+### TMDB Endpoints
+
+Necessary TMDB endpoints are implemented and can be used exactly like the original endpoints.
 
 | Category | Endpoints |
 | --- | --- |
-| Discover | <ul><li>[Movie](docs/endpoints/discover/movie.md)</li><li>[TV](docs/endpoints/discover/tv.md)</li></ul> |
-| Trending | <ul><li>[Movies](docs/endpoints/trending/movies.md)</li><li>[TV](docs/endpoints/trending/tv.md)</li></ul> |
-| Search | <ul><li>[Movie](docs/endpoints/search/movie.md)</li><li>[TV](docs/endpoints/search/tv.md)</li><li>[Collection](docs/endpoints/search/collection.md)</li></ul> |
-| Genre | <ul><li>[Movie](docs/endpoints/genre/movie.md)</li><li>[TV](docs/endpoints/genre/tv.md)</li></ul> |
-| Configuration | <ul><li>[Languages](docs/endpoints/configuration/languages.md)</li></ul> |
-| Movies | <ul><li>[Details](docs/endpoints/movies/details.md)</li><li>[Release Dates](docs/endpoints/movies/release_dates.md)</li><li>[Credits](docs/endpoints/movies/credits.md)</li><li>[Videos](docs/endpoints/movies/videos.md)</li><li>[Recommendations](docs/endpoints/movies/recommendations.md)</li><li>[Similar](docs/endpoints/movies/similar.md)</li></ul> |
-| TV Series | <ul><li>[Details](docs/endpoints/tv_series/details.md)</li><li>[Videos](docs/endpoints/tv_series/videos.md)</li><li>[Recommendations](docs/endpoints/tv_series/recommendations.md)</li><li>[Similar](docs/endpoints/tv_series/similar.md)</li></ul> |
-| TV Seasons | <ul><li>[Details](docs/endpoints/tv_seasons/details.md)</li></ul> |
-| Collections | <ul><li>[Details](docs/endpoints/collections/details.md)</li></ul> |
+| Genre | <ul><li>[Movie](https://developer.themoviedb.org/reference/genre-movie-list)</li><li>[TV](https://developer.themoviedb.org/reference/genre-tv-list)</li></ul> |
+| Configuration | <ul><li>[Languages](https://developer.themoviedb.org/reference/configuration-languages)</li></ul> |
+| Movies | <ul><li>[Details](https://developer.themoviedb.org/reference/movie-details)</li><li>[Release Dates](https://developer.themoviedb.org/reference/movie-release-dates)</li><li>[Credits](https://developer.themoviedb.org/reference/movie-credits)</li><li>[Videos](https://developer.themoviedb.org/reference/movie-videos)</li><li>[Recommendations](https://developer.themoviedb.org/reference/movie-recommendations)</li><li>[Similar](https://developer.themoviedb.org/reference/movie-similar)</li><li>[Discover](https://developer.themoviedb.org/reference/discover-movie)</li><li>[Trending](https://developer.themoviedb.org/reference/trending-movies)</li><li>[Search](https://developer.themoviedb.org/reference/search-movie)</li></ul> |
+| TV Series | <ul><li>[Details](https://developer.themoviedb.org/reference/tv-series-details)</li><li>[Videos](https://developer.themoviedb.org/reference/tv-series-videos)</li><li>[Recommendations](https://developer.themoviedb.org/reference/tv-series-recommendations)</li><li>[Similar](https://developer.themoviedb.org/reference/tv-series-similar)</li><li>[Discover](https://developer.themoviedb.org/reference/discover-tv)</li><li>[Trending](https://developer.themoviedb.org/reference/trending-tv)</li><li>[Search](https://developer.themoviedb.org/reference/search-tv)</li></ul> |
+| TV Seasons | <ul><li>[Details](https://developer.themoviedb.org/reference/tv-season-details)</li></ul> |
+| Collections | <ul><li>[Details](https://developer.themoviedb.org/reference/collection-details)</li><li>[Search](https://developer.themoviedb.org/reference/search-collection)</li></ul> |
 
 ## Roadmap
 
 ### **v1.0** (current)
 
-- **Planned features**
   - 🔜 Lists (e.g. Plan to Watch, Watching, Completed)
   - 🔜 Custom Tags per movie/series (e.g. must-watch)
   - 🔜 Auto updating data in db
   - 🔜 Caching
-- **Planned endpoints**
-  - ✅ Discover
-    - ✅ Movie
-    - ✅ TV Series
-  - 🔜 Trending
-    - 🔜 All
-    - ✅ Movie
-    - ✅ TV Series
-  - 🔜 Search
-    - ✅ Collection
-    - ✅ Movie
-    - 🔜 Multi
-    - 🔜 Person
-    - ✅ TV Series
-  - ✅ Genres
-    - ✅ Movies
-    - ✅ TV Series
-  - ✅ Languages
-  - 🔜 People
-    - 🔜 Details
-    - 🔜 Combined Credits
-  - ✅ Collections
-    - ✅ Details
-  - ✅ Movies
-    - ✅ Details
-    - ✅ Release Dates
-    - ✅ Credits
-    - ✅ Videos
-    - ✅ Recommendations
-    - ✅ Similar
-  - ✅ TV Series
-    - ✅ Details
-    - ✅ Videos
-    - ✅ Recommendations
-    - ✅ Similar
-  - ✅ TV Seasons
-    - ✅ Details
 
 ### **v1.1** (next)
 

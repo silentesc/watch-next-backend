@@ -2,9 +2,9 @@ use axum::{Extension, Json, extract::Query, http::StatusCode};
 
 use crate::{
     app::{errors::AppError, state::AppState},
-    features::genres::{
-        dto::{GenreMovieParams, GenreMovieResponse, GenreTvParams, GenreTvResponse},
-        service,
+    features::genres::service,
+    integrations::tmdb::resources::genres::dto::{
+        GenreMovieListParams, GenreMovieListResponse, GenreTvListParams, GenreTvListResponse,
     },
     persistence::models::Session,
 };
@@ -13,9 +13,9 @@ use crate::{
 pub async fn get_movie_genres(
     Extension(app_state): Extension<AppState>,
     Extension(_): Extension<Session>,
-    Query(params): Query<GenreMovieParams>,
-) -> Result<(StatusCode, Json<GenreMovieResponse>), AppError> {
-    match service::get_movie_genres(app_state.tmdb_client, params).await {
+    Query(params): Query<GenreMovieListParams>,
+) -> Result<(StatusCode, Json<GenreMovieListResponse>), AppError> {
+    match service::get_movie_genres(app_state.tmdb, params).await {
         Ok(response) => Ok((StatusCode::OK, Json(response))),
         Err(app_error) => Err(app_error),
     }
@@ -25,9 +25,9 @@ pub async fn get_movie_genres(
 pub async fn get_tv_genres(
     Extension(app_state): Extension<AppState>,
     Extension(_): Extension<Session>,
-    Query(params): Query<GenreTvParams>,
-) -> Result<(StatusCode, Json<GenreTvResponse>), AppError> {
-    match service::get_tv_genres(app_state.tmdb_client, params).await {
+    Query(params): Query<GenreTvListParams>,
+) -> Result<(StatusCode, Json<GenreTvListResponse>), AppError> {
+    match service::get_tv_genres(app_state.tmdb, params).await {
         Ok(response) => Ok((StatusCode::OK, Json(response))),
         Err(app_error) => Err(app_error),
     }

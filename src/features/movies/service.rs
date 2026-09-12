@@ -1,57 +1,85 @@
-use std::collections::HashSet;
-
 use crate::{
     app::errors::AppError,
-    features::movies::{dto::*, repository},
-    integrations::tmdb::client::TmdbClient,
+    integrations::tmdb::{
+        TmdbApi,
+        models::common::TimeWindow,
+        models::movies::MovieDetails,
+        resources::movies::dto::{
+            DiscoverMovieParams, DiscoverMovieResponse, MovieCreditsParams, MovieCreditsResponse, MovieDetailsParams,
+            MovieRecommendationsParams, MovieRecommendationsResponse, MovieReleaseDatesResponse, MovieVideosParams,
+            MovieVideosResponse, SearchMoviesParams, SearchMoviesResponse, SimilarMoviesParams, SimilarMoviesResponse,
+            TrendingMoviesParams, TrendingMoviesResponse,
+        },
+    },
 };
 
-pub async fn get_details(
-    client: &TmdbClient,
-    movie_id: i32,
-    params: &MovieDetailsParams,
-) -> Result<MovieDetails, AppError> {
-    repository::get_details(client, movie_id, params).await
+pub async fn get_details(tmdb: TmdbApi, movie_id: i32, params: MovieDetailsParams) -> Result<MovieDetails, AppError> {
+    tmdb.movies().details(movie_id, params).await.map_err(Into::into)
+}
+
+pub async fn discover_movies(tmdb: TmdbApi, params: DiscoverMovieParams) -> Result<DiscoverMovieResponse, AppError> {
+    let mut response: DiscoverMovieResponse = tmdb.movies().discover(params).await?;
+    let mut seen_ids = std::collections::HashSet::new();
+    response.results.retain(|movie| seen_ids.insert(movie.id));
+    Ok(response)
+}
+
+pub async fn get_trending_movies(
+    tmdb: TmdbApi,
+    time_window: String,
+    params: TrendingMoviesParams,
+) -> Result<TrendingMoviesResponse, AppError> {
+    let mut response: TrendingMoviesResponse = tmdb
+        .movies()
+        .trending(TimeWindow::from_str(&time_window), params)
+        .await?;
+    let mut seen_ids = std::collections::HashSet::new();
+    response.results.retain(|movie| seen_ids.insert(movie.id));
+    Ok(response)
+}
+
+pub async fn search_movie(tmdb: TmdbApi, params: SearchMoviesParams) -> Result<SearchMoviesResponse, AppError> {
+    let mut response: SearchMoviesResponse = tmdb.movies().search(params).await?;
+    let mut seen_ids = std::collections::HashSet::new();
+    response.results.retain(|movie| seen_ids.insert(movie.id));
+    Ok(response)
 }
 
 pub async fn get_credits(
-    client: &TmdbClient,
+    tmdb: TmdbApi,
     movie_id: i32,
-    params: &MovieCreditsParams,
+    params: MovieCreditsParams,
 ) -> Result<MovieCreditsResponse, AppError> {
-    repository::get_credits(client, movie_id, params).await
+    tmdb.movies().credits(movie_id, params).await.map_err(Into::into)
 }
 
 pub async fn get_recommendations(
-    client: &TmdbClient,
+    tmdb: TmdbApi,
     movie_id: i32,
-    params: &MovieRecommendationsParams,
+    params: MovieRecommendationsParams,
 ) -> Result<MovieRecommendationsResponse, AppError> {
-    let mut response = repository::get_recommendations(client, movie_id, params).await?;
-    let mut seen_ids = HashSet::new();
-    response.results.retain(|movie| seen_ids.insert(movie.id));
-    Ok(response)
+    tmdb.movies()
+        .recommendations(movie_id, params)
+        .await
+        .map_err(Into::into)
 }
 
-pub async fn get_release_dates(client: &TmdbClient, movie_id: i32) -> Result<MovieReleaseDatesResponse, AppError> {
-    repository::get_release_dates(client, movie_id).await
+pub async fn get_release_dates(tmdb: TmdbApi, movie_id: i32) -> Result<MovieReleaseDatesResponse, AppError> {
+    tmdb.movies().release_dates(movie_id).await.map_err(Into::into)
 }
 
 pub async fn get_similar(
-    client: &TmdbClient,
+    tmdb: TmdbApi,
     movie_id: i32,
-    params: &SimilarMoviesParams,
+    params: SimilarMoviesParams,
 ) -> Result<SimilarMoviesResponse, AppError> {
-    let mut response = repository::get_similar(client, movie_id, params).await?;
-    let mut seen_ids = HashSet::new();
-    response.results.retain(|movie| seen_ids.insert(movie.id));
-    Ok(response)
+    tmdb.movies().similar(movie_id, params).await.map_err(Into::into)
 }
 
 pub async fn get_videos(
-    client: &TmdbClient,
+    tmdb: TmdbApi,
     movie_id: i32,
-    params: &MovieVideosParams,
+    params: MovieVideosParams,
 ) -> Result<MovieVideosResponse, AppError> {
-    repository::get_videos(client, movie_id, params).await
+    tmdb.movies().videos(movie_id, params).await.map_err(Into::into)
 }

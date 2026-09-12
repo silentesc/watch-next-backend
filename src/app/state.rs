@@ -2,12 +2,12 @@ use axum::extract::FromRef;
 use axum_extra::extract::cookie::Key;
 use sqlx::PgPool;
 
-use crate::integrations::tmdb::client::TmdbClient;
+use crate::integrations::tmdb::TmdbApi;
 
 #[derive(Clone)]
 pub struct AppState {
     pub pool: PgPool,
-    pub tmdb_client: TmdbClient,
+    pub tmdb: TmdbApi,
     pub key: Key,
 }
 

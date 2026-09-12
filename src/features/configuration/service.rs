@@ -1,5 +1,8 @@
-use crate::{app::errors::AppError, features::configuration::dto::Language, integrations::tmdb::client::TmdbClient};
+use crate::{
+    app::errors::AppError,
+    integrations::tmdb::{TmdbApi, models::common::Language},
+};
 
-pub async fn get_languages(client: TmdbClient) -> Result<Vec<Language>, AppError> {
-    client.get("/configuration/languages", &()).await
+pub async fn get_languages(tmdb: TmdbApi) -> Result<Vec<Language>, AppError> {
+    tmdb.configuration().languages().await.map_err(Into::into)
 }
