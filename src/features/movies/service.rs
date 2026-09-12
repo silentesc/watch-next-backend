@@ -1,71 +1,55 @@
 use crate::{
     app::errors::AppError,
-    features::movies::dto::{
-        MovieCreditsParams, MovieCreditsResponse, MovieDetails, MovieDetailsParams, MovieRecommendationsParams,
-        MovieRecommendationsResponse, MovieReleaseDatesResponse, MovieVideosParams, MovieVideosResponse,
-        SimilarMoviesParams, SimilarMoviesResponse,
+    integrations::tmdb::{
+        TmdbApi,
+        models::movies::MovieDetails,
+        resources::movies::dto::{
+            MovieCreditsParams, MovieCreditsResponse, MovieDetailsParams, MovieRecommendationsParams,
+            MovieRecommendationsResponse, MovieReleaseDatesResponse, MovieVideosParams, MovieVideosResponse,
+            SimilarMoviesParams, SimilarMoviesResponse,
+        },
     },
-    integrations::tmdb::client::TmdbClient,
 };
 
-pub async fn get_details(
-    client: &TmdbClient,
-    movie_id: i32,
-    params: &MovieDetailsParams,
-) -> Result<MovieDetails, AppError> {
-    client
-        .get(format!("/movie/{movie_id}").as_str(), params)
-        .await
-        .map_err(Into::into)
+pub async fn get_details(tmdb: TmdbApi, movie_id: i32, params: MovieDetailsParams) -> Result<MovieDetails, AppError> {
+    tmdb.movies().details(movie_id, params).await.map_err(Into::into)
 }
 
 pub async fn get_credits(
-    client: &TmdbClient,
+    tmdb: TmdbApi,
     movie_id: i32,
-    params: &MovieCreditsParams,
+    params: MovieCreditsParams,
 ) -> Result<MovieCreditsResponse, AppError> {
-    client
-        .get(format!("/movie/{movie_id}/credits").as_str(), params)
-        .await
-        .map_err(Into::into)
+    tmdb.movies().credits(movie_id, params).await.map_err(Into::into)
 }
 
 pub async fn get_recommendations(
-    client: &TmdbClient,
+    tmdb: TmdbApi,
     movie_id: i32,
-    params: &MovieRecommendationsParams,
+    params: MovieRecommendationsParams,
 ) -> Result<MovieRecommendationsResponse, AppError> {
-    client
-        .get(format!("/movie/{movie_id}/recommendations").as_str(), params)
+    tmdb.movies()
+        .recommendations(movie_id, params)
         .await
         .map_err(Into::into)
 }
 
-pub async fn get_release_dates(client: &TmdbClient, movie_id: i32) -> Result<MovieReleaseDatesResponse, AppError> {
-    client
-        .get(format!("/movie/{movie_id}/release_dates").as_str(), &())
-        .await
-        .map_err(Into::into)
+pub async fn get_release_dates(tmdb: TmdbApi, movie_id: i32) -> Result<MovieReleaseDatesResponse, AppError> {
+    tmdb.movies().release_dates(movie_id).await.map_err(Into::into)
 }
 
 pub async fn get_similar(
-    client: &TmdbClient,
+    tmdb: TmdbApi,
     movie_id: i32,
-    params: &SimilarMoviesParams,
+    params: SimilarMoviesParams,
 ) -> Result<SimilarMoviesResponse, AppError> {
-    client
-        .get(format!("/movie/{movie_id}/similar").as_str(), params)
-        .await
-        .map_err(Into::into)
+    tmdb.movies().similar(movie_id, params).await.map_err(Into::into)
 }
 
 pub async fn get_videos(
-    client: &TmdbClient,
+    tmdb: TmdbApi,
     movie_id: i32,
-    params: &MovieVideosParams,
+    params: MovieVideosParams,
 ) -> Result<MovieVideosResponse, AppError> {
-    client
-        .get(format!("/movie/{movie_id}/videos").as_str(), params)
-        .await
-        .map_err(Into::into)
+    tmdb.movies().videos(movie_id, params).await.map_err(Into::into)
 }

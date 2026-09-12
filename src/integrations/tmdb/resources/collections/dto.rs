@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::integrations::tmdb::models::collections::{CollectionDetail, CollectionOverview};
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct SearchCollectionsParams {
     pub query: String,
 
@@ -27,7 +27,7 @@ pub struct SearchCollectionsResponse {
     pub total_results: i32,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct CollectionDetailsParams {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,

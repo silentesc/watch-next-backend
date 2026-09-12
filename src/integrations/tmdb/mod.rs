@@ -11,6 +11,7 @@ pub mod errors;
 pub mod models;
 pub mod resources;
 
+#[derive(Clone)]
 pub struct TmdbApi {
     tmdb_client: TmdbClient,
 }

@@ -85,6 +85,13 @@ pub enum TimeWindow {
 }
 
 impl TimeWindow {
+    pub fn from_str(s: &str) -> Self {
+        match s {
+            "day" => TimeWindow::Day,
+            "week" => TimeWindow::Week,
+            _ => TimeWindow::Day,
+        }
+    }
     pub fn as_str(&self) -> &'static str {
         match self {
             Self::Day => "day",

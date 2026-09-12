@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::integrations::tmdb::models::{common::Video, tv_series::TvSeriesOverview};
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct SearchTvSeriesParams {
     pub query: String,
 
@@ -113,7 +113,7 @@ pub struct DiscoverTvSeriesResponse {
     pub total_results: i32,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct TrendingTvSeriesParams {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
@@ -127,7 +127,7 @@ pub struct TrendingTvSeriesResponse {
     pub total_results: i64,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct TvSeriesRecommendationsParams {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
@@ -135,7 +135,7 @@ pub struct TvSeriesRecommendationsParams {
     pub page: Option<i32>,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct SimilarTvSeriesParams {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
@@ -143,7 +143,7 @@ pub struct SimilarTvSeriesParams {
     pub page: Option<i32>,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct TvSeriesVideosParams {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub include_video_language: Option<String>,
@@ -173,7 +173,7 @@ pub struct TvSeriesVideosResponse {
     pub results: Vec<Video>,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct TvSeriesDetailsParams {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub append_to_response: Option<String>,

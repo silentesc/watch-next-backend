@@ -1,8 +1,9 @@
 use crate::{
     app::{errors::AppError, state::AppState},
-    features::trending::{
-        dto::{TrendingMoviesParams, TrendingMoviesResponse, TrendingSeriesParams, TrendingSeriesResponse},
-        service,
+    features::trending::service,
+    integrations::tmdb::resources::{
+        movies::dto::{TrendingMoviesParams, TrendingMoviesResponse},
+        tv_series::dto::{TrendingTvSeriesParams, TrendingTvSeriesResponse},
     },
     persistence::models::Session,
 };
@@ -19,7 +20,7 @@ pub async fn get_trending_movies(
     Path(time_window): Path<String>,
     Query(params): Query<TrendingMoviesParams>,
 ) -> Result<(StatusCode, Json<TrendingMoviesResponse>), AppError> {
-    match service::get_trending_movies(app_state.tmdb_client, time_window, params).await {
+    match service::get_trending_movies(app_state.tmdb, time_window, params).await {
         Ok(response) => Ok((StatusCode::OK, Json(response))),
         Err(app_error) => Err(app_error),
     }
@@ -30,9 +31,9 @@ pub async fn get_trending_series(
     Extension(app_state): Extension<AppState>,
     Extension(_): Extension<Session>,
     Path(time_window): Path<String>,
-    Query(params): Query<TrendingSeriesParams>,
-) -> Result<(StatusCode, Json<TrendingSeriesResponse>), AppError> {
-    match service::get_trending_series(app_state.tmdb_client, time_window, params).await {
+    Query(params): Query<TrendingTvSeriesParams>,
+) -> Result<(StatusCode, Json<TrendingTvSeriesResponse>), AppError> {
+    match service::get_trending_series(app_state.tmdb, time_window, params).await {
         Ok(response) => Ok((StatusCode::OK, Json(response))),
         Err(app_error) => Err(app_error),
     }

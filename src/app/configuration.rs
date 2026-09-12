@@ -10,7 +10,7 @@ use sqlx::{PgPool, postgres::PgPoolOptions};
 use crate::{
     app::state::AppState,
     debug,
-    integrations::tmdb::client::TmdbClient,
+    integrations::tmdb::{TmdbApi, client::TmdbClient},
     logger::{
         Logger,
         enums::{category::Category, log_level::LogLevel},
@@ -57,6 +57,7 @@ pub fn setup_app_state(pool: PgPool) -> AppState {
     let tmdb_api_key = env::var("TMDB_API_KEY").expect("TMDB_API_KEY env variable should be set by dotenv");
 
     let tmdb_client = TmdbClient::new(tmdb_api_key).expect("Reqwest client should be built");
+    let tmdb = TmdbApi::new(tmdb_client);
 
     let key = match env::var("COOKIE_KEY") {
         Ok(secret) => Key::from(secret.as_bytes()),
@@ -68,5 +69,5 @@ pub fn setup_app_state(pool: PgPool) -> AppState {
         }
     };
 
-    AppState { pool, tmdb_client, key }
+    AppState { pool, tmdb, key }
 }

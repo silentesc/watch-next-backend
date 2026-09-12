@@ -3,14 +3,14 @@
 ### Endpoint
 
 ```
-tv/{series_id}/season/{season_id}
+tv/{series_id}/season/{season_number}
 ```
 
 ### Path Params
 | Optional | Param | Type | Example | Description |
 | --- | --- | --- | --- | --- |
 | ❌ | `series_id` | `i32` | `1234` | |
-| ❌ | `season_id` | `i32` | `1234` | |
+| ❌ | `season_number` | `i32` | `1234` | |
 
 ### Query Params
 

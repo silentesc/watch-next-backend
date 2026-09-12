@@ -1,6 +1,13 @@
 use crate::{
     app::{errors::AppError, state::AppState},
-    features::tv_series::{dto::*, service},
+    features::tv_series::service,
+    integrations::tmdb::{
+        models::tv_series::TvSeriesDetails,
+        resources::tv_series::dto::{
+            SimilarTvSeriesParams, SimilarTvSeriesResponse, TvSeriesDetailsParams, TvSeriesRecommendationsParams,
+            TvSeriesRecommendationsResponse, TvSeriesVideosParams, TvSeriesVideosResponse,
+        },
+    },
     persistence::models::Session,
 };
 use axum::{
@@ -18,7 +25,7 @@ pub async fn get_series_details(
 ) -> Result<(StatusCode, Json<TvSeriesDetails>), AppError> {
     Ok((
         StatusCode::OK,
-        Json(service::get_series_details(app_state.tmdb_client, series_id, params).await?),
+        Json(service::get_series_details(app_state.tmdb, series_id, params).await?),
     ))
 }
 
@@ -31,7 +38,7 @@ pub async fn get_series_recommendations(
 ) -> Result<(StatusCode, Json<TvSeriesRecommendationsResponse>), AppError> {
     Ok((
         StatusCode::OK,
-        Json(service::get_series_recommendations(app_state.tmdb_client, series_id, params).await?),
+        Json(service::get_series_recommendations(app_state.tmdb, series_id, params).await?),
     ))
 }
 
@@ -44,7 +51,7 @@ pub async fn get_similar_series(
 ) -> Result<(StatusCode, Json<SimilarTvSeriesResponse>), AppError> {
     Ok((
         StatusCode::OK,
-        Json(service::get_similar_series(app_state.tmdb_client, series_id, params).await?),
+        Json(service::get_similar_series(app_state.tmdb, series_id, params).await?),
     ))
 }
 
@@ -57,6 +64,6 @@ pub async fn get_series_videos(
 ) -> Result<(StatusCode, Json<TvSeriesVideosResponse>), AppError> {
     Ok((
         StatusCode::OK,
-        Json(service::get_series_videos(app_state.tmdb_client, series_id, params).await?),
+        Json(service::get_series_videos(app_state.tmdb, series_id, params).await?),
     ))
 }

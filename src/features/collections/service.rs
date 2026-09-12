@@ -1,16 +1,18 @@
 use crate::{
     app::errors::AppError,
-    features::collections::dto::{CollectionDetails, CollectionDetailsParams},
-    integrations::tmdb::client::TmdbClient,
+    integrations::tmdb::{
+        TmdbApi,
+        resources::collections::dto::{CollectionDetailsParams, CollectionDetailsResponse},
+    },
 };
 
 pub async fn get_collection_details(
-    client: TmdbClient,
+    tmdb: TmdbApi,
     collection_id: i32,
     params: CollectionDetailsParams,
-) -> Result<CollectionDetails, AppError> {
-    client
-        .get(format!("/collection/{collection_id}").as_str(), &params)
+) -> Result<CollectionDetailsResponse, AppError> {
+    tmdb.collections()
+        .details(collection_id, params)
         .await
         .map_err(Into::into)
 }

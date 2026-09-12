@@ -1,7 +1,9 @@
 use serde::{Deserialize, Serialize};
 
 use crate::integrations::tmdb::models::{
-    common::{Country, Genre, Language}, tv_episodes::TvEpisodeOverview, tv_season::TvSeasonOverview,
+    common::{Country, Genre, Language},
+    tv_episodes::TvEpisodeOverview,
+    tv_season::TvSeasonOverview,
 };
 
 #[derive(Serialize, Deserialize)]
@@ -22,7 +24,6 @@ pub struct TvSeriesOverview {
     pub vote_count: Option<i64>,
     pub origin_country: Option<Vec<String>>,
 }
-
 
 #[derive(Serialize, Deserialize)]
 pub struct TvSeriesDetails {
@@ -85,4 +86,3 @@ pub struct TvSeriesProductionCompany {
     pub name: Option<String>,
     pub origin_country: Option<String>,
 }
-

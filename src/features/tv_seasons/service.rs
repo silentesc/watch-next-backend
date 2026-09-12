@@ -1,17 +1,18 @@
 use crate::{
     app::errors::AppError,
-    features::tv_seasons::dto::{TvSeasonDetails, TvSeasonDetailsParams},
-    integrations::tmdb::client::TmdbClient,
+    integrations::tmdb::{
+        TmdbApi, models::tv_season::TvSeasonDetails, resources::tv_seasons::dto::TvSeasonDetailsParams,
+    },
 };
 
 pub async fn get_season_details(
-    client: TmdbClient,
+    tmdb: TmdbApi,
     series_id: i32,
-    season_id: i32,
+    season_number: i32,
     params: TvSeasonDetailsParams,
 ) -> Result<TvSeasonDetails, AppError> {
-    client
-        .get(&format!("/tv/{series_id}/season/{season_id}"), &params)
+    tmdb.tv_seasons()
+        .details(series_id, season_number, params)
         .await
         .map_err(Into::into)
 }

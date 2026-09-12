@@ -1,18 +1,23 @@
 use crate::{
     app::errors::AppError,
-    features::trending::dto::{
-        TrendingMoviesParams, TrendingMoviesResponse, TrendingSeriesParams, TrendingSeriesResponse,
+    integrations::tmdb::{
+        TmdbApi,
+        models::common::TimeWindow,
+        resources::{
+            movies::dto::{TrendingMoviesParams, TrendingMoviesResponse},
+            tv_series::dto::{TrendingTvSeriesParams, TrendingTvSeriesResponse},
+        },
     },
-    integrations::tmdb::client::TmdbClient,
 };
 
 pub async fn get_trending_movies(
-    client: TmdbClient,
+    tmdb: TmdbApi,
     time_window: String,
     params: TrendingMoviesParams,
 ) -> Result<TrendingMoviesResponse, AppError> {
-    let mut response: TrendingMoviesResponse = client
-        .get(format!("/trending/movie/{time_window}").as_str(), &params)
+    let mut response: TrendingMoviesResponse = tmdb
+        .movies()
+        .trending(TimeWindow::from_str(&time_window), params)
         .await?;
     let mut seen_ids = std::collections::HashSet::new();
     response.results.retain(|movie| seen_ids.insert(movie.id));
@@ -20,12 +25,13 @@ pub async fn get_trending_movies(
 }
 
 pub async fn get_trending_series(
-    client: TmdbClient,
+    tmdb: TmdbApi,
     time_window: String,
-    params: TrendingSeriesParams,
-) -> Result<TrendingSeriesResponse, AppError> {
-    let mut response: TrendingSeriesResponse = client
-        .get(format!("/trending/tv/{time_window}").as_str(), &params)
+    params: TrendingTvSeriesParams,
+) -> Result<TrendingTvSeriesResponse, AppError> {
+    let mut response: TrendingTvSeriesResponse = tmdb
+        .tv_series()
+        .trending(TimeWindow::from_str(&time_window), params)
         .await?;
     let mut seen_ids = std::collections::HashSet::new();
     response.results.retain(|series| seen_ids.insert(series.id));

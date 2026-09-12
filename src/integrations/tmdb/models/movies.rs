@@ -1,6 +1,9 @@
 use serde::{Deserialize, Serialize};
 
-use crate::integrations::tmdb::models::{collections::CollectionOverview, common::{Country, Genre, Language, ReleaseDate}};
+use crate::integrations::tmdb::models::{
+    collections::CollectionOverview,
+    common::{Country, Genre, Language, ReleaseDate},
+};
 
 #[derive(Serialize, Deserialize)]
 pub struct MovieOverview {
@@ -20,8 +23,6 @@ pub struct MovieOverview {
     pub vote_average: Option<f64>,
     pub vote_count: Option<i64>,
 }
-
-
 
 #[derive(Serialize, Deserialize)]
 pub struct MovieReleaseDates {
@@ -66,4 +67,3 @@ pub struct MovieProductionCompany {
     pub name: Option<String>,
     pub origin_country: Option<String>,
 }
-

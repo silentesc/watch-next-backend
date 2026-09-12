@@ -1,8 +1,11 @@
 use serde::{Deserialize, Serialize};
 
-use crate::integrations::tmdb::models::{common::{Cast, Crew, Video}, movies::{MovieOverview, MovieReleaseDates}};
+use crate::integrations::tmdb::models::{
+    common::{Cast, Crew, Video},
+    movies::{MovieOverview, MovieReleaseDates},
+};
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct SearchMoviesParams {
     pub query: String,
 
@@ -127,13 +130,13 @@ pub struct DiscoverMovieResponse {
     pub total_results: i32,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct MovieCreditsParams {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct MovieRecommendationsParams {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
@@ -141,7 +144,7 @@ pub struct MovieRecommendationsParams {
     pub page: Option<i32>,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct SimilarMoviesParams {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
@@ -149,7 +152,7 @@ pub struct SimilarMoviesParams {
     pub page: Option<i32>,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct MovieVideosParams {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
@@ -190,7 +193,7 @@ pub struct MovieVideosResponse {
     pub results: Vec<Video>,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct TrendingMoviesParams {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
@@ -204,7 +207,7 @@ pub struct TrendingMoviesResponse {
     pub total_results: i64,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct MovieDetailsParams {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub append_to_response: Option<String>,

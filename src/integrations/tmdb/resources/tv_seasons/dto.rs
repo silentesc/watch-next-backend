@@ -1,8 +1,6 @@
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
-use crate::integrations::tmdb::models::tv_season::TvSeasonDetails;
-
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct TvSeasonDetailsParams {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub append_to_response: Option<String>,
