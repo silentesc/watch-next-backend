@@ -9,8 +9,8 @@ pub struct Language {
 
 #[derive(Serialize, Deserialize)]
 pub struct Genre {
-    pub id: i64,
-    pub name: String,
+    pub id: Option<i64>,
+    pub name: Option<String>,
 }
 
 #[derive(Serialize, Deserialize)]

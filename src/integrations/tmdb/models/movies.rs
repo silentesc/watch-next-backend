@@ -26,7 +26,7 @@ pub struct MovieOverview {
 #[derive(Serialize, Deserialize)]
 pub struct MovieReleaseDates {
     pub iso_3166_1: Option<String>,
-    pub release_dates: Vec<ReleaseDate>,
+    pub release_dates: Option<Vec<ReleaseDate>>,
 }
 
 #[derive(Serialize, Deserialize)]
