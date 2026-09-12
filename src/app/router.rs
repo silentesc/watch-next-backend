@@ -28,9 +28,6 @@ pub fn setup_router(app_state: AppState) -> Router {
 
     let protected_routes = Router::new()
         .merge(features::me::routes::router())
-        .merge(features::discover::routes::router())
-        .merge(features::trending::routes::router())
-        .merge(features::search::routes::router())
         .merge(features::genres::routes::router())
         .merge(features::configuration::routes::router())
         .merge(features::movies::routes::router())

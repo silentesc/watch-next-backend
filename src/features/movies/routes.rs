@@ -4,6 +4,9 @@ use crate::{app::state::AppState, features::movies::handlers};
 
 pub fn router() -> Router<AppState> {
     Router::new()
+        .route("/discover/movie", get(handlers::discover_movies))
+        .route("/trending/movie/{time_window}", get(handlers::get_trending_movies))
+        .route("/search/movie", get(handlers::search_movie))
         .route("/movie/{movie_id}", get(handlers::get_movie_details))
         .route(
             "/movie/{movie_id}/release_dates",

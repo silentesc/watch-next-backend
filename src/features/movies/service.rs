@@ -2,17 +2,47 @@ use crate::{
     app::errors::AppError,
     integrations::tmdb::{
         TmdbApi,
+        models::common::TimeWindow,
         models::movies::MovieDetails,
         resources::movies::dto::{
-            MovieCreditsParams, MovieCreditsResponse, MovieDetailsParams, MovieRecommendationsParams,
-            MovieRecommendationsResponse, MovieReleaseDatesResponse, MovieVideosParams, MovieVideosResponse,
-            SimilarMoviesParams, SimilarMoviesResponse,
+            DiscoverMovieParams, DiscoverMovieResponse, MovieCreditsParams, MovieCreditsResponse, MovieDetailsParams,
+            MovieRecommendationsParams, MovieRecommendationsResponse, MovieReleaseDatesResponse, MovieVideosParams,
+            MovieVideosResponse, SearchMoviesParams, SearchMoviesResponse, SimilarMoviesParams, SimilarMoviesResponse,
+            TrendingMoviesParams, TrendingMoviesResponse,
         },
     },
 };
 
 pub async fn get_details(tmdb: TmdbApi, movie_id: i32, params: MovieDetailsParams) -> Result<MovieDetails, AppError> {
     tmdb.movies().details(movie_id, params).await.map_err(Into::into)
+}
+
+pub async fn discover_movies(tmdb: TmdbApi, params: DiscoverMovieParams) -> Result<DiscoverMovieResponse, AppError> {
+    let mut response: DiscoverMovieResponse = tmdb.movies().discover(params).await?;
+    let mut seen_ids = std::collections::HashSet::new();
+    response.results.retain(|movie| seen_ids.insert(movie.id));
+    Ok(response)
+}
+
+pub async fn get_trending_movies(
+    tmdb: TmdbApi,
+    time_window: String,
+    params: TrendingMoviesParams,
+) -> Result<TrendingMoviesResponse, AppError> {
+    let mut response: TrendingMoviesResponse = tmdb
+        .movies()
+        .trending(TimeWindow::from_str(&time_window), params)
+        .await?;
+    let mut seen_ids = std::collections::HashSet::new();
+    response.results.retain(|movie| seen_ids.insert(movie.id));
+    Ok(response)
+}
+
+pub async fn search_movie(tmdb: TmdbApi, params: SearchMoviesParams) -> Result<SearchMoviesResponse, AppError> {
+    let mut response: SearchMoviesResponse = tmdb.movies().search(params).await?;
+    let mut seen_ids = std::collections::HashSet::new();
+    response.results.retain(|movie| seen_ids.insert(movie.id));
+    Ok(response)
 }
 
 pub async fn get_credits(

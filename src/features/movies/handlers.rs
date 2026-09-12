@@ -10,9 +10,10 @@ use crate::{
     integrations::tmdb::{
         models::movies::MovieDetails,
         resources::movies::dto::{
-            MovieCreditsParams, MovieCreditsResponse, MovieDetailsParams, MovieRecommendationsParams,
-            MovieRecommendationsResponse, MovieReleaseDatesResponse, MovieVideosParams, MovieVideosResponse,
-            SimilarMoviesParams, SimilarMoviesResponse,
+            DiscoverMovieParams, DiscoverMovieResponse, MovieCreditsParams, MovieCreditsResponse, MovieDetailsParams,
+            MovieRecommendationsParams, MovieRecommendationsResponse, MovieReleaseDatesResponse, MovieVideosParams,
+            MovieVideosResponse, SearchMoviesParams, SearchMoviesResponse, SimilarMoviesParams, SimilarMoviesResponse,
+            TrendingMoviesParams, TrendingMoviesResponse,
         },
     },
     persistence::models::Session,
@@ -28,6 +29,43 @@ pub async fn get_movie_details(
     Ok((
         StatusCode::OK,
         Json(service::get_details(app_state.tmdb, movie_id, params).await?),
+    ))
+}
+
+#[axum::debug_handler]
+pub async fn discover_movies(
+    Extension(app_state): Extension<AppState>,
+    Extension(_): Extension<Session>,
+    Query(params): Query<DiscoverMovieParams>,
+) -> Result<(StatusCode, Json<DiscoverMovieResponse>), AppError> {
+    Ok((
+        StatusCode::OK,
+        Json(service::discover_movies(app_state.tmdb, params).await?),
+    ))
+}
+
+#[axum::debug_handler]
+pub async fn get_trending_movies(
+    Extension(app_state): Extension<AppState>,
+    Extension(_): Extension<Session>,
+    Path(time_window): Path<String>,
+    Query(params): Query<TrendingMoviesParams>,
+) -> Result<(StatusCode, Json<TrendingMoviesResponse>), AppError> {
+    Ok((
+        StatusCode::OK,
+        Json(service::get_trending_movies(app_state.tmdb, time_window, params).await?),
+    ))
+}
+
+#[axum::debug_handler]
+pub async fn search_movie(
+    Extension(app_state): Extension<AppState>,
+    Extension(_): Extension<Session>,
+    Query(params): Query<SearchMoviesParams>,
+) -> Result<(StatusCode, Json<SearchMoviesResponse>), AppError> {
+    Ok((
+        StatusCode::OK,
+        Json(service::search_movie(app_state.tmdb, params).await?),
     ))
 }
 
