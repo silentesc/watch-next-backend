@@ -5,7 +5,10 @@ pub async fn get_series_details(
     series_id: i32,
     params: TvSeriesDetailsParams,
 ) -> Result<TvSeriesDetails, AppError> {
-    client.get(format!("/tv/{series_id}").as_str(), &params).await
+    client
+        .get(format!("/tv/{series_id}").as_str(), &params)
+        .await
+        .map_err(Into::into)
 }
 
 pub async fn get_series_recommendations(
@@ -38,5 +41,8 @@ pub async fn get_series_videos(
     series_id: i32,
     params: TvSeriesVideosParams,
 ) -> Result<TvSeriesVideosResponse, AppError> {
-    client.get(format!("/tv/{series_id}/videos").as_str(), &params).await
+    client
+        .get(format!("/tv/{series_id}/videos").as_str(), &params)
+        .await
+        .map_err(Into::into)
 }

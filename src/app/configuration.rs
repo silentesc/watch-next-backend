@@ -3,10 +3,8 @@ use std::{
     time::Duration,
 };
 
-use axum::http::{HeaderMap, HeaderValue};
 use axum_extra::extract::cookie::Key;
 use dotenv::dotenv;
-use reqwest::Client;
 use sqlx::{PgPool, postgres::PgPoolOptions};
 
 use crate::{
@@ -57,19 +55,8 @@ pub async fn check_create_tables(pool: &PgPool) {
 
 pub fn setup_app_state(pool: PgPool) -> AppState {
     let tmdb_api_key = env::var("TMDB_API_KEY").expect("TMDB_API_KEY env variable should be set by dotenv");
-    let auth_header_value = HeaderValue::from_str(format!("Bearer {}", tmdb_api_key).as_str())
-        .expect("TMDB api key should be converted to HeaderValue");
 
-    let mut headers = HeaderMap::new();
-    headers.append("Authorization", auth_header_value);
-    headers.append("accept", HeaderValue::from_static("application/json"));
-
-    let client = Client::builder()
-        .timeout(Duration::from_secs(10))
-        .connect_timeout(Duration::from_secs(10))
-        .default_headers(headers)
-        .build()
-        .expect("Reqwest client should be built");
+    let tmdb_client = TmdbClient::new(tmdb_api_key).expect("Reqwest client should be built");
 
     let key = match env::var("COOKIE_KEY") {
         Ok(secret) => Key::from(secret.as_bytes()),
@@ -81,9 +68,5 @@ pub fn setup_app_state(pool: PgPool) -> AppState {
         }
     };
 
-    AppState {
-        pool,
-        tmdb_client: TmdbClient::new(client),
-        key,
-    }
+    AppState { pool, tmdb_client, key }
 }

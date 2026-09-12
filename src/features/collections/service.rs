@@ -12,4 +12,5 @@ pub async fn get_collection_details(
     client
         .get(format!("/collection/{collection_id}").as_str(), &params)
         .await
+        .map_err(Into::into)
 }

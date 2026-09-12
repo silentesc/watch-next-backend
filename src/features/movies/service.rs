@@ -13,7 +13,10 @@ pub async fn get_details(
     movie_id: i32,
     params: &MovieDetailsParams,
 ) -> Result<MovieDetails, AppError> {
-    client.get(format!("/movie/{movie_id}").as_str(), params).await
+    client
+        .get(format!("/movie/{movie_id}").as_str(), params)
+        .await
+        .map_err(Into::into)
 }
 
 pub async fn get_credits(
@@ -21,7 +24,10 @@ pub async fn get_credits(
     movie_id: i32,
     params: &MovieCreditsParams,
 ) -> Result<MovieCreditsResponse, AppError> {
-    client.get(format!("/movie/{movie_id}/credits").as_str(), params).await
+    client
+        .get(format!("/movie/{movie_id}/credits").as_str(), params)
+        .await
+        .map_err(Into::into)
 }
 
 pub async fn get_recommendations(
@@ -32,12 +38,14 @@ pub async fn get_recommendations(
     client
         .get(format!("/movie/{movie_id}/recommendations").as_str(), params)
         .await
+        .map_err(Into::into)
 }
 
 pub async fn get_release_dates(client: &TmdbClient, movie_id: i32) -> Result<MovieReleaseDatesResponse, AppError> {
     client
         .get(format!("/movie/{movie_id}/release_dates").as_str(), &())
         .await
+        .map_err(Into::into)
 }
 
 pub async fn get_similar(
@@ -45,7 +53,10 @@ pub async fn get_similar(
     movie_id: i32,
     params: &SimilarMoviesParams,
 ) -> Result<SimilarMoviesResponse, AppError> {
-    client.get(format!("/movie/{movie_id}/similar").as_str(), params).await
+    client
+        .get(format!("/movie/{movie_id}/similar").as_str(), params)
+        .await
+        .map_err(Into::into)
 }
 
 pub async fn get_videos(
@@ -53,5 +64,8 @@ pub async fn get_videos(
     movie_id: i32,
     params: &MovieVideosParams,
 ) -> Result<MovieVideosResponse, AppError> {
-    client.get(format!("/movie/{movie_id}/videos").as_str(), params).await
+    client
+        .get(format!("/movie/{movie_id}/videos").as_str(), params)
+        .await
+        .map_err(Into::into)
 }

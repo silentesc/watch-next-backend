@@ -13,4 +13,5 @@ pub async fn get_season_details(
     client
         .get(&format!("/tv/{series_id}/season/{season_id}"), &params)
         .await
+        .map_err(Into::into)
 }
