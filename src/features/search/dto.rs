@@ -1,4 +1,6 @@
-use crate::features::{collections::dto::CollectionOverview, movies::dto::MovieOverview, tv_series::dto::TvSeriesOverview};
+use crate::features::{
+    collections::dto::CollectionOverview, movies::dto::MovieOverview, tv_series::dto::TvSeriesOverview,
+};
 use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, Serialize)]
