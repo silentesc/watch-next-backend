@@ -1,30 +1,33 @@
 use std::env;
 
-use crate::{logger::enums::category::Category, setup::setup_tcp_listener};
+use crate::{app::router::setup_tcp_listener, logger::enums::category::Category};
 
-mod api;
+mod app;
+mod features;
+mod http;
+mod integrations;
 mod logger;
-mod setup;
-mod state;
+mod persistence;
+mod utils;
 
 #[tokio::main]
 async fn main() {
-    setup::load_env();
+    app::configuration::load_env();
 
-    setup::setup_logging();
+    app::configuration::setup_logging();
 
-    let pool = setup::connect_postgres().await;
-    setup::check_create_tables(&pool).await;
+    let pool = app::configuration::connect_postgres().await;
+    app::configuration::check_create_tables(&pool).await;
 
-    let app_state = setup::setup_app_state(pool);
+    let app_state = app::configuration::setup_app_state(pool);
 
-    let router = setup::setup_router(app_state);
+    let router = app::router::setup_router(app_state);
 
     let addr = env::var("SERVE_ADDR").expect("SERVE_ADDR env variable should be set by dotenv");
     let listener = setup_tcp_listener(&addr).await;
 
     info!(Category::Setup, "Listening on {}", addr);
-    setup::serve(listener, router).await;
+    app::router::serve(listener, router).await;
 
     info!(Category::Setup, "Shutdown");
 }
