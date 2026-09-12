@@ -6,15 +6,12 @@
 
 | Category | Endpoints |
 | --- | --- |
-| Discover | <ul><li>[Movie](docs/endpoints/discover/movie.md)</li><li>[TV](docs/endpoints/discover/tv.md)</li></ul> |
-| Trending | <ul><li>[Movies](docs/endpoints/trending/movies.md)</li><li>[TV](docs/endpoints/trending/tv.md)</li></ul> |
-| Search | <ul><li>[Movie](docs/endpoints/search/movie.md)</li><li>[TV](docs/endpoints/search/tv.md)</li><li>[Collection](docs/endpoints/search/collection.md)</li></ul> |
 | Genre | <ul><li>[Movie](docs/endpoints/genre/movie.md)</li><li>[TV](docs/endpoints/genre/tv.md)</li></ul> |
 | Configuration | <ul><li>[Languages](docs/endpoints/configuration/languages.md)</li></ul> |
-| Movies | <ul><li>[Details](docs/endpoints/movies/details.md)</li><li>[Release Dates](docs/endpoints/movies/release_dates.md)</li><li>[Credits](docs/endpoints/movies/credits.md)</li><li>[Videos](docs/endpoints/movies/videos.md)</li><li>[Recommendations](docs/endpoints/movies/recommendations.md)</li><li>[Similar](docs/endpoints/movies/similar.md)</li></ul> |
-| TV Series | <ul><li>[Details](docs/endpoints/tv_series/details.md)</li><li>[Videos](docs/endpoints/tv_series/videos.md)</li><li>[Recommendations](docs/endpoints/tv_series/recommendations.md)</li><li>[Similar](docs/endpoints/tv_series/similar.md)</li></ul> |
+| Movies | <ul><li>[Details](docs/endpoints/movies/details.md)</li><li>[Release Dates](docs/endpoints/movies/release_dates.md)</li><li>[Credits](docs/endpoints/movies/credits.md)</li><li>[Videos](docs/endpoints/movies/videos.md)</li><li>[Recommendations](docs/endpoints/movies/recommendations.md)</li><li>[Similar](docs/endpoints/movies/similar.md)</li><li>[Discover](docs/endpoints/movies/discover.md)</li><li>[Trending](docs/endpoints/movies/trending.md)</li><li>[Search](docs/endpoints/movies/search.md)</li></ul> |
+| TV Series | <ul><li>[Details](docs/endpoints/tv_series/details.md)</li><li>[Videos](docs/endpoints/tv_series/videos.md)</li><li>[Recommendations](docs/endpoints/tv_series/recommendations.md)</li><li>[Similar](docs/endpoints/tv_series/similar.md)</li><li>[Discover](docs/endpoints/tv_series/discover.md)</li><li>[Trending](docs/endpoints/tv_series/trending.md)</li><li>[Search](docs/endpoints/tv_series/search.md)</li></ul> |
 | TV Seasons | <ul><li>[Details](docs/endpoints/tv_seasons/details.md)</li></ul> |
-| Collections | <ul><li>[Details](docs/endpoints/collections/details.md)</li></ul> |
+| Collections | <ul><li>[Details](docs/endpoints/collections/details.md)</li><li>[Search](docs/endpoints/collections/search.md)</li></ul> |
 
 ## Roadmap
 
