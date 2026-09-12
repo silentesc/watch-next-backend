@@ -2,21 +2,49 @@
 
 ## Endpoints
 
-#### Endpoints are based on the [TMDB API](https://developer.themoviedb.org/reference).
+### TMDB Endpoints
+
+Necessary TMDB endpoints are implemented and can be used exactly like the original endpoints.
 
 | Category | Endpoints |
 | --- | --- |
-| Discover | <ul><li>[Movie](docs/endpoints/discover/movie.md)</li></ul> |
-| Search | <ul><li>[Movie](docs/endpoints/search/movie.md)</li></ul> |
-| Genre | <ul><li>[Movie](docs/endpoints/genre/movie.md)</li></ul> |
-| Configuration | <ul><li>[Languages](docs/endpoints/configuration/languages.md)</li></ul> |
-| Movies | <ul><li>[Details](docs/endpoints/movies/details.md)</li></ul> |
+| Genre | <ul><li>[Movie](https://developer.themoviedb.org/reference/genre-movie-list)</li><li>[TV](https://developer.themoviedb.org/reference/genre-tv-list)</li></ul> |
+| Configuration | <ul><li>[Languages](https://developer.themoviedb.org/reference/configuration-languages)</li></ul> |
+| Movies | <ul><li>[Details](https://developer.themoviedb.org/reference/movie-details)</li><li>[Release Dates](https://developer.themoviedb.org/reference/movie-release-dates)</li><li>[Credits](https://developer.themoviedb.org/reference/movie-credits)</li><li>[Videos](https://developer.themoviedb.org/reference/movie-videos)</li><li>[Recommendations](https://developer.themoviedb.org/reference/movie-recommendations)</li><li>[Similar](https://developer.themoviedb.org/reference/movie-similar)</li><li>[Discover](https://developer.themoviedb.org/reference/discover-movie)</li><li>[Trending](https://developer.themoviedb.org/reference/trending-movies)</li><li>[Search](https://developer.themoviedb.org/reference/search-movie)</li></ul> |
+| TV Series | <ul><li>[Details](https://developer.themoviedb.org/reference/tv-series-details)</li><li>[Videos](https://developer.themoviedb.org/reference/tv-series-videos)</li><li>[Recommendations](https://developer.themoviedb.org/reference/tv-series-recommendations)</li><li>[Similar](https://developer.themoviedb.org/reference/tv-series-similar)</li><li>[Discover](https://developer.themoviedb.org/reference/discover-tv)</li><li>[Trending](https://developer.themoviedb.org/reference/trending-tv)</li><li>[Search](https://developer.themoviedb.org/reference/search-tv)</li></ul> |
+| TV Seasons | <ul><li>[Details](https://developer.themoviedb.org/reference/tv-season-details)</li></ul> |
+| Collections | <ul><li>[Details](https://developer.themoviedb.org/reference/collection-details)</li><li>[Search](https://developer.themoviedb.org/reference/search-collection)</li></ul> |
+
+## Roadmap
+
+### **v1.0** (current)
+
+  - 🔜 Lists (e.g. Plan to Watch, Watching, Completed)
+  - 🔜 Custom Tags per movie/series (e.g. must-watch)
+  - 🔜 Auto updating data in db
+  - 🔜 Caching
+
+### **v1.1** (next)
+
+- 🔜 Analytics
+  - 🔜 Total hours watched
+  - 🔜 Watch history
+  - 🔜 Favorite genres
+  - 🔜 Viewing patterns (e.g. prefer short series)
+- 🔜 Notifications & Reminders
+  - 🔜 New episodes
+  - 🔜 Status changes
+
+### v?.? (future)
+
+- 🔜 Achievements & Leveling System
+- 🔜 Configurable region, language, etc.
+- 🔜 Ratings from IMDB
+- 🔜 Refresh token so sessions don't expire after 7 days
 
 ## Quick Start
 
 ### Database
-
-> **NOTE:** `pgadmin` is completely optional if you want to directly look into the db
 
 ```yml
 services:
@@ -31,28 +59,15 @@ services:
       TZ: Etc/UTC
     volumes:
       - ./data/postgres:/var/lib/postgresql
-
-  pgadmin:
-    image: dpage/pgadmin4:latest
-    ports:
-      - 5050:80
-    environment:
-      # Required by pgAdmin
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: adminadmin
-
-      # Don't require the user to login
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
-
-      # Don't require a "master" password after logging in
-      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+    restart: unless-stopped
 ```
 
 ### Watch Next Backend
 
 #### .env file
 ```dotenv
-LOG_LEVEL="INFO" # TRACE, DEBUG, INFO, WARN, ERROR
+# TRACE, DEBUG, INFO, WARN, ERROR
+LOG_LEVEL="INFO"
 
 DATABASE_URL="postgres://my_postgres_user:strong_password@localhost/name_of_db"
 
@@ -60,6 +75,11 @@ SERVE_ADDR="0.0.0.0:3000"
 CORS_ALLOWED_ORIGINS="http://localhost:5173,https://api.watch-next.mydomain.com"
 
 TMDB_API_KEY="abcdefghijklmnopqrstuvwxyz"
+
+# Must be at least 64 characters long
+# Changing key invalidates all active sessions, causing users to have to login again
+# Leaving it empty generates a secure, random, different one every startup
+COOKIE_KEY="long_secret_key"
 ```
 
 #### Run app
