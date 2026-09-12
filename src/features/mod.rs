@@ -1,0 +1,12 @@
+pub mod auth;
+pub mod collections;
+pub mod configuration;
+pub mod discover;
+pub mod genres;
+pub mod me;
+pub mod movies;
+pub mod root;
+pub mod search;
+pub mod trending;
+pub mod tv_series;
+pub mod tv_seasons;
