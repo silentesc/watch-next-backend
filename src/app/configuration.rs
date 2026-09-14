@@ -1,7 +1,4 @@
-use std::{
-    env,
-    time::Duration,
-};
+use std::{env, time::Duration};
 
 use axum_extra::extract::cookie::Key;
 use dotenv::dotenv;
