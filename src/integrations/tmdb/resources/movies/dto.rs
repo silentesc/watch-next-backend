@@ -38,55 +38,93 @@ pub struct SearchMoviesResponse {
 
 #[derive(Serialize, Deserialize)]
 pub struct DiscoverMovieParams {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub certification: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "certification.gte")]
     pub certification_gte: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "certification.lte")]
     pub certification_lte: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub certification_country: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub include_adult: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub include_video: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub page: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub primary_release_year: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "primary_release_date.gte")]
     pub primary_release_date_gte: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "primary_release_date.lte")]
     pub primary_release_date_lte: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub region: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "release_date.gte")]
     pub release_date_gte: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "release_date.lte")]
     pub release_date_lte: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub sort_by: Option<MovieSortBy>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "vote_average.gte")]
     pub vote_average_gte: Option<f32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "vote_average.lte")]
     pub vote_average_lte: Option<f32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "vote_count.gte")]
     pub vote_count_gte: Option<f32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "vote_count.lte")]
     pub vote_count_lte: Option<f32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub watch_region: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub with_cast: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub with_companies: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub with_crew: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub with_genres: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub with_keywords: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub with_origin_country: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub with_original_language: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub with_people: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub with_release_type: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "with_runtime.gte")]
     pub with_runtime_gte: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "with_runtime.lte")]
     pub with_runtime_lte: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub with_watch_monetization_types: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub with_watch_providers: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub without_companies: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub without_genres: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub without_keywords: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub without_watch_providers: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub year: Option<i32>,
 }
 
