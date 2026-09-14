@@ -55,8 +55,13 @@ pub async fn check_create_tables(pool: &PgPool) {
 
 pub fn setup_app_state(pool: PgPool) -> AppState {
     let tmdb_api_key = env::var("TMDB_API_KEY").expect("TMDB_API_KEY env variable should be set by dotenv");
+    let tmdb_cache_ttl_minutes = env::var("TMDB_CACHE_TTL_MINUTES")
+        .expect("TMDB_CACHE_TTL_MINUTES env variable should be set by dotenv")
+        .parse()
+        .expect("TMDB_CACHE_TTL_MINUTES env variable should be of type integer");
 
-    let tmdb_client = TmdbClient::new(tmdb_api_key).expect("Reqwest client should be built");
+    let tmdb_client =
+        TmdbClient::new(pool.clone(), tmdb_api_key, tmdb_cache_ttl_minutes).expect("Reqwest client should be built");
     let tmdb = TmdbApi::new(tmdb_client);
 
     let key = match env::var("COOKIE_KEY") {

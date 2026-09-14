@@ -3,6 +3,7 @@ use std::fmt;
 pub enum Category {
     Setup,
     Db,
+    Worker,
     Tmdb,
     Middleware,
     Register,
@@ -15,6 +16,7 @@ impl fmt::Display for Category {
         let category_str = match self {
             Category::Setup => String::from("setup"),
             Category::Db => String::from("db"),
+            Category::Worker => String::from("worker"),
             Category::Tmdb => String::from("tmdb"),
             Category::Middleware => String::from("middleware"),
             Category::Register => String::from("register"),

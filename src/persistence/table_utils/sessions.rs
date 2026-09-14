@@ -62,3 +62,23 @@ pub async fn delete_session(pool: &PgPool, session_id: Uuid) -> Result<(), AppEr
         }
     }
 }
+
+/**
+ * Delete all expired sessions and get how many were removed
+ */
+pub async fn clear_expired(pool: &PgPool) -> Result<u64, AppError> {
+    let result = sqlx::query(
+        r#"
+        DELETE FROM sessions
+        WHERE expires_at <= NOW()
+        "#,
+    )
+    .execute(pool)
+    .await
+    .map_err(|err| {
+        error!(Category::Db, "Deleting expired sessions failed with error: {:#?}", err);
+        AppError::generic_500()
+    })?;
+
+    Ok(result.rows_affected())
+}

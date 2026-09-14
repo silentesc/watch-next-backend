@@ -11,3 +11,11 @@ CREATE TABLE IF NOT EXISTS sessions (
     user_id UUID NOT NULL,
     expires_at TIMESTAMPTZ NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS cache (
+    cache_key TEXT PRIMARY KEY,
+    value JSONB NOT NULL,
+    expires_at TIMESTAMPTZ NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
