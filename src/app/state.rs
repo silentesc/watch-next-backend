@@ -9,6 +9,7 @@ pub struct AppState {
     pub pool: PgPool,
     pub tmdb: TmdbApi,
     pub key: Key,
+    pub allow_registration: bool,
 }
 
 impl FromRef<AppState> for Key {

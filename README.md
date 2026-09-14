@@ -83,6 +83,9 @@ TMDB_CACHE_TTL_MINUTES=60
 # Must be at least 64 characters long
 # Changing key invalidates all active sessions
 COOKIE_KEY="long_secret_key"
+
+# Set to false to disable registration for new users
+ALLOW_REGISTRATION="true"
 ```
 
 #### Run app
