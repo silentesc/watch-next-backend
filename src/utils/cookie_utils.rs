@@ -1,7 +1,7 @@
 use axum_extra::extract::cookie::{Cookie, SameSite};
 use time::{Duration, OffsetDateTime};
 
-pub const SESSION_ID_COOKIE_NAME: &str = "session_id";
+use crate::app::constants;
 
 pub fn removal_cookie<'a>(cookie_name: String) -> Cookie<'a> {
     Cookie::build((cookie_name, ""))
@@ -11,7 +11,7 @@ pub fn removal_cookie<'a>(cookie_name: String) -> Cookie<'a> {
 }
 
 pub fn default_cookie<'a>(session_id: String, expires: OffsetDateTime) -> Cookie<'a> {
-    Cookie::build((SESSION_ID_COOKIE_NAME, session_id))
+    Cookie::build((constants::SESSION_ID_COOKIE_NAME, session_id))
         .http_only(true)
         .path("/")
         .same_site(SameSite::Strict)
@@ -21,5 +21,5 @@ pub fn default_cookie<'a>(session_id: String, expires: OffsetDateTime) -> Cookie
 }
 
 pub fn session_expiration() -> OffsetDateTime {
-    OffsetDateTime::now_utc() + Duration::days(7)
+    OffsetDateTime::now_utc() + Duration::days(constants::SESSION_EXPIRATION_DAYS.into())
 }

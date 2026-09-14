@@ -8,7 +8,7 @@ use dotenv::dotenv;
 use sqlx::{PgPool, postgres::PgPoolOptions};
 
 use crate::{
-    app::state::AppState,
+    app::{constants, state::AppState},
     debug,
     integrations::tmdb::{TmdbApi, client::TmdbClient},
     logger::{
@@ -35,9 +35,9 @@ pub fn setup_logging() {
 pub async fn connect_postgres() -> PgPool {
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL env variable should be set by dotenv");
     let pool = PgPoolOptions::new()
-        .max_connections(5)
-        .acquire_timeout(Duration::from_secs(5))
-        .idle_timeout(Duration::from_secs(60))
+        .max_connections(constants::POSTGRES_MAX_CONNECTIONS.into())
+        .acquire_timeout(Duration::from_secs(constants::POSTGRES_ACQUIRE_TIMEOUT.into()))
+        .idle_timeout(Duration::from_secs(constants::POSTGRES_IDLE_TIMEOUT.into()))
         .connect(&database_url)
         .await
         .expect("Postgres should connect successfully");

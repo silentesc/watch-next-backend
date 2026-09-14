@@ -9,10 +9,9 @@ use serde::{Serialize, de::DeserializeOwned};
 use sqlx::PgPool;
 
 use crate::{
-    debug, integrations::tmdb::errors::TmdbError, logger::enums::category::Category, persistence::table_utils::cache,
+    app::constants, debug, integrations::tmdb::errors::TmdbError, logger::enums::category::Category,
+    persistence::table_utils::cache,
 };
-
-const BASE_URL: &str = "https://api.themoviedb.org/3";
 
 #[derive(Clone)]
 pub struct TmdbClient {
@@ -42,7 +41,7 @@ impl TmdbClient {
         Ok(Self {
             pool,
             http_client,
-            base_url: BASE_URL.to_string(),
+            base_url: constants::TMDB_BASE_URL.to_string(),
             tmdb_cache_ttl_minutes,
         })
     }

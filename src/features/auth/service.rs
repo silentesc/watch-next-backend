@@ -5,7 +5,7 @@ use sqlx::PgPool;
 use uuid::Uuid;
 
 use crate::{
-    app::errors::AppError,
+    app::{constants, errors::AppError},
     error, info,
     logger::enums::category::Category,
     persistence::table_utils::{sessions, users},
@@ -123,7 +123,7 @@ pub async fn login(
 
 pub async fn logout(pool: &PgPool, jar: SignedCookieJar) -> Result<SignedCookieJar, AppError> {
     // Get session id from cookie and delete session in db
-    if let Some(cookie) = jar.get(cookie_utils::SESSION_ID_COOKIE_NAME) {
+    if let Some(cookie) = jar.get(constants::SESSION_ID_COOKIE_NAME) {
         let session_id = cookie.value();
         let session_id = match Uuid::parse_str(session_id) {
             Ok(session_id) => session_id,
@@ -140,7 +140,7 @@ pub async fn logout(pool: &PgPool, jar: SignedCookieJar) -> Result<SignedCookieJ
 
     // Add remove cookie
     let signed_cookie_jar = jar.add(cookie_utils::removal_cookie(String::from(
-        cookie_utils::SESSION_ID_COOKIE_NAME,
+        constants::SESSION_ID_COOKIE_NAME,
     )));
 
     Ok(signed_cookie_jar)
