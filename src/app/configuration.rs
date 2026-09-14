@@ -1,5 +1,5 @@
 use std::{
-    env::{self, VarError},
+    env,
     time::Duration,
 };
 
@@ -65,15 +65,8 @@ pub fn setup_app_state(pool: PgPool) -> AppState {
         .expect("Reqwest client should be built");
     let tmdb = TmdbApi::new(tmdb_client);
 
-    let key = match env::var("COOKIE_KEY") {
-        Ok(secret) => Key::from(secret.as_bytes()),
-        Err(err) => {
-            if err != VarError::NotPresent {
-                panic!("COOKIE_KEY is set but something went wrong: {:#?}", err);
-            }
-            Key::generate()
-        }
-    };
+    let cookie_secret = env::var("COOKIE_KEY").expect("COOKIE_KEY env variable should be set by dotenv");
+    let key = Key::from(cookie_secret.as_bytes());
 
     AppState { pool, tmdb, key }
 }
