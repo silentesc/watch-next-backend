@@ -9,8 +9,8 @@ use serde::{Serialize, de::DeserializeOwned};
 use sqlx::PgPool;
 
 use crate::{
-    app::constants, debug, integrations::tmdb::errors::TmdbError, logger::enums::category::Category,
-    persistence::table_utils::cache,
+    app::constants, integrations::tmdb::errors::TmdbError, logger::enums::category::Category,
+    persistence::table_utils::cache, trace,
 };
 
 #[derive(Clone)]
@@ -55,7 +55,7 @@ impl TmdbClient {
         let cache_key = format!("{endpoint}?{query_string}");
 
         if let Some(cached) = self.get_cached(&cache_key).await? {
-            debug!(Category::Tmdb, "Retrieved from cache for: {:#?}", endpoint);
+            trace!(Category::Tmdb, "Retrieved from cache for: {:#?}", endpoint);
             return Ok(cached);
         }
 
@@ -70,7 +70,7 @@ impl TmdbClient {
         .await
         .map_err(|err| TmdbError::Db { error: err.message })?;
 
-        debug!(Category::Tmdb, "Retrieved & cached from TMDB for: {:#?}", endpoint);
+        trace!(Category::Tmdb, "Retrieved & cached from TMDB for: {:#?}", endpoint);
 
         Ok(result)
     }
