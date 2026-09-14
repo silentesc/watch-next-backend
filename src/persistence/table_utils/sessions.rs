@@ -1,5 +1,5 @@
-use chrono::NaiveDateTime;
 use sqlx::PgPool;
+use time::OffsetDateTime;
 use uuid::Uuid;
 
 use crate::{app::errors::AppError, error, logger::enums::category::Category, persistence::models::Session};
@@ -26,7 +26,7 @@ pub async fn get_session_by_id(pool: &PgPool, id: Uuid) -> Result<Option<Session
 /**
  * Create session and get session id
  */
-pub async fn create_session(pool: &PgPool, user_id: Uuid, expires_at: NaiveDateTime) -> Result<Uuid, AppError> {
+pub async fn create_session(pool: &PgPool, user_id: Uuid, expires_at: OffsetDateTime) -> Result<Uuid, AppError> {
     let session_id: (Uuid,) =
         match sqlx::query_as("INSERT INTO sessions (user_id, expires_at) VALUES ($1, $2) RETURNING id")
             .bind(user_id)

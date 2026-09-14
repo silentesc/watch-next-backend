@@ -1,8 +1,5 @@
 use axum_extra::extract::cookie::{Cookie, SameSite};
-use chrono::NaiveDateTime;
 use time::{Duration, OffsetDateTime};
-
-use crate::utils::time_utils;
 
 pub const SESSION_ID_COOKIE_NAME: &str = "session_id";
 
@@ -23,10 +20,6 @@ pub fn default_cookie<'a>(session_id: String, expires: OffsetDateTime) -> Cookie
         .build()
 }
 
-pub fn expires_at_naive() -> NaiveDateTime {
-    time_utils::utc_now_naive() + chrono::Duration::days(7)
-}
-
-pub fn expires_at_offset() -> OffsetDateTime {
-    time_utils::utc_now_offset() + time::Duration::days(7)
+pub fn session_expiration() -> OffsetDateTime {
+    OffsetDateTime::now_utc() + Duration::days(7)
 }

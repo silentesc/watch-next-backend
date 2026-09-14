@@ -102,13 +102,14 @@ pub async fn login(
     }
 
     // Create session
-    let session_id = match sessions::create_session(pool, db_user.id, cookie_utils::expires_at_naive()).await {
+    let session_expiration = cookie_utils::session_expiration();
+    let session_id = match sessions::create_session(pool, db_user.id, session_expiration).await {
         Ok(session_id) => session_id,
         Err(app_error) => return Err(app_error),
     };
 
     // Create cookie
-    let cookie = cookie_utils::default_cookie(session_id.to_string(), cookie_utils::expires_at_offset());
+    let cookie = cookie_utils::default_cookie(session_id.to_string(), session_expiration);
     let signed_cookie_jar = jar.add(cookie);
 
     // Set last login
