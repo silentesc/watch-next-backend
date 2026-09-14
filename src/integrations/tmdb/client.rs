@@ -9,8 +9,7 @@ use serde::{Serialize, de::DeserializeOwned};
 use sqlx::PgPool;
 
 use crate::{
-    app::constants, integrations::tmdb::errors::TmdbError, logger::enums::category::Category,
-    persistence::table_utils::cache, trace,
+    integrations::tmdb::errors::TmdbError, logger::enums::category::Category, persistence::table_utils::cache, trace,
 };
 
 #[derive(Clone)]
@@ -22,7 +21,12 @@ pub struct TmdbClient {
 }
 
 impl TmdbClient {
-    pub fn new(pool: PgPool, access_token: String, tmdb_cache_ttl_minutes: i64) -> Result<Self, TmdbError> {
+    pub fn new(
+        pool: PgPool,
+        base_url: String,
+        access_token: String,
+        tmdb_cache_ttl_minutes: i64,
+    ) -> Result<Self, TmdbError> {
         let mut headers = HeaderMap::new();
         headers.append(
             AUTHORIZATION,
@@ -41,7 +45,7 @@ impl TmdbClient {
         Ok(Self {
             pool,
             http_client,
-            base_url: constants::TMDB_BASE_URL.to_string(),
+            base_url,
             tmdb_cache_ttl_minutes,
         })
     }

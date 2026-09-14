@@ -76,6 +76,7 @@ DATABASE_URL="postgres://my_postgres_user:strong_password@localhost/name_of_db"
 SERVE_ADDR="0.0.0.0:3000"
 CORS_ALLOWED_ORIGINS="http://localhost:5173,https://api.watch-next.mydomain.com"
 
+TMDB_BASE_URL="https://api.themoviedb.org/3"
 TMDB_API_KEY="abcdefghijklmnopqrstuvwxyz"
 TMDB_CACHE_TTL_MINUTES=60
 
