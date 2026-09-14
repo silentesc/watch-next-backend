@@ -22,14 +22,14 @@ impl fmt::Display for LogLevel {
 }
 
 impl LogLevel {
-    pub fn from_string(log_level: &str) -> Result<LogLevel, anyhow::Error> {
+    pub fn from_string(log_level: &str) -> Result<LogLevel, String> {
         match log_level {
             "TRACE" => Ok(LogLevel::Trace),
             "DEBUG" => Ok(LogLevel::Debug),
             "INFO" => Ok(LogLevel::Info),
             "WARN" => Ok(LogLevel::Warn),
             "ERROR" => Ok(LogLevel::Error),
-            _ => anyhow::bail!("invalid log_level '{}'", log_level),
+            _ => Err(format!("invalid log_level '{}'", log_level)),
         }
     }
 

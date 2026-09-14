@@ -9,6 +9,7 @@ mod integrations;
 mod logger;
 mod persistence;
 mod utils;
+mod workers;
 
 #[tokio::main]
 async fn main() {
@@ -18,6 +19,8 @@ async fn main() {
 
     let pool = app::configuration::connect_postgres().await;
     app::configuration::check_create_tables(&pool).await;
+
+    workers::db_cleanup::start_background_cleanup(pool.clone());
 
     let app_state = app::configuration::setup_app_state(pool);
 

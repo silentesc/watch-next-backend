@@ -19,24 +19,26 @@ Necessary TMDB endpoints are implemented and can be used exactly like the origin
 
 ### **v1.0** (current)
 
-  - 🔜 Lists (e.g. Plan to Watch, Watching, Completed)
-  - 🔜 Custom Tags per movie/series (e.g. must-watch)
-  - 🔜 Auto updating data in db
-  - 🔜 Caching
+  - ✅ Authentication
+  - ✅ Core TMDB endpoints
+  - ✅ TMDB Caching
+  - 🔜 Custom Lists (e.g. Plan to Watch, Watching, Completed)
+  - 🔜 Custom Tags (e.g. must-watch)
 
 ### **v1.1** (next)
 
 - 🔜 Analytics
   - 🔜 Total hours watched
   - 🔜 Watch history
-  - 🔜 Favorite genres
-  - 🔜 Viewing patterns (e.g. prefer short series)
+  - 🔜 Viewing patterns (e.g. favorite genres, prefer short series)
 - 🔜 Notifications & Reminders
   - 🔜 New episodes
   - 🔜 Status changes
 
 ### v?.? (future)
 
+- 🔜 Personal Recommendations (based on watch history & viewing patterns)
+- 🔜 Seasonal Recommendations
 - 🔜 Achievements & Leveling System
 - 🔜 Configurable region, language, etc.
 - 🔜 Ratings from IMDB
@@ -74,7 +76,9 @@ DATABASE_URL="postgres://my_postgres_user:strong_password@localhost/name_of_db"
 SERVE_ADDR="0.0.0.0:3000"
 CORS_ALLOWED_ORIGINS="http://localhost:5173,https://api.watch-next.mydomain.com"
 
+TMDB_BASE_URL="https://api.themoviedb.org/3"
 TMDB_API_KEY="abcdefghijklmnopqrstuvwxyz"
+TMDB_CACHE_TTL_MINUTES=60
 
 # Must be at least 64 characters long
 # Changing key invalidates all active sessions, causing users to have to login again

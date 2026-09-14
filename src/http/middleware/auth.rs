@@ -7,8 +7,10 @@ use axum_extra::extract::SignedCookieJar;
 use uuid::Uuid;
 
 use crate::{
-    app::errors::AppError, app::state::AppState, error, logger::enums::category::Category,
-    persistence::table_utils::sessions, utils::cookie_utils,
+    app::{constants, errors::AppError, state::AppState},
+    error,
+    logger::enums::category::Category,
+    persistence::table_utils::sessions,
 };
 
 pub async fn validate_session(
@@ -18,7 +20,7 @@ pub async fn validate_session(
     next: Next,
 ) -> Response {
     // Get session id
-    let session_id = match jar.get(cookie_utils::SESSION_ID_COOKIE_NAME) {
+    let session_id = match jar.get(constants::SESSION_ID_COOKIE_NAME) {
         Some(cookie) => cookie.value().to_string(),
         None => return AppError::invalid_credentials().into_response(),
     };
@@ -44,11 +46,6 @@ pub async fn validate_session(
         Some(session) => session,
         None => return AppError::invalid_credentials().into_response(),
     };
-
-    // Check if session is expired
-    if session.is_expired() {
-        return AppError::invalid_credentials().into_response();
-    }
 
     // Add session
     request.extensions_mut().insert(app_state);

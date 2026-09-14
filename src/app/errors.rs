@@ -8,8 +8,8 @@ use serde_json::json;
 use crate::{error, integrations::tmdb::errors::TmdbError, logger::enums::category::Category};
 
 pub struct AppError {
-    status_code: StatusCode,
-    message: String,
+    pub status_code: StatusCode,
+    pub message: String,
 }
 
 impl AppError {
@@ -40,7 +40,10 @@ impl IntoResponse for AppError {
 impl From<TmdbError> for AppError {
     fn from(err: TmdbError) -> Self {
         match err {
-            TmdbError::InvalidConfiguration { error } | TmdbError::Http { error } | TmdbError::Json { error } => {
+            TmdbError::InvalidConfiguration { error }
+            | TmdbError::Db { error }
+            | TmdbError::Http { error }
+            | TmdbError::Json { error } => {
                 error!(Category::Tmdb, "{:#?}", error);
                 AppError::generic_500()
             }
