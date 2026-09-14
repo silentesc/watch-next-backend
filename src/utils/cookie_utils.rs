@@ -5,7 +5,10 @@ use crate::app::constants;
 
 pub fn removal_cookie<'a>(cookie_name: String) -> Cookie<'a> {
     Cookie::build((cookie_name, ""))
+        .http_only(true)
         .path("/")
+        .same_site(SameSite::Strict)
+        .secure(true)
         .max_age(Duration::ZERO)
         .build()
 }

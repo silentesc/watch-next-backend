@@ -11,6 +11,13 @@ pub async fn register(
     State(app_state): State<AppState>,
     Json(payload): Json<RegisterRequest>,
 ) -> Result<(StatusCode, String), AppError> {
+    if !app_state.allow_registration {
+        return Err(AppError::new(
+            StatusCode::FORBIDDEN,
+            String::from("Registration is disabled"),
+        ));
+    }
+
     match crate::features::auth::service::register(&app_state.pool, payload.username, payload.password).await {
         Ok(_) => Ok((StatusCode::CREATED, String::from("Registered successfully"))),
         Err(app_error) => Err(app_error),

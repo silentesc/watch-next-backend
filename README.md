@@ -81,9 +81,11 @@ TMDB_API_KEY="abcdefghijklmnopqrstuvwxyz"
 TMDB_CACHE_TTL_MINUTES=60
 
 # Must be at least 64 characters long
-# Changing key invalidates all active sessions, causing users to have to login again
-# Leaving it empty generates a secure, random, different one every startup
+# Changing key invalidates all active sessions
 COOKIE_KEY="long_secret_key"
+
+# Set to false to disable registration for new users
+ALLOW_REGISTRATION="true"
 ```
 
 #### Run app
