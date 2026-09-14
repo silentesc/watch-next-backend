@@ -8,7 +8,9 @@ use crate::persistence::models::User;
 pub struct MeResponse {
     pub id: Uuid,
     pub username: String,
+    #[serde(with = "time::serde::rfc3339")]
     pub created_at: OffsetDateTime,
+    #[serde(with = "time::serde::rfc3339::option")]
     pub last_login_at: Option<OffsetDateTime>,
 }
 
