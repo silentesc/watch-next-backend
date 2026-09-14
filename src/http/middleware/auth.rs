@@ -47,11 +47,6 @@ pub async fn validate_session(
         None => return AppError::invalid_credentials().into_response(),
     };
 
-    // Check if session is expired
-    if session.is_expired() {
-        return AppError::invalid_credentials().into_response();
-    }
-
     // Add session
     request.extensions_mut().insert(app_state);
     request.extensions_mut().insert(session);

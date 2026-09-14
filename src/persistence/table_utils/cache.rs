@@ -13,11 +13,11 @@ where
 {
     let value: Option<serde_json::Value> = sqlx::query_scalar(
         r#"
-            SELECT value
-            FROM cache
-            WHERE cache_key = $1
-                AND expires_at > NOW()
-            "#,
+        SELECT value
+        FROM cache
+        WHERE cache_key = $1
+            AND expires_at > NOW()
+        "#,
     )
     .bind(key)
     .fetch_optional(pool)
@@ -57,14 +57,14 @@ where
 
     match sqlx::query(
         r#"
-            INSERT INTO cache (cache_key, value, expires_at)
-            VALUES ($1, $2, $3)
-            ON CONFLICT (cache_key)
-            DO UPDATE SET
-                value = EXCLUDED.value,
-                expires_at = EXCLUDED.expires_at,
-                updated_at = NOW()
-            "#,
+        INSERT INTO cache (cache_key, value, expires_at)
+        VALUES ($1, $2, $3)
+        ON CONFLICT (cache_key)
+        DO UPDATE SET
+            value = EXCLUDED.value,
+            expires_at = EXCLUDED.expires_at,
+            updated_at = NOW()
+        "#,
     )
     .bind(key)
     .bind(json)

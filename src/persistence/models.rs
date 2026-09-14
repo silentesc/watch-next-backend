@@ -18,9 +18,3 @@ pub struct Session {
     pub user_id: Uuid,
     pub expires_at: OffsetDateTime,
 }
-
-impl Session {
-    pub fn is_expired(&self) -> bool {
-        self.expires_at <= OffsetDateTime::now_utc()
-    }
-}
