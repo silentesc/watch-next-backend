@@ -75,6 +75,7 @@ SERVE_ADDR="0.0.0.0:3000"
 CORS_ALLOWED_ORIGINS="http://localhost:5173,https://api.watch-next.mydomain.com"
 
 TMDB_API_KEY="abcdefghijklmnopqrstuvwxyz"
+TMDB_CACHE_TTL_MINUTES=60
 
 # Must be at least 64 characters long
 # Changing key invalidates all active sessions, causing users to have to login again
