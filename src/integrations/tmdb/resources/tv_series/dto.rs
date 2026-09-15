@@ -149,6 +149,8 @@ pub struct DiscoverTvSeriesResponse {
 #[derive(Serialize, Deserialize)]
 pub struct TrendingTvSeriesParams {
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub page: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
 }
 
