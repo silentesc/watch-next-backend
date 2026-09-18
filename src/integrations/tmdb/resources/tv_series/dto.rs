@@ -1,6 +1,9 @@
 use serde::{Deserialize, Serialize};
 
-use crate::integrations::tmdb::models::{common::Video, tv_series::TvSeriesOverview};
+use crate::integrations::tmdb::models::{
+    common::Video,
+    tv_series::{AggregateCast, AggregateCrew, TvSeriesOverview},
+};
 
 #[derive(Serialize, Deserialize)]
 pub struct SearchTvSeriesParams {
@@ -214,4 +217,17 @@ pub struct TvSeriesDetailsParams {
     pub append_to_response: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct TvSeriesAggregateCreditsParams {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub language: Option<String>,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct TvSeriesAggregateCreditsResponse {
+    pub id: i64,
+    pub cast: Vec<AggregateCast>,
+    pub crew: Vec<AggregateCrew>,
 }

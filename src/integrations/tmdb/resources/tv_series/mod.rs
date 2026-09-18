@@ -5,8 +5,8 @@ use crate::integrations::tmdb::{
     resources::tv_series::dto::{
         DiscoverTvSeriesParams, DiscoverTvSeriesResponse, SearchTvSeriesParams, SearchTvSeriesResponse,
         SimilarTvSeriesParams, SimilarTvSeriesResponse, TrendingTvSeriesParams, TrendingTvSeriesResponse,
-        TvSeriesDetailsParams, TvSeriesRecommendationsParams, TvSeriesRecommendationsResponse, TvSeriesVideosParams,
-        TvSeriesVideosResponse,
+        TvSeriesAggregateCreditsParams, TvSeriesAggregateCreditsResponse, TvSeriesDetailsParams,
+        TvSeriesRecommendationsParams, TvSeriesRecommendationsResponse, TvSeriesVideosParams, TvSeriesVideosResponse,
     },
 };
 
@@ -70,6 +70,16 @@ impl<'a> TvSeriesApi<'a> {
     ) -> Result<TvSeriesVideosResponse, TmdbError> {
         self.tmdb_client
             .get(format!("/tv/{series_id}/videos").as_str(), &params)
+            .await
+    }
+
+    pub async fn aggregate_credits(
+        &self,
+        series_id: i32,
+        params: TvSeriesAggregateCreditsParams,
+    ) -> Result<TvSeriesAggregateCreditsResponse, TmdbError> {
+        self.tmdb_client
+            .get(format!("/tv/{series_id}/aggregate_credits").as_str(), &params)
             .await
     }
 }

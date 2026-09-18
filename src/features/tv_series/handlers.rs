@@ -6,8 +6,9 @@ use crate::{
         resources::tv_series::dto::{
             DiscoverTvSeriesParams, DiscoverTvSeriesResponse, SearchTvSeriesParams, SearchTvSeriesResponse,
             SimilarTvSeriesParams, SimilarTvSeriesResponse, TrendingTvSeriesParams, TrendingTvSeriesResponse,
-            TvSeriesDetailsParams, TvSeriesRecommendationsParams, TvSeriesRecommendationsResponse,
-            TvSeriesVideosParams, TvSeriesVideosResponse,
+            TvSeriesAggregateCreditsParams, TvSeriesAggregateCreditsResponse, TvSeriesDetailsParams,
+            TvSeriesRecommendationsParams, TvSeriesRecommendationsResponse, TvSeriesVideosParams,
+            TvSeriesVideosResponse,
         },
     },
     persistence::models::Session,
@@ -104,5 +105,18 @@ pub async fn get_tv_series_videos(
     Ok((
         StatusCode::OK,
         Json(service::get_tv_series_videos(app_state.tmdb, series_id, params).await?),
+    ))
+}
+
+#[axum::debug_handler]
+pub async fn get_tv_series_aggregate_credits(
+    Extension(app_state): Extension<AppState>,
+    Extension(_): Extension<Session>,
+    Path(series_id): Path<i32>,
+    Query(params): Query<TvSeriesAggregateCreditsParams>,
+) -> Result<(StatusCode, Json<TvSeriesAggregateCreditsResponse>), AppError> {
+    Ok((
+        StatusCode::OK,
+        Json(service::get_tv_series_aggregate_credits(app_state.tmdb, series_id, params).await?),
     ))
 }

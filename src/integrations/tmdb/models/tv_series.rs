@@ -86,3 +86,47 @@ pub struct TvSeriesProductionCompany {
     pub name: Option<String>,
     pub origin_country: Option<String>,
 }
+
+#[derive(Serialize, Deserialize)]
+pub struct AggregateCast {
+    pub adult: Option<bool>,
+    pub gender: Option<i32>,
+    pub id: Option<i64>,
+    pub known_for_department: Option<String>,
+    pub name: Option<String>,
+    pub original_name: Option<String>,
+    pub popularity: Option<f64>,
+    pub profile_path: Option<String>,
+    pub roles: Option<Vec<AggregateCastRole>>,
+    pub total_episode_count: Option<i64>,
+    pub order: Option<i64>,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct AggregateCastRole {
+    pub credit_id: Option<String>,
+    pub character: Option<String>,
+    pub episode_count: Option<i64>,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct AggregateCrew {
+    pub adult: Option<bool>,
+    pub gender: Option<i32>,
+    pub id: Option<i64>,
+    pub known_for_department: Option<String>,
+    pub name: Option<String>,
+    pub original_name: Option<String>,
+    pub popularity: Option<f64>,
+    pub profile_path: Option<String>,
+    pub jobs: Option<Vec<AggregateCrewJob>>,
+    pub department: Option<String>,
+    pub total_episode_count: Option<i64>,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct AggregateCrewJob {
+    pub credit_id: Option<String>,
+    pub job: Option<String>,
+    pub episode_count: Option<i64>,
+}

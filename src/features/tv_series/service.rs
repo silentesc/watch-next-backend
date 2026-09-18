@@ -7,8 +7,9 @@ use crate::{
         resources::tv_series::dto::{
             DiscoverTvSeriesParams, DiscoverTvSeriesResponse, SearchTvSeriesParams, SearchTvSeriesResponse,
             SimilarTvSeriesParams, SimilarTvSeriesResponse, TrendingTvSeriesParams, TrendingTvSeriesResponse,
-            TvSeriesDetailsParams, TvSeriesRecommendationsParams, TvSeriesRecommendationsResponse,
-            TvSeriesVideosParams, TvSeriesVideosResponse,
+            TvSeriesAggregateCreditsParams, TvSeriesAggregateCreditsResponse, TvSeriesDetailsParams,
+            TvSeriesRecommendationsParams, TvSeriesRecommendationsResponse, TvSeriesVideosParams,
+            TvSeriesVideosResponse,
         },
     },
 };
@@ -80,4 +81,12 @@ pub async fn get_tv_series_videos(
     params: TvSeriesVideosParams,
 ) -> Result<TvSeriesVideosResponse, AppError> {
     tmdb.tv_series().videos(series_id, params).await.map_err(Into::into)
+}
+
+pub async fn get_tv_series_aggregate_credits(
+    tmdb: TmdbApi,
+    series_id: i32,
+    params: TvSeriesAggregateCreditsParams,
+) -> Result<TvSeriesAggregateCreditsResponse, AppError> {
+    tmdb.tv_series().aggregate_credits(series_id, params).await.map_err(Into::into)
 }
