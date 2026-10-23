@@ -1,5 +1,8 @@
 # Watch Next
 
+> [!NOTE]
+> Public archive due to merge into monorepo: [silentesc/watch-next](https://github.com/silentesc/watch-next)
+
 ## Endpoints
 
 ### TMDB Endpoints
